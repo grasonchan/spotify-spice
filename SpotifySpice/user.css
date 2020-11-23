@@ -28,6 +28,10 @@
   border-radius: var(--round-value)
 }
 
+.view-player .cover-image {
+  background-size: cover !important
+}
+
 .view-player .now-playing .cover-image-link .toggle-cover-size,
 #view-now-playing #now-playing-image-large .now-playing__button {
   backdrop-filter: var(--main-blur-backdrop);
@@ -143,15 +147,38 @@
   color: unset !important
 }
 
-.AlbumRoot__content .Button--style-icon:not(.Button--is-drop-target-active):not([data-ta-id="ta-more-button"]):hover,
+/* ALBUM - playlists */
+/* PLAYLISTS */
+.AlbumRoot__content .Button--style-icon:not(.Button--is-drop-target-active):not([data-ta-id="ta-more-button"]):not([data-ta-id="card-button-context-menu"]):hover,
 .tl-save .button-add:hover {
   color: var(--heart-color) !important
 }
 
+/* ... */
+/* More by [ARTIST] */
+/* YOUR LIBRARY - Albums */
 .track-text-item .nowplaying-add-button[data-log-click="remove-button"],
 .Button--style-icon:not(.Button--is-drop-target-active)[data-ta-is-added],
-.tl-save .button-add[data-log-click="remove-button"] {
+.tl-save .button-add[data-log-click="remove-button"],
+.Card__image-hit-area .Button--style-icon[data-tooltip-text="Remove from Your Library"],
+.added .card-image-hit-area .card-button-add::before {
   color: var(--heart-color) !important
+}
+
+/* ALBUM header */
+.AlbumHeader .CanonicalButton[data-tooltip-text="Save to Your Library"]:hover::before,
+.AlbumHeader .CanonicalButton[data-ta-is-added] {
+  color: var(--heart-color) !important
+}
+.AlbumHeader .CanonicalButton[data-tooltip-text="Save to Your Library"]:hover,
+.AlbumHeader .CanonicalButton[data-tooltip-text="Save to Your Library"]:hover:active,
+.AlbumHeader .CanonicalButton[data-tooltip-text="Save to Your Library"]:hover::after,
+.AlbumHeader .CanonicalButton[data-tooltip-text="Save to Your Library"]:hover:active::after,
+.AlbumHeader .CanonicalButton[data-ta-is-added]:hover,
+.AlbumHeader .CanonicalButton[data-ta-is-added]::after,
+.AlbumHeader .CanonicalButton[data-ta-is-added]:hover::after,
+.AlbumHeader .CanonicalButton[data-ta-is-added]:hover:active::after {
+  box-shadow: inset 0 0 0 1px var(--heart-color)
 }
 
 .track-text-item .nowplaying-add-button:hover {
@@ -168,7 +195,7 @@
 }
 
 
-/* full display */
+/* full app display */
 #fad-background-image {
   filter: blur(50px) brightness(.3) saturate(180%) !important
 }
