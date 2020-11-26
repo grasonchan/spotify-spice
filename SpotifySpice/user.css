@@ -199,7 +199,7 @@
 #fad-background-image {
   filter: unset !important;
   background-image: unset !important;
-  background-color: #292929
+  background-color: #282828
 }
 
 #fad-art,
@@ -240,7 +240,7 @@
 }
 
 #fad-art::after {
-  background-color: #2c2c2c;
+  background-color: #2a2a2a;
   transform: scale(1.65);
   z-index: -1
 }
