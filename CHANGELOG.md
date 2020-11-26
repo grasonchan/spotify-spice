@@ -1,3 +1,9 @@
+# 1.1.1 (2020-11-26)
+
+## Bug Fixes
+* change the color of the Full App Display ([09e802b](https://github.com/grasonchan/spotify-spice/commit/09e802bf7ec6e1d3f0050ac97eed06dc992fd226))
+
+
 # 1.1.0 (2020-11-24)
 
 ## Features
