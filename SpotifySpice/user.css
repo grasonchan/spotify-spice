@@ -209,7 +209,7 @@
 }
 
 #fad-art {
-  width: 280px !important;
+  width: 300px !important;
   margin: 60px 80px;
   position: relative;
   transform: scale(.85)
@@ -297,6 +297,10 @@
 #fad-elapsed,
 #fad-duration {
   min-width: 32px
+}
+
+#context-menu-container {
+  cursor: default
 }
 
 
