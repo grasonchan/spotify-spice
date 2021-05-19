@@ -1,3 +1,9 @@
+# 1.2.1 (2021-05-19)
+
+## Bug Fixes
+* **fullAppDisplay:** modify fad-art size, show the cursor outside context-menu ([0b39d1b](https://github.com/grasonchan/spotify-spice/commit/0b39d1b9b613ef3f152e47f1043cbda52b2cc98e))
+
+
 # 1.1.1 (2020-11-26)
 
 ## Bug Fixes
