@@ -292,3 +292,18 @@
     transform: scale(1.2)
   }
 }
+
+
+/* rotate turntable */
+#fad-art-image {
+  animation: rotate-cover_img 20s linear infinite paused
+}
+
+@keyframes rotate-cover_img {
+  from {
+    transform: rotate(0)
+  }
+  to {
+    transform: rotate(360deg)
+  }
+}
