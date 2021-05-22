@@ -1,205 +1,197 @@
 :root {
   --spotify-main-color: #1db954;
-  --heart-color: #f00;
   --round-value: 50%;
   --main-blur-backdrop: blur(20px) saturate(180%)
 }
 
 
 /* remove upgrade button, user name, ad */
-#view-upgrade-button,
-#top-bar-profile-link-text,
-#view-leaderboard-ad,
-#view-billboard-ad,
-#view-video-ad {
+.main-topBar-UpgradeButton,
+.main-userWidget-displayName,
+.main-leaderboardComponent-container,
+.main-billboardComponent-footer,
+.Root__modal-slot,
+.main-minimizedVideoTakeover-videoAdContainer {
   display: none
 }
 
-#view-content.leaderboard>iframe,
-.billboard-minimized #view-content>iframe {
-  height: 100% !important
+
+/* Navbar */
+.Root__nav-bar {
+  background-color: #0f0f0f
+}
+
+.main-rootlist-rootlistDividerGradient {
+  display: none
+}
+
+
+/* Search Input */
+.x-searchInput-searchInputInput {
+  background-color: #2a2a2a
+}
+
+.x-searchInput-searchInputInput,
+.x-searchInput-searchInputSearchIcon,
+.x-searchInput-searchInputClearButton {
+  color: #c0c0c0 !important
+}
+
+.x-searchInput-searchInputInput::placeholder {
+  color: #888
+}
+
+
+/* Playlist */
+.main-entityHeader-backgroundColor,
+.main-actionBarBackground-background,
+.main-topBar-overlay {
+  background-color: unset !important
+}
+
+.main-entityHeader-overlay {
+  background: unset
+}
+
+.main-actionBarBackground-background {
+  background-image: unset
+}
+
+.main-entityHeader-shadow {
+  box-shadow: unset
+}
+
+.main-topBar-background {
+  background-color: #181818 !important
+}
+
+.main-virtualScrollList-wrapper [role="row"]:nth-child(odd) {
+  background: linear-gradient(to right, #121212, #191919, #121212)
 }
 
 
 /* cover image */
-.view-player .cover-image-link,
-.view-player .cover-image-container,
-.view-player .cover-image {
+.main-nowPlayingWidget-coverExpanded{
+  transform: translateX(-78px)
+}
+
+.main-coverSlotCollapsed-container {
+  margin-right: 5px
+}
+
+.main-nowPlayingWidget-coverArt .cover-art.shadow,
+.main-nowPlayingWidget-coverArt .cover-art-image {
   border-radius: var(--round-value)
 }
 
-.view-player .cover-image {
-  background-size: cover !important
+.main-nowPlayingWidget-coverArt .cover-art.shadow {
+  box-shadow: unset
 }
 
-.view-player .now-playing .cover-image-link .toggle-cover-size,
-#view-now-playing #now-playing-image-large .now-playing__button {
+.main-nowPlayingWidget-coverArt .cover-art-image {
+  border: 2px solid #aaa;
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, .2))
+}
+
+/* expand & collapse button */
+.main-coverSlotCollapsed-expandButton {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) !important
+}
+
+.main-coverSlotCollapsed-expandButton,
+.main-coverSlotExpandedCollapseButton-collapseButton {
   backdrop-filter: var(--main-blur-backdrop);
+  background: unset;
   background-color: rgba(9, 9, 9, .2);
   transition: background-color .5s, opacity .5s;
   border-radius: var(--round-value)
 }
 
-.view-player .now-playing .cover-image-link .toggle-cover-size {
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%)
+.main-coverSlotCollapsed-expandButton:hover,
+.main-coverSlotExpandedCollapseButton-collapseButton:hover {
+  background: unset;
+  background-color: rgba(9, 9, 9, .3);
+  transform: unset
 }
 
-#view-now-playing #now-playing-image-large .now-playing__corner-buttons {
-  opacity: unset;
-  transition: unset
+.main-coverSlotCollapsed-chevron,
+.main-coverSlotExpandedCollapseButton-chevron {
+  padding: 5px;
+  fill: #fff;
+  transition: fill .5s
 }
 
-#view-now-playing #now-playing-image-large .now-playing__button {
-  opacity: 0
-}
-
-.view-player .now-playing .cover-image-link:hover .toggle-cover-size,
-#view-now-playing #now-playing-image-large:hover .now-playing__button {
-  opacity: 1
-}
-
-.view-player .now-playing .cover-image-link .toggle-cover-size::before,
-#view-now-playing #now-playing-image-large .now-playing__button::before {
-  font-size: 12px;
-  font-weight: bold;
-  color: #fff;
-  transition: color .5s
-}
-
-.view-player .now-playing .cover-image-link .toggle-cover-size:hover,
-#view-now-playing #now-playing-image-large .now-playing__button:hover {
-  background-color: rgba(9, 9, 9, .3)
-}
-
-.view-player .now-playing .cover-image-link .toggle-cover-size:hover::before,
-#view-now-playing #now-playing-image-large .now-playing__button:hover::before {
-  color: #ddd
+.main-coverSlotCollapsed-expandButton:hover .main-coverSlotCollapsed-chevron,
+.main-coverSlotExpandedCollapseButton-collapseButton:hover .main-coverSlotExpandedCollapseButton-chevron {
+  fill: #ddd
 }
 
 
 /* progress bar */
-.progress-container:hover .progress-bar .handle {
-  opacity: 0 !important
+.Root__now-playing-bar {
+  position: relative
 }
 
-#player-progressbar:hover .progress-bar .handle {
-  opacity: 1 !important
-}
-
-#player-progressbar {
+.playback-bar {
   width: 100%;
   position: absolute;
   top: 0;
   left: 0
 }
 
-#player-progressbar .progress-bar-wrapper {
+.progress-bar-wrapper {
   height: 4px
 }
 
-#player-progressbar .progress-bar-wrapper .progress-bar .inner {
+.playback-bar .progress-bar__fg {
   background-color: var(--spotify-main-color)
 }
 
-#player-text-elapsed,
-#player-text-remaining {
+.playback-bar__progress-time,
+.main-playbackBarRemainingTime-container {
   position: absolute;
-  top: 15%;
+  top: 12px;
   left: 50%
 }
 
-#player-text-elapsed {
-  transform: translateX(-140%)
+.playback-bar__progress-time {
+  transform: translateX(-45px)
 }
 
-#player-text-elapsed::after {
+.playback-bar__progress-time::after {
   position: absolute;
-  right: -15px;
+  right: -5px;
   font-weight: bold;
   color: var(--spotify-main-color);
   content: "/"
 }
 
-#player-text-remaining {
-  transform: translateX(-10%)
+.main-playbackBarRemainingTime-container {
+  transform: translateX(-1px)
 }
 
-.player-controls-container {
-  margin-top: 26px
-}
-
-
-/* like button */
-.AlbumRoot__content tr:not([data-ta-is-playable]) .Button--style-icon,
-.tracklist-playlist tr.unavailable .tl-save .button-add {
-  color: #404040
-}
-
-.tracklist-popular tr:hover .tl-save .button-add::before,
-.tracklist-playlist tr:hover .tl-save .button-add::before,
-.tracklist-search tr:hover .tl-save .button-add::before {
-  color: unset !important
-}
-
-.tl-save .button-add:not([disabled])::before {
-  color: unset !important
-}
-
-/* ALBUM - playlists */
-/* PLAYLISTS */
-.AlbumRoot__content .Button--style-icon:not(.Button--is-drop-target-active):not([data-ta-id="ta-more-button"]):not([data-ta-id="card-button-context-menu"]):hover,
-.tl-save .button-add:hover {
-  color: var(--heart-color) !important
-}
-
-/* ... */
-/* More by [ARTIST] */
-/* YOUR LIBRARY - Albums */
-.track-text-item .nowplaying-add-button[data-log-click="remove-button"],
-.Button--style-icon:not(.Button--is-drop-target-active)[data-ta-is-added],
-.tl-save .button-add[data-log-click="remove-button"],
-.Card__image-hit-area .Button--style-icon[data-tooltip-text="Remove from Your Library"],
-.added .card-image-hit-area .card-button-add::before {
-  color: var(--heart-color) !important
-}
-
-/* ALBUM header */
-.AlbumHeader .CanonicalButton[data-tooltip-text="Save to Your Library"]:hover::before,
-.AlbumHeader .CanonicalButton[data-ta-is-added] {
-  color: var(--heart-color) !important
-}
-.AlbumHeader .CanonicalButton[data-tooltip-text="Save to Your Library"]:hover,
-.AlbumHeader .CanonicalButton[data-tooltip-text="Save to Your Library"]:hover:active,
-.AlbumHeader .CanonicalButton[data-tooltip-text="Save to Your Library"]:hover::after,
-.AlbumHeader .CanonicalButton[data-tooltip-text="Save to Your Library"]:hover:active::after,
-.AlbumHeader .CanonicalButton[data-ta-is-added]:hover,
-.AlbumHeader .CanonicalButton[data-ta-is-added]::after,
-.AlbumHeader .CanonicalButton[data-ta-is-added]:hover::after,
-.AlbumHeader .CanonicalButton[data-ta-is-added]:hover:active::after {
-  box-shadow: inset 0 0 0 1px var(--heart-color)
-}
-
-.track-text-item .nowplaying-add-button:hover {
-  color: var(--heart-color) !important
+.player-controls {
+  margin-top: 38px
 }
 
 
 /* modal backdrop */
-.modal-backdrop,
-.Modal__overlay {
-  opacity: 1 !important;
+.GenericModal__overlay {
   backdrop-filter: var(--main-blur-backdrop);
   background-color: rgba(9, 9, 9, .2)
 }
 
 
 /* full app display */
-#fad-background-image {
-  filter: unset !important;
-  background-image: unset !important;
-  background-color: #282828
+#full-app-display {
+  background-color: #222
+}
+
+#fad-background {
+  display: none
 }
 
 #fad-art,
@@ -240,13 +232,13 @@
 }
 
 #fad-art::after {
-  background-color: #2a2a2a;
+  background-color: #252525;
   transform: scale(1.65);
   z-index: -1
 }
 
 #fad-details {
-  width: 520px
+  max-width: 520px !important
 }
 
 #fad-details #fad-title {
@@ -258,49 +250,40 @@
   font-size: 24px
 }
 
-#fad-back,
-#fad-next {
-  line-height: 20px
+#fad-details #fad-album {
+  margin-top: 6px;
+  font-size: 16px
 }
 
-#fad-play {
-  line-height: 24px
+#fad-details #fad-artist > *,
+#fad-details #fad-album > *,
+#fad-details #fad-status > #fad-controls > * > svg {
+  vertical-align: middle
 }
 
-#fad-back,
-#fad-play,
-#fad-next {
-  cursor: pointer
+#fad-details #fad-artist > svg {
+  width: 24px;
+  height: 24px
 }
 
-#fad-back::before,
-#fad-next::before {
-  font-size: 20px
+#fad-details #fad-album > svg {
+  width: 16px;
+  height: 16px;
+  margin-left: 4px;
+  margin-right: 9px
 }
 
-#fad-play::before {
-  font-size: 24px
+#fad-play > svg {
+  width: 24px;
+  height: 24px
 }
 
-#fad-back::before,
-#fad-play::before,
-#fad-next::before {
-  color: #ccc
+#fad-controls > button > svg {
+  fill: #ccc
 }
 
-#fad-back:hover::before,
-#fad-play:hover::before,
-#fad-next:hover::before {
-  color: #fff
-}
-
-#fad-elapsed,
-#fad-duration {
-  min-width: 32px
-}
-
-#context-menu-container {
-  cursor: default
+#fad-controls > button:hover > svg {
+  fill: #fff
 }
 
 
