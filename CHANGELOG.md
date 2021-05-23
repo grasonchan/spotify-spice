@@ -1,3 +1,21 @@
+# 2.1.0 (2021-05-23)
+
+## Features
+
+* **fullAppDisplay:** control the rotation of the turntable ([#5](https://github.com/grasonchan/spotify-spice/issues/5)) ([9c9e7f9](https://github.com/grasonchan/spotify-spice/commit/9c9e7f9b7d36c343cacc8817dcecb51532409247))
+
+
+# 2.0.0 (2021-05-23)
+
+## Refactorings
+
+* **global:** support new Spotify UI, for spicetify v2 ([#4](https://github.com/grasonchan/spotify-spice/issues/4)) ([682aacf](https://github.com/grasonchan/spotify-spice/commit/682aacf6a658389926c81e165732b38cf5044663))
+
+## BREAKING CHANGES
+
+Spotify use a new UI, all themes have no effect. Now, spicetify upgraded to v2 to support it, so i refactor this theme to support new UI
+
+
 # 1.2.1 (2021-05-19)
 
 ## Bug Fixes
