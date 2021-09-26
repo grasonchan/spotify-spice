@@ -15,6 +15,7 @@
   display: none
 }
 
+
 /* Notification Dot */
 .main-userWidget-notificationDot {
   color: #f00
@@ -322,6 +323,18 @@
   background-color: rgba(200, 200, 200, .3) !important
 }
 
+
+/* Responsive */
+@media (max-width: 908px) {
+  #fad-foreground {
+    flex-wrap: wrap;
+    align-content: center
+  }
+
+  #fad-details {
+    padding-top: 50px
+  }
+}
 
 @media (min-width: 1460px) and (min-height: 960px) {
   #fad-foreground {
