@@ -210,7 +210,7 @@
 }
 
 #fad-art {
-  width: 255px !important;
+  width: 268px !important;
   margin: 80px 100px;
   position: relative
 }
@@ -400,7 +400,8 @@
 }
 
 @media (min-width: 1460px) and (min-height: 960px) {
-  #fad-foreground {
+  #fad-foreground,
+  .main-trackCreditsModal-container {
     transform: scale(1.2)
   }
 
