@@ -18,15 +18,11 @@ The turntable inspired by [Netease Music](https://music.163.com) and [Smartisan 
 
 ## Screenshots
 
-<div align="center">
-  <img src="screenshots/spotify_spice.png" alt="spotify spice">
-</div>
-<div align="center">
-  <img src="screenshots/full_app_display.png" alt="full app display">
-</div>
-<div align="center">
-  <img src="screenshots/full_app_display_vertical_mode.png" alt="full app display">
-</div>
+![spotify spice](screenshots/spotify_spice.png)
+![fullAppDisplay](screenshots/fad.png)
+![fullAppDisplay - vertical mode](screenshots/fad_vertical.png)
+![blur fullAppDisplay](screenshots/blur_fad.png)
+![blur fullAppDisplay - vertical mode](screenshots/blur_fad_vertical.png)
 
 ## Installation
 
