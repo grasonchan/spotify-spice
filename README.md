@@ -26,37 +26,37 @@ The turntable inspired by [Netease Music](https://music.163.com) and [Smartisan 
 
 ## Installation
 
-1. [install spicetify-cli](https://github.com/khanhas/spicetify-cli/wiki/Installation), then follow the [Basic Usage](https://github.com/khanhas/spicetify-cli/wiki/Basic-Usage)
-2. add extension - [Full App Display](https://github.com/khanhas/spicetify-cli/wiki/Extensions#full-app-display)
+1. [install spicetify-cli](https://spicetify.app/docs/getting-started/simple-installation), then follow the [Basic Usage](https://spicetify.app/docs/getting-started/basic-usage)
 
-```shell
-spicetify config extensions fullAppDisplay.js
-spicetify apply
-```
-
-3. clone the repository, then put **SpotifySpice** and **rotateTurntable.js** into the **spicetify_data**
+2. clone the repository, then put **SpotifySpice** and **spotifySpice.js** into the **.config/spicetify/**
 
 ```shell
 cd spotify-spice
-cp -r SpotifySpice ~/spicetify_data/Themes
-cp rotateTurntable.js ~/spicetify_data/Extensions
+cp -r SpotifySpice ~/.config/spicetify/Themes
+cp spotifySpice.js ~/.config/spicetify/Extensions
 ```
 
-4. select the theme and extension, then apply
+3. select the theme and extensions ([Full App Display](https://spicetify.app/docs/getting-started/extensions#full-app-display))
 
 ```shell
 spicetify config current_theme SpotifySpice
-spicetify config extensions rotateTurntable.js
+spicetify config extensions fullAppDisplay.js
+spicetify config extensions spotifySpice.js
+```
+
+4. apply
+
+```shell
 spicetify apply
 ```
 
 ## How to Uninstall
 
-1. remove **SpotifySpice** and **rotateTurntable.js**
+1. remove **SpotifySpice** and **spotifySpice.js**
 
 ```shell
-rm -r ~/spicetify_data/Themes/SpotifySpice
-rm ~/spicetify_data/Extensions/rotateTurntable.js
+rm -r ~/.config/spicetify/Themes/SpotifySpice
+rm ~/.config/spicetify/Extensions/spotifySpice.js
 ```
 
 2. config to spicetify default theme
@@ -65,12 +65,15 @@ rm ~/spicetify_data/Extensions/rotateTurntable.js
 spicetify config current_theme SpicetifyDefault
 ```
 
-3. remove extension - Full App Display (optional)
+3. remove extensions
+
 ```shell
+spicetify config extensions spotifySpice.js-
 spicetify config extensions fullAppDisplay.js-
 ```
 
 4. apply
+
 ```shell
 spicetify apply
 ```
