@@ -28,15 +28,17 @@ The turntable inspired by [Netease Music](https://music.163.com) and [Smartisan 
 
 1. [install spicetify-cli](https://spicetify.app/docs/getting-started/simple-installation), then follow the [Basic Usage](https://spicetify.app/docs/getting-started/basic-usage)
 
-2. clone the repository, then put **SpotifySpice** and **spotifySpice.js** into the **.config/spicetify/**
+2. clone the repository, then put **SpotifySpice** and **spotifySpice.js** into the spicetify config folder
+* Linux/maxOS: **~/.config/spicetify/**
+* Windows Powershell: **$env:APPDATA/spicetify/Extensions/**
 
 ```shell
 cd spotify-spice
-cp -r SpotifySpice ~/.config/spicetify/Themes
-cp spotifySpice.js ~/.config/spicetify/Extensions
+cp -r SpotifySpice <config-folder-path>/Themes
+cp spotifySpice.js <config-folder-path>/Extensions
 ```
 
-3. select the theme and extensions ([Full App Display](https://spicetify.app/docs/getting-started/extensions#full-app-display))
+3. select the theme and extensions ([Full App Display](https://spicetify.app/docs/advanced-usage/extensions#full-app-display))
 
 ```shell
 spicetify config current_theme SpotifySpice
