@@ -1,6 +1,8 @@
 :root {
   --spotify-main-color: #1db954;
   --round-value: 50%;
+  --custom-progress-bar-height: 2px;
+  --custom-progress-bar-slider-size: 8px;
   --main-blur-backdrop: blur(20px) saturate(180%);
   --shine: conic-gradient(
     from 15deg,
@@ -83,7 +85,8 @@
 
 /* Cover Image */
 .main-coverSlotCollapsed-container {
-  margin-right: 5px
+  margin-right: 5px;
+  font-size: 0
 }
 
 [data-testid = "cover-art-button"] {
@@ -93,8 +96,8 @@
 }
 
 .main-nowPlayingWidget-coverArt .cover-art {
-  width: 62px !important;
-  height: 62px !important;
+  width: 58px !important;
+  height: 58px !important;
   box-shadow: unset
 }
 
@@ -142,16 +145,23 @@
 .playback-bar {
   width: 100%;
   position: absolute;
-  top: calc(0px - var(--panel-gap));
+  top: calc(0px - var(--panel-gap) / 2);
   left: 0
 }
 
-.playback-progressbar {
-  height: var(--progress-bar-height)
+.playback-progressbar,
+.x-progressBar-progressBarBg,
+.x-progressBar-sliderArea {
+  height: var(--custom-progress-bar-height)
 }
 
 .x-progressBar-progressBarBg > div > div {
   background-color: var(--spotify-main-color)
+}
+
+.progress-bar__slider  {
+  width: var(--custom-progress-bar-slider-size);
+  height: var(--custom-progress-bar-slider-size)
 }
 
 .playback-bar__progress-time-elapsed,
@@ -208,8 +218,9 @@
   box-shadow: 0 0 10px rgba(3, 3, 3, .5) inset
 }
 
+#fad-art-overlay,
 #fad-art-inner {
-  display: none
+  display: none !important
 }
 
 #fad-art::before, #fad-art::after {
@@ -243,35 +254,53 @@
 }
 
 #fad-details #fad-title {
-  font-size: 32px
+  font-size: 30px
 }
 
 #fad-details #fad-artist {
-  margin-top: 10px;
-  font-size: 24px
+  margin-top: 4px;
+  font-size: 18px
+}
+
+#fad-details #fad-album,
+#fad-details #fad-release-date {
+  margin: 6px 16px 0 0;
+  display: inline-block;
+  color: #ccc;
 }
 
 #fad-details #fad-album {
-  margin-top: 6px;
-  font-size: 16px
+  font-size: 13px
+}
+
+#fad-details #fad-release-date {
+  font-size: 11px
 }
 
 #fad-details #fad-artist > *,
 #fad-details #fad-album > *,
+#fad-details  #fad-release-date > *,
 #fad-details #fad-status > #fad-controls > * > svg {
   vertical-align: middle
 }
 
 #fad-details #fad-artist > svg {
-  width: 24px;
-  height: 24px
+  width: 20px;
+  height: 20px
 }
 
 #fad-details #fad-album > svg {
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
   margin-left: 4px;
-  margin-right: 9px
+  margin-right: 6px
+}
+
+#fad-details #fad-release-date > svg {
+  width: 13px;
+  height: 13px;
+  margin-left: 4px;
+  margin-right: 6px
 }
 
 #fad-play > svg {
@@ -297,13 +326,25 @@
 }
 
 #fad-progress {
-  height: 2px !important;
+  height: var(--custom-progress-bar-height) !important;
   background-color: rgba(100, 100, 100, .5) !important
 }
 
 #fad-progress-inner {
   background-color: var(--spotify-main-color) !important;
   box-shadow: unset !important
+}
+
+#fad-thumb {
+  width: var(--custom-progress-bar-slider-size) !important;
+  height: var(--custom-progress-bar-slider-size) !important;
+  top: calc(
+    0px -
+      (
+        var(--custom-progress-bar-slider-size) -
+          var(--custom-progress-bar-height)
+      ) / 2
+  ) !important
 }
 
 
@@ -319,8 +360,8 @@
 }
 
 [data-is-blur-fad = "true"] #fad-art::after {
-  background-color: rgba(100, 100, 100, .1);
-  border: 1px solid rgba(100, 100, 100, .1);
+  background-color: rgba(100, 100, 100, .2);
+  border: 1px solid rgba(150, 150, 150, .1);
   box-shadow:
     0 0 1px rgba(40, 40, 40, .2) inset,
     0 0 1px rgba(200, 200, 200, .2)
@@ -345,14 +386,15 @@
   height: 16px;
   padding: unset !important;
   background-color: unset;
-  border: unset
+  border: unset;
+  cursor: pointer
 }
 
 .fad-heart svg {
   fill: #ccc
 }
 
-.fad-heart svg:hover,
+.fad-heart:hover svg,
 .fad-heart.checked svg {
   fill: var(--spotify-main-color)
 }
@@ -372,11 +414,22 @@
   font-size: 14px;
   color: #ccc !important;
   background-color: unset;
-  border: unset
+  border: unset;
+  cursor: pointer
 }
 
 .song-preview > button:hover {
   color: #fff !important
+}
+
+/* Lyrics Plus */
+.lyrics-config-button-container {
+  bottom: 52px
+}
+
+.lyrics-config-button {
+  border-radius: 50%;
+  background-color: rgba(6, 6, 6, 0.2)
 }
 
 
