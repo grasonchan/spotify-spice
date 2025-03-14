@@ -5,5 +5,6 @@ export default {
   rules: {
     'plugin/no-low-performance-animation-properties': true,
     'selector-class-pattern': null,
+    'no-descending-specificity': null,
   },
 };
