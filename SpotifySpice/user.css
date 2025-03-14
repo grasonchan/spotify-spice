@@ -86,7 +86,7 @@
 [data-testid='cover-art-button'] {
   border-radius: var(--round-value);
   border: 2px solid #aaa;
-  box-shadow: 0 0 5px rgba(200, 200, 200, 0.4);
+  box-shadow: 0 0 5px rgb(200 200 200 / 40%);
 }
 
 .main-nowPlayingWidget-coverArt .cover-art {
@@ -106,7 +106,7 @@
 .main-coverSlotExpandedCollapseButton-collapseButton {
   backdrop-filter: var(--main-blur-backdrop);
   background: unset;
-  background-color: rgba(9, 9, 9, 0.2);
+  background-color: rgb(9 9 9 / 20%);
   transition:
     background-color 0.5s,
     opacity 0.5s;
@@ -116,7 +116,7 @@
 .main-coverSlotCollapsed-expandButton:hover,
 .main-coverSlotExpandedCollapseButton-collapseButton:hover {
   background: unset;
-  background-color: rgba(9, 9, 9, 0.3);
+  background-color: rgb(9 9 9 / 30%);
   transform: unset;
 }
 
@@ -211,7 +211,7 @@
 }
 
 #fad-art-image {
-  box-shadow: 0 0 10px rgba(3, 3, 3, 0.5) inset;
+  box-shadow: 0 0 10px rgb(3 3 3 / 50%) inset;
 }
 
 #fad-art-overlay,
@@ -239,7 +239,7 @@
 }
 
 #fad-art::after {
-  background-color: rgba(60, 60, 60, 0.1);
+  background-color: rgb(60 60 60 / 10%);
   transform: scale(1.65);
   z-index: -1;
 }
@@ -322,7 +322,7 @@
 
 #fad-progress {
   height: var(--custom-progress-bar-height) !important;
-  background-color: rgba(100, 100, 100, 0.5) !important;
+  background-color: rgb(100 100 100 / 50%) !important;
 }
 
 #fad-progress-inner {
@@ -353,15 +353,15 @@
 }
 
 [data-is-blur-fad='true'] #fad-art::after {
-  background-color: rgba(100, 100, 100, 0.2);
-  border: 1px solid rgba(150, 150, 150, 0.1);
+  background-color: rgb(100 100 100 / 20%);
+  border: 1px solid rgb(150 150 150 / 10%);
   box-shadow:
-    0 0 1px rgba(40, 40, 40, 0.2) inset,
-    0 0 1px rgba(200, 200, 200, 0.2);
+    0 0 1px rgb(40 40 40 / 20%) inset,
+    0 0 1px rgb(200 200 200 / 20%);
 }
 
 [data-is-blur-fad='true'] #fad-progress {
-  background-color: rgba(200, 200, 200, 0.3) !important;
+  background-color: rgb(200 200 200 / 30%) !important;
 }
 
 /* Full App Display - heart */
@@ -420,11 +420,11 @@
 
 .lyrics-config-button {
   border-radius: 50%;
-  background-color: rgba(6, 6, 6, 0.2);
+  background-color: rgb(6 6 6 / 20%);
 }
 
 /* Responsive */
-@media (max-width: 908px) {
+@media (width <= 908px) {
   #fad-foreground {
     flex-wrap: wrap;
     align-content: center;
@@ -435,7 +435,7 @@
   }
 }
 
-@media (min-width: 1460px) and (min-height: 960px) {
+@media (width >= 1460px) and (height >= 960px) {
   #fad-foreground,
   .main-trackCreditsModal-container {
     transform: scale(1.2) !important;
@@ -449,13 +449,14 @@
 /* Rotate turntable */
 .main-nowPlayingWidget-coverArt > .cover-art,
 #fad-art {
-  animation: rotate-cover_img 24s linear infinite paused;
+  animation: rotate-cover-img 24s linear infinite paused;
 }
 
-@keyframes rotate-cover_img {
+@keyframes rotate-cover-img {
   from {
     transform: rotate(0);
   }
+
   to {
     transform: rotate(360deg);
   }
