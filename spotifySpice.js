@@ -147,7 +147,7 @@ window.addEventListener('load', function rotateTurntable() {
   function handleFADBackdrop(event) {
     const { currentTarget } = event;
     const fullAppDisplay = document.querySelector('#full-app-display');
-    if (!+localStorage.getItem('enableBlurFad')) {
+    if (!Number(localStorage.getItem('enableBlurFad'))) {
       fullAppDisplay.dataset.isBlurFad = 'true';
       currentTarget.classList.remove('disabled');
       localStorage.setItem('enableBlurFad', '1');
@@ -198,7 +198,7 @@ window.addEventListener('load', function rotateTurntable() {
     settingRow.innerHTML = `
 <label class="col description">${BACKDROP_CONFIG_LABEL}</label>
 <div class="col action">
-  <button class="${+localStorage.getItem('enableBlurFad') ? 'switch' : 'switch disabled'}" data-blur-fad>
+  <button class="${Number(localStorage.getItem('enableBlurFad')) ? 'switch' : 'switch disabled'}" data-blur-fad>
     ${parseIcon('check')}
   </button>
 </div>
@@ -235,7 +235,7 @@ window.addEventListener('load', function rotateTurntable() {
   function handleFAD() {
     const fullAppDisplay = document.querySelector('#full-app-display');
     fullAppDisplay.appendChild(songPreviewContainer);
-    if (+localStorage.getItem('enableBlurFad'))
+    if (Number(localStorage.getItem('enableBlurFad')))
       fullAppDisplay.dataset.isBlurFad = 'true';
     document
       .querySelector('#fad-main')
