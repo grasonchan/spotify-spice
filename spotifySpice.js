@@ -1,4 +1,14 @@
+/// <reference path="./types/spicetify.d.ts" />
+
 window.addEventListener('load', function rotateTurntable() {
+  /** @type {React} */
+  // eslint-disable-next-line no-unused-vars
+  const react = Spicetify.React;
+
+  /** @type {ReactDOM} */
+  // eslint-disable-next-line no-unused-vars
+  const reactDOM = Spicetify.ReactDOM;
+
   const SpicetifyOrigin = Spicetify.Player.origin;
 
   if (!SpicetifyOrigin?._state) {
