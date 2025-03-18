@@ -1,4 +1,4 @@
-/// <reference path="./types/spicetify.d.ts" />
+/// <reference path="../types/spicetify.d.ts" />
 
 window.addEventListener('load', function rotateTurntable() {
   /** @type {React} */
