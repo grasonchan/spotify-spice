@@ -46,22 +46,15 @@ window.addEventListener('load', function rotateTurntable() {
 
   function handleRotate(eventType) {
     if (eventType === 'load' && !SpicetifyOrigin._state.item) return;
-
-    const coverArt = document.querySelector(
-      '.main-nowPlayingWidget-coverArt > .cover-art'
-    );
     const fadArt = document.querySelector('#fad-art');
-
     if (
       (eventType === 'load' && !SpicetifyOrigin._state.isPaused) ||
       (eventType === 'playpause' && !isPlaying) ||
       (!eventType && isPlaying)
     ) {
-      coverArt?.style.setProperty('animation-play-state', 'running');
       fadArt?.style.setProperty('animation-play-state', 'running');
       if (eventType) isPlaying = true;
     } else {
-      coverArt?.style.setProperty('animation-play-state', 'paused');
       fadArt?.style.setProperty('animation-play-state', 'paused');
       if (eventType) isPlaying = false;
     }

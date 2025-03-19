@@ -208,6 +208,7 @@
   width: 268px !important;
   margin: 80px 100px;
   position: relative;
+  animation: rotate-cover-img 24s linear infinite paused;
 }
 
 #fad-art-image {
@@ -444,12 +445,6 @@
   .song-preview > button {
     font-size: 16px;
   }
-}
-
-/* Rotate turntable */
-.main-nowPlayingWidget-coverArt > .cover-art,
-#fad-art {
-  animation: rotate-cover-img 24s linear infinite paused;
 }
 
 @keyframes rotate-cover-img {
