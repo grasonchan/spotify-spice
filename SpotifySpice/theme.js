@@ -44,8 +44,11 @@ window.addEventListener('load', function rotateTurntable() {
   let isFADReady = false;
 
   function handleTurntable() {
-    const { item, isPaused } = Spicetify.Player.origin._state;
-    const playState = !item || isPaused ? 'paused' : 'running';
+    const { item, isPaused, isBuffering } =
+      Spicetify.Player.origin._state;
+    const playState = [!item, isPaused, isBuffering].some((el) => el)
+      ? 'paused'
+      : 'running';
     document.documentElement.style.setProperty(
       '--turntable-play-state',
       playState
