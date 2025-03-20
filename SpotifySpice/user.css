@@ -4,7 +4,7 @@
   --custom-progress-bar-height: 2px;
   --custom-progress-bar-slider-size: 8px;
   --main-blur-backdrop: blur(20px) saturate(180%);
-  --shine: conic-gradient(
+  --turntable-shine: conic-gradient(
     from 15deg,
     transparent,
     #222 45deg,
@@ -12,6 +12,8 @@
     #222 225deg,
     transparent 270deg 360deg
   );
+  --turntable-duration: 24s;
+  --turntable-play-state: paused;
 }
 
 /* Remove Upgrade Button, AD */
@@ -208,7 +210,8 @@
   width: 268px !important;
   margin: 80px 100px;
   position: relative;
-  animation: rotate-cover-img 24s linear infinite paused;
+  animation: rotate-turntable var(--turntable-duration) linear infinite
+    var(--turntable-play-state);
 }
 
 #fad-art-image {
@@ -232,7 +235,7 @@
 }
 
 #fad-art::before {
-  background: var(--shine), radial-gradient(#333, #000);
+  background: var(--turntable-shine), radial-gradient(#333, #000);
   box-shadow:
     0 0 5px #0a0a0a inset,
     0 0 5px #000;
@@ -350,7 +353,7 @@
 }
 
 [data-is-blur-fad='true'] #fad-art::before {
-  background: var(--shine), radial-gradient(#242424, #000);
+  background: var(--turntable-shine), radial-gradient(#242424, #000);
 }
 
 [data-is-blur-fad='true'] #fad-art::after {
@@ -447,7 +450,7 @@
   }
 }
 
-@keyframes rotate-cover-img {
+@keyframes rotate-turntable {
   from {
     transform: rotate(0);
   }

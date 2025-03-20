@@ -42,22 +42,14 @@ window.addEventListener('load', function rotateTurntable() {
   songPreviewContainer.append(previousSong, nextSong);
 
   let isFADReady = false;
-  let isPlaying;
 
-  function handleRotate(eventType) {
-    if (eventType === 'load' && !SpicetifyOrigin._state.item) return;
-    const fadArt = document.querySelector('#fad-art');
-    if (
-      (eventType === 'load' && !SpicetifyOrigin._state.isPaused) ||
-      (eventType === 'playpause' && !isPlaying) ||
-      (!eventType && isPlaying)
-    ) {
-      fadArt?.style.setProperty('animation-play-state', 'running');
-      if (eventType) isPlaying = true;
-    } else {
-      fadArt?.style.setProperty('animation-play-state', 'paused');
-      if (eventType) isPlaying = false;
-    }
+  function handleTurntable() {
+    const { item, isPaused } = Spicetify.Player.origin._state;
+    const playState = !item || isPaused ? 'paused' : 'running';
+    document.documentElement.style.setProperty(
+      '--turntable-play-state',
+      playState
+    );
   }
 
   function handleFadHeart() {
@@ -175,7 +167,6 @@ window.addEventListener('load', function rotateTurntable() {
       .addEventListener('contextmenu', handleFADContextMenu);
     fullAppDisplay.addEventListener('dblclick', handleFADDblClick);
     handleFadHeart();
-    handleRotate();
   }
 
   function handleFADToggle() {
@@ -192,16 +183,22 @@ window.addEventListener('load', function rotateTurntable() {
     isFADReady = true;
   }
 
-  handleRotate('load');
-  handleTracksNamePreview();
+  function init() {
+    handleTurntable();
+    handleTracksNamePreview();
+  }
 
-  Spicetify.Player.addEventListener('onplaypause', () =>
-    handleRotate('playpause')
+  function handleUpdateEvent() {
+    handleTurntable();
+    handleFadHeart();
+  }
+
+  init();
+
+  Spicetify.Player.origin._events.addListener(
+    'update',
+    handleUpdateEvent
   );
-  Spicetify.Player.addEventListener('songchange', () =>
-    setTimeout(handleRotate, 500)
-  );
-  Spicetify.Player.origin._events.addListener('update', handleFadHeart);
   Spicetify.Player.origin._events.addListener(
     'queue_update',
     handleTracksNamePreview
