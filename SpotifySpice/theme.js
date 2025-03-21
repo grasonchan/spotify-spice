@@ -1,5 +1,6 @@
 /// <reference path="../types/spicetify.d.ts" />
 
+'use strict';
 (async function Turntable() {
   await new Promise((res) => Spicetify.Events.webpackLoaded.on(res));
   if (!Spicetify.Player.origin?._state) {
