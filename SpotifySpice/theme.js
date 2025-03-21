@@ -1,6 +1,12 @@
 /// <reference path="../types/spicetify.d.ts" />
 
-window.addEventListener('load', function rotateTurntable() {
+(async function Turntable() {
+  await new Promise((res) => Spicetify.Events.webpackLoaded.on(res));
+  if (!Spicetify.Player.origin?._state) {
+    setTimeout(Turntable, 100);
+    return;
+  }
+
   /** @type {React} */
   // eslint-disable-next-line no-unused-vars
   const react = Spicetify.React;
@@ -8,13 +14,6 @@ window.addEventListener('load', function rotateTurntable() {
   /** @type {ReactDOM} */
   // eslint-disable-next-line no-unused-vars
   const reactDOM = Spicetify.ReactDOM;
-
-  const SpicetifyOrigin = Spicetify.Player.origin;
-
-  if (!SpicetifyOrigin?._state) {
-    setTimeout(rotateTurntable, 250);
-    return;
-  }
 
   const BACKDROP_CONFIG_LABEL = 'Enable blur backdrop';
 
@@ -60,8 +59,7 @@ window.addEventListener('load', function rotateTurntable() {
       '.fad-heart-container'
     );
 
-    const stateItem = SpicetifyOrigin._state.item;
-
+    const stateItem = Spicetify.Player.origin._state.item;
     if (stateItem.isLocal || stateItem.type === 'ad') {
       isFadHeartContainer?.remove();
       return;
@@ -212,10 +210,12 @@ window.addEventListener('load', function rotateTurntable() {
   window.addEventListener('fad-request', handleFADToggle);
 
   fadHeart.addEventListener('click', Spicetify.Player.toggleHeart);
-  previousSong.addEventListener('click', () =>
-    SpicetifyOrigin.skipToPrevious()
+  previousSong.addEventListener(
+    'click',
+    Spicetify.Player.origin.skipToPrevious
   );
-  nextSong.addEventListener('click', () =>
-    SpicetifyOrigin.skipToNext()
+  nextSong.addEventListener(
+    'click',
+    Spicetify.Player.origin.skipToNext
   );
-});
+})();
