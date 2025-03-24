@@ -18,13 +18,8 @@ window.addEventListener('load', function rotateTurntable() {
 
   const BACKDROP_CONFIG_LABEL = 'Enable blur backdrop';
 
-  const adModalStyle = document.createElement('style');
-  const STYLE_FOR_AD_MODAL = `
-.ReactModalPortal {
-  display: none
-}
-`;
-  adModalStyle.innerHTML = STYLE_FOR_AD_MODAL;
+  const billboardModalStyle = document.createElement('style');
+  billboardModalStyle.innerHTML = `.ReactModalPortal { display: none; }`;
 
   const fadHeartContainer = document.createElement('div');
   const fadHeart = document.createElement('button');
@@ -45,25 +40,6 @@ window.addEventListener('load', function rotateTurntable() {
   const nextSong = document.createElement('button');
   songPreviewContainer.classList.add('song-preview');
   songPreviewContainer.append(previousSong, nextSong);
-
-  const fadArtistSvg = document.createElementNS(
-    'http://www.w3.org/2000/svg',
-    'svg'
-  );
-  fadArtistSvg.setAttribute('width', '16');
-  fadArtistSvg.setAttribute('height', '16');
-  fadArtistSvg.setAttribute('viewBox', '0 0 16 16');
-  fadArtistSvg.setAttribute('fill', 'currentColor');
-  fadArtistSvg.innerHTML = Spicetify.SVGIcons.artist;
-  const fadAlbumSvg = document.createElementNS(
-    'http://www.w3.org/2000/svg',
-    'svg'
-  );
-  fadAlbumSvg.setAttribute('width', '16');
-  fadAlbumSvg.setAttribute('height', '16');
-  fadAlbumSvg.setAttribute('viewBox', '0 0 16 16');
-  fadAlbumSvg.setAttribute('fill', 'currentColor');
-  fadAlbumSvg.innerHTML = Spicetify.SVGIcons.album;
 
   let isFADReady = false;
   let isPlaying;
@@ -150,7 +126,6 @@ window.addEventListener('load', function rotateTurntable() {
     const { target } = event;
     if (target.closest('.setting-row button.switch')) {
       PopupModal.hide();
-      handleIcons();
     }
   }
 
@@ -165,38 +140,6 @@ window.addEventListener('load', function rotateTurntable() {
       fullAppDisplay.dataset.isBlurFad = 'false';
       currentTarget.classList.add('disabled');
       localStorage.setItem('enableBlurFad', '0');
-    }
-  }
-
-  function handleIcons() {
-    const iconsConfig = JSON.parse(
-      localStorage.getItem('full-app-display-config')
-    ).icons;
-
-    if (!iconsConfig) return;
-
-    const isFadArtistSvg = document.querySelector('#fad-artist svg');
-    const isFadAlbumSvg = document.querySelector('#fad-album svg');
-
-    if (SpicetifyOrigin._state.item.type === 'ad') {
-      isFadArtistSvg?.remove();
-      isFadAlbumSvg?.remove();
-
-      return;
-    }
-
-    if (!isFadArtistSvg) {
-      const fadArtist = document.querySelector('#fad-artist');
-      const fadArtistTitle = document.querySelector('#fad-artist span');
-
-      fadArtist?.insertBefore(fadArtistSvg, fadArtistTitle);
-    }
-
-    if (!isFadAlbumSvg) {
-      const fadAlbum = document.querySelector('#fad-album');
-      const fadAlbumTitle = document.querySelector('#fad-album span');
-
-      fadAlbum?.insertBefore(fadAlbumSvg, fadAlbumTitle);
     }
   }
 
@@ -229,19 +172,6 @@ window.addEventListener('load', function rotateTurntable() {
     }
   }
 
-  // Todo
-  function handleToggleFad(isActive) {
-    if (isActive) {
-      document.body.append(adModalStyle);
-      return;
-    }
-
-    const billboard = document.querySelector('#view-billboard-ad');
-
-    billboard?.closest('.ReactModalPortal').remove();
-    adModalStyle.remove();
-  }
-
   function handleFAD() {
     const fullAppDisplay = document.querySelector('#full-app-display');
     fullAppDisplay.appendChild(songPreviewContainer);
@@ -251,20 +181,21 @@ window.addEventListener('load', function rotateTurntable() {
       .querySelector('#fad-main')
       .addEventListener('contextmenu', handleFADContextMenu);
     fullAppDisplay.addEventListener('dblclick', handleFADDblClick);
-    // fullAppDisplay.addEventListener("dblclick", () => handleToggleFad());
-    // handleToggleFad(true);
-    handleIcons();
     handleFadHeart();
     handleRotate();
   }
 
   function handleFADToggle() {
     if (!document.body.classList.contains('fad-activated')) {
+      const billboard = document.querySelector('#view-billboard-ad');
+      billboard?.closest('.ReactModalPortal').remove();
+      billboardModalStyle.remove();
       isFADReady = false;
       return;
     }
     if (isFADReady) return;
     handleFAD();
+    document.body.append(billboardModalStyle);
     isFADReady = true;
   }
 
@@ -274,12 +205,9 @@ window.addEventListener('load', function rotateTurntable() {
   Spicetify.Player.addEventListener('onplaypause', () =>
     handleRotate('playpause')
   );
-  Spicetify.Player.addEventListener('songchange', () => {
-    setTimeout(() => {
-      handleIcons();
-      handleRotate();
-    }, 500);
-  });
+  Spicetify.Player.addEventListener('songchange', () =>
+    setTimeout(handleRotate, 500)
+  );
   Spicetify.Player.origin._events.addListener('update', handleFadHeart);
   Spicetify.Player.origin._events.addListener(
     'queue_update',
