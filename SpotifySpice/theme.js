@@ -16,6 +16,9 @@
   // eslint-disable-next-line no-unused-vars
   const reactDOM = Spicetify.ReactDOM;
 
+  const { Player } = Spicetify;
+  const { origin: PlayerAPI, getHeart } = Player;
+
   const BACKDROP_CONFIG_LABEL = 'Enable blur backdrop';
 
   const billboardModalStyle = document.createElement('style');
@@ -41,11 +44,29 @@
   songPreviewContainer.classList.add('song-preview');
   songPreviewContainer.append(previousSong, nextSong);
 
+  const HEART_STATUS = {
+    DEFAULT: 0,
+    COLLECTED: 1,
+    DISABLED: 2,
+  };
+
   let isFADReady = false;
 
+  function getHeartStatus() {
+    const { DEFAULT, COLLECTED, DISABLED } = HEART_STATUS;
+    const status =
+      PlayerAPI._state.item?.metadata['collection.can_add'] !== 'true'
+        ? DISABLED
+        : getHeart()
+          ? COLLECTED
+          : DEFAULT;
+    return status;
+  }
+
   function handleTurntable() {
-    const { item, isPaused, isBuffering } =
-      Spicetify.Player.origin._state;
+    const {
+      _state: { item, isPaused, isBuffering },
+    } = PlayerAPI;
     const playState = [!item, isPaused, isBuffering].some((el) => el)
       ? 'paused'
       : 'running';
@@ -197,11 +218,8 @@
 
   init();
 
-  Spicetify.Player.origin._events.addListener(
-    'update',
-    handleUpdateEvent
-  );
-  Spicetify.Player.origin._events.addListener(
+  PlayerAPI._events.addListener('update', handleUpdateEvent);
+  PlayerAPI._events.addListener(
     'queue_update',
     handleTracksNamePreview
   );
