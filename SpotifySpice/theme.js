@@ -10,11 +10,11 @@
 
   /** @type {React} */
   const react = Spicetify.React;
-  const { useSyncExternalStore } = react;
+  const { Fragment, useSyncExternalStore } = react;
 
   /** @type {ReactDOM} */
-  // eslint-disable-next-line no-unused-vars
   const reactDOM = Spicetify.ReactDOM;
+  const { createPortal } = reactDOM;
 
   const { Player, classnames } = Spicetify;
   const { origin: PlayerAPI, getHeart, toggleHeart } = Player;
@@ -85,6 +85,17 @@
       )
     );
   };
+
+  const FADComponents = () =>
+    react.createElement(
+      Fragment,
+      null,
+      createPortal(
+        react.createElement(Heart),
+        document.querySelector('#fad-foreground')
+      )
+    );
+
   function getHeartStatus() {
     const { DEFAULT, COLLECTED, DISABLED } = HEART_STATUS;
     const status =
