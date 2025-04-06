@@ -14,7 +14,7 @@
 
   /** @type {ReactDOM} */
   const reactDOM = Spicetify.ReactDOM;
-  const { createPortal } = reactDOM;
+  const { createRoot, createPortal } = reactDOM;
 
   const { Player, classnames } = Spicetify;
   const { origin: PlayerAPI, getHeart, toggleHeart } = Player;
@@ -51,6 +51,7 @@
   };
 
   let isFADReady = false;
+  let fadRoot = null;
 
   const updateEventSubscribe = (cb) => {
     const removeListener = PlayerAPI._events.addListener('update', cb);
@@ -234,13 +235,17 @@
       .addEventListener('contextmenu', handleFADContextMenu);
     fullAppDisplay.addEventListener('dblclick', handleFADDblClick);
     handleFadHeart();
+    renderFADComponents();
   }
 
   function handleFADToggle() {
-    if (!document.body.classList.contains('fad-activated')) {
+    const isFADActivated =
+      document.body.classList.contains('fad-activated');
+    if (!isFADActivated) {
       const billboard = document.querySelector('#view-billboard-ad');
       billboard?.closest('.ReactModalPortal').remove();
       billboardModalStyle.remove();
+      unmountFADComponents();
       isFADReady = false;
       return;
     }
@@ -248,6 +253,17 @@
     handleFAD();
     document.body.append(billboardModalStyle);
     isFADReady = true;
+  }
+
+  function renderFADComponents() {
+    const fragment = document.createDocumentFragment();
+    fadRoot = createRoot(fragment);
+    fadRoot.render(react.createElement(FADComponents));
+  }
+
+  function unmountFADComponents() {
+    fadRoot.unmount();
+    fadRoot = null;
   }
 
   function init() {
