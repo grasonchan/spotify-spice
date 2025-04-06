@@ -24,20 +24,6 @@
   const billboardModalStyle = document.createElement('style');
   billboardModalStyle.innerHTML = `.ReactModalPortal { display: none; }`;
 
-  const fadHeartContainer = document.createElement('div');
-  const fadHeart = document.createElement('button');
-  const fadHeartSvg = document.createElementNS(
-    'http://www.w3.org/2000/svg',
-    'svg'
-  );
-  fadHeartContainer.classList.add('fad-heart-container');
-  fadHeart.classList.add('fad-heart');
-  fadHeartSvg.setAttribute('width', '16');
-  fadHeartSvg.setAttribute('height', '16');
-  fadHeartSvg.setAttribute('viewBox', '0 0 16 16');
-  fadHeart.appendChild(fadHeartSvg);
-  fadHeartContainer.appendChild(fadHeart);
-
   const songPreviewContainer = document.createElement('div');
   const previousSong = document.createElement('button');
   const nextSong = document.createElement('button');
@@ -119,31 +105,6 @@
       '--turntable-play-state',
       playState
     );
-  }
-
-  function handleFadHeart() {
-    const isFadHeartContainer = document.querySelector(
-      '.fad-heart-container'
-    );
-
-    const stateItem = Spicetify.Player.origin._state.item;
-    if (stateItem.isLocal || stateItem.type === 'ad') {
-      isFadHeartContainer?.remove();
-      return;
-    }
-
-    if (!isFadHeartContainer)
-      document
-        .querySelector('#fad-foreground')
-        ?.appendChild(fadHeartContainer);
-
-    if (Spicetify.Player.getHeart()) {
-      fadHeartSvg.innerHTML = Spicetify.SVGIcons['heart-active'];
-      fadHeart.classList.add('checked');
-    } else {
-      fadHeartSvg.innerHTML = Spicetify.SVGIcons.heart;
-      fadHeart.classList.remove('checked');
-    }
   }
 
   function handleTracksNamePreview() {
@@ -234,7 +195,6 @@
       .querySelector('#fad-main')
       .addEventListener('contextmenu', handleFADContextMenu);
     fullAppDisplay.addEventListener('dblclick', handleFADDblClick);
-    handleFadHeart();
     renderFADComponents();
   }
 
@@ -273,7 +233,6 @@
 
   function handleUpdateEvent() {
     handleTurntable();
-    handleFadHeart();
   }
 
   init();
@@ -288,7 +247,6 @@
 
   window.addEventListener('fad-request', handleFADToggle);
 
-  fadHeart.addEventListener('click', Spicetify.Player.toggleHeart);
   previousSong.addEventListener(
     'click',
     Spicetify.Player.origin.skipToPrevious
