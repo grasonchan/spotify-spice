@@ -9,8 +9,8 @@
   }
 
   /** @type {React} */
-  // eslint-disable-next-line no-unused-vars
   const react = Spicetify.React;
+  const { useSyncExternalStore } = react;
 
   /** @type {ReactDOM} */
   // eslint-disable-next-line no-unused-vars
@@ -51,6 +51,14 @@
   };
 
   let isFADReady = false;
+
+  const updateEventSubscribe = (cb) => {
+    const removeListener = PlayerAPI._events.addListener('update', cb);
+    return removeListener;
+  };
+
+  const useHeartStatus = () =>
+    useSyncExternalStore(updateEventSubscribe, getHeartStatus);
 
   function getHeartStatus() {
     const { DEFAULT, COLLECTED, DISABLED } = HEART_STATUS;
