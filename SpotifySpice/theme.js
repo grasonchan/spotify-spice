@@ -16,8 +16,8 @@
   // eslint-disable-next-line no-unused-vars
   const reactDOM = Spicetify.ReactDOM;
 
-  const { Player } = Spicetify;
-  const { origin: PlayerAPI, getHeart } = Player;
+  const { Player, classnames } = Spicetify;
+  const { origin: PlayerAPI, getHeart, toggleHeart } = Player;
 
   const BACKDROP_CONFIG_LABEL = 'Enable blur backdrop';
 
@@ -60,6 +60,31 @@
   const useHeartStatus = () =>
     useSyncExternalStore(updateEventSubscribe, getHeartStatus);
 
+  const Heart = () => {
+    const { COLLECTED, DISABLED } = HEART_STATUS;
+
+    const status = useHeartStatus();
+
+    return react.createElement(
+      'div',
+      {
+        className: 'fad-heart-container',
+      },
+      react.createElement(
+        'button',
+        {
+          className: classnames('fad-heart', {
+            checked: status === COLLECTED,
+          }),
+          disabled: status === DISABLED,
+          onClick: toggleHeart,
+        },
+        createIconComponent(
+          status === COLLECTED ? 'heart-active' : 'heart'
+        )
+      )
+    );
+  };
   function getHeartStatus() {
     const { DEFAULT, COLLECTED, DISABLED } = HEART_STATUS;
     const status =

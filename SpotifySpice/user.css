@@ -386,11 +386,16 @@
   cursor: pointer;
 }
 
+.fad-heart[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .fad-heart svg {
   fill: #ccc;
 }
 
-.fad-heart:hover svg,
+.fad-heart:not([disabled]):hover svg,
 .fad-heart.checked svg {
   fill: var(--spotify-main-color);
 }
