@@ -44,8 +44,22 @@
     return removeListener;
   };
 
+  const queueUpdateEventSubscribe = (cb) => {
+    const removeListener = PlayerAPI._events.addListener(
+      'queue_update',
+      cb
+    );
+    return removeListener;
+  };
+
   const useHeartStatus = () =>
     useSyncExternalStore(updateEventSubscribe, getHeartStatus);
+
+  const useQueue = () =>
+    useSyncExternalStore(
+      queueUpdateEventSubscribe,
+      () => Spicetify.Queue
+    );
 
   const Heart = () => {
     const { COLLECTED, DISABLED } = HEART_STATUS;
