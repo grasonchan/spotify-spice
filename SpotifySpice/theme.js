@@ -108,6 +108,28 @@
     return status;
   }
 
+  function getAdjacentTracks(mapper) {
+    const {
+      Queue: { prevTracks, nextTracks },
+    } = Spicetify;
+    const getTrack = (tracks) => {
+      for (let i = 0; i < tracks.length; i++) {
+        const track = tracks[i];
+        const {
+          provider,
+          contextTrack: { metadata },
+        } = track;
+        if (provider === 'ad' || metadata.hidden) continue;
+        return mapper ? mapper(track) : track;
+      }
+      return null;
+    };
+    return {
+      prevTrack: getTrack([...prevTracks].reverse()),
+      nextTrack: getTrack(nextTracks),
+    };
+  }
+
   function handleTurntable() {
     const {
       _state: { item, isPaused, isBuffering },
