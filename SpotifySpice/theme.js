@@ -16,7 +16,7 @@
   const reactDOM = Spicetify.ReactDOM;
   const { createRoot, createPortal } = reactDOM;
 
-  const { Player, classnames } = Spicetify;
+  const { Player, SVGIcons, classnames } = Spicetify;
   const { origin: PlayerAPI, getHeart, toggleHeart } = Player;
 
   const BACKDROP_CONFIG_LABEL = 'Enable blur backdrop';
@@ -107,25 +107,17 @@
 
     const status = useHeartStatus();
 
-    return react.createElement(
-      'div',
-      {
-        className: 'fad-heart-container',
-      },
-      react.createElement(
-        'button',
-        {
-          className: classnames('fad-heart', {
-            checked: status === COLLECTED,
-          }),
-          disabled: status === DISABLED,
-          onClick: toggleHeart,
-        },
-        createIconComponent(
-          status === COLLECTED ? 'heart-active' : 'heart'
-        )
-      )
-    );
+    return react.createElement(SVGButton, {
+      icon:
+        status === COLLECTED
+          ? SVGIcons['heart-active']
+          : SVGIcons.heart,
+      className: classnames('fad-heart', {
+        checked: status === COLLECTED,
+      }),
+      disabled: status === DISABLED,
+      onClick: toggleHeart,
+    });
   };
 
   const FADComponents = () =>
