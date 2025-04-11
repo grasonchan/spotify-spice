@@ -16,6 +16,28 @@
   --turntable-play-state: paused;
 }
 
+/* Common Components */
+.common-svg-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: #ccc;
+  background-color: unset;
+  border: unset;
+  cursor: pointer;
+}
+
+.common-svg-button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.common-svg-button:not([disabled]):hover {
+  color: #fff;
+}
+
 /* Remove Upgrade Button, AD */
 .main-topBar-UpgradeButton,
 [data-testid='test-ref-div'],
