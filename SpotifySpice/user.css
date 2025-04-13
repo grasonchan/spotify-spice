@@ -446,10 +446,6 @@
   .main-trackCreditsModal-container {
     transform: scale(1.2) !important;
   }
-
-  .song-preview > button {
-    font-size: 16px;
-  }
 }
 
 @keyframes rotate-turntable {

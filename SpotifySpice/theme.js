@@ -25,12 +25,6 @@
   const billboardModalStyle = document.createElement('style');
   billboardModalStyle.innerHTML = `.ReactModalPortal { display: none; }`;
 
-  const songPreviewContainer = document.createElement('div');
-  const previousSong = document.createElement('button');
-  const nextSong = document.createElement('button');
-  songPreviewContainer.classList.add('song-preview');
-  songPreviewContainer.append(previousSong, nextSong);
-
   const HEART_STATUS = {
     DEFAULT: 0,
     COLLECTED: 1,
@@ -315,34 +309,6 @@
     );
   }
 
-  function handleTracksNamePreview() {
-    const prevTracks = Spicetify.Queue.prevTracks;
-    const currentTrack = Spicetify.Queue.track;
-    const nextTracks = Spicetify.Queue.nextTracks;
-
-    const trackCondition = (element) =>
-      !element.contextTrack.metadata.hidden &&
-      element.provider !== 'ad';
-
-    const prevTrack = prevTracks.slice().reverse().find(trackCondition);
-    const nextTrack = nextTracks.find(trackCondition);
-
-    const prevTrackTitle = prevTrack.contextTrack.metadata.title;
-    const currentTrackTitle = currentTrack.contextTrack.metadata.title;
-    const nextTrackTitle = nextTrack.contextTrack.metadata.title;
-
-    if (
-      currentTrackTitle === prevTrackTitle &&
-      currentTrackTitle === nextTrackTitle
-    ) {
-      previousSong.innerHTML = '';
-      nextSong.innerHTML = '';
-    } else {
-      previousSong.innerHTML = `&lt; ${prevTrackTitle}`;
-      nextSong.innerHTML = `${nextTrackTitle} &gt;`;
-    }
-  }
-
   function handlePopupModalClick(event) {
     const { PopupModal } = Spicetify;
     const { target } = event;
@@ -396,7 +362,6 @@
 
   function handleFAD() {
     const fullAppDisplay = document.querySelector('#full-app-display');
-    fullAppDisplay.appendChild(songPreviewContainer);
     if (Number(localStorage.getItem('enableBlurFad')))
       fullAppDisplay.dataset.isBlurFad = 'true';
     document
@@ -436,7 +401,6 @@
 
   function init() {
     handleTurntable();
-    handleTracksNamePreview();
   }
 
   function handleUpdateEvent() {
@@ -446,21 +410,8 @@
   init();
 
   PlayerAPI._events.addListener('update', handleUpdateEvent);
-  PlayerAPI._events.addListener(
-    'queue_update',
-    handleTracksNamePreview
-  );
 
   Spicetify.PopupModal.addEventListener('click', handlePopupModalClick);
 
   window.addEventListener('fad-request', handleFADToggle);
-
-  previousSong.addEventListener(
-    'click',
-    Spicetify.Player.origin.skipToPrevious
-  );
-  nextSong.addEventListener(
-    'click',
-    Spicetify.Player.origin.skipToNext
-  );
 })();
