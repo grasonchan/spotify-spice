@@ -10,7 +10,7 @@
 
   /** @type {React} */
   const react = Spicetify.React;
-  const { Fragment, useMemo, useSyncExternalStore } = react;
+  const { Fragment, memo, useMemo, useSyncExternalStore } = react;
 
   /** @type {ReactDOM} */
   const reactDOM = Spicetify.ReactDOM;
@@ -201,6 +201,48 @@
       onClick: toggleHeart,
     });
   };
+
+  const SongPreview = memo(
+    ({ initialConfig, containerClassName, mountPoints }) => {
+      const isControllable = !mountPoints;
+
+      const queue = useQueue();
+      const config = useSongPreviewConfig({
+        initialConfig,
+        isControllable,
+        queue,
+        restrictions: PlayerAPI._state.restrictions,
+      });
+
+      if (!isControllable) {
+        const [
+          { text: prevTrack, ...prevConfigItem },
+          { text: nextTrack, ...nextConfigItem },
+        ] = config;
+
+        return react.createElement(
+          Fragment,
+          null,
+          mountPoints.prev &&
+            createPortal(
+              react.createElement('span', prevConfigItem, prevTrack),
+              mountPoints.prev
+            ),
+          mountPoints.next &&
+            createPortal(
+              react.createElement('span', nextConfigItem, nextTrack),
+              mountPoints.next
+            )
+        );
+      }
+
+      return react.createElement(
+        'div',
+        { className: classnames('song-preview', containerClassName) },
+        config.map((item) => react.createElement(SVGButton, item))
+      );
+    }
+  );
 
   const FADComponents = () =>
     react.createElement(
