@@ -1,51 +1,305 @@
 /// <reference path="../types/spicetify.d.ts" />
 
-window.addEventListener('load', function rotateTurntable() {
-  /** @type {React} */
-  // eslint-disable-next-line no-unused-vars
-  const react = Spicetify.React;
-
-  /** @type {ReactDOM} */
-  // eslint-disable-next-line no-unused-vars
-  const reactDOM = Spicetify.ReactDOM;
-
-  const SpicetifyOrigin = Spicetify.Player.origin;
-
-  if (!SpicetifyOrigin?._state) {
-    setTimeout(rotateTurntable, 250);
+'use strict';
+(async function Turntable() {
+  await new Promise((res) => Spicetify.Events.webpackLoaded.on(res));
+  if (!Spicetify.Player.origin?._state) {
+    setTimeout(Turntable, 100);
     return;
   }
+
+  /** @type {React} */
+  const react = Spicetify.React;
+  const { Fragment, memo, useRef, useMemo, useSyncExternalStore } =
+    react;
+
+  /** @type {ReactDOM} */
+  const reactDOM = Spicetify.ReactDOM;
+  const { createRoot, createPortal } = reactDOM;
+
+  const { Player, SVGIcons, classnames } = Spicetify;
+  const { origin: PlayerAPI, getHeart, toggleHeart } = Player;
 
   const BACKDROP_CONFIG_LABEL = 'Enable blur backdrop';
 
   const billboardModalStyle = document.createElement('style');
   billboardModalStyle.innerHTML = `.ReactModalPortal { display: none; }`;
 
-  const fadHeartContainer = document.createElement('div');
-  const fadHeart = document.createElement('button');
-  const fadHeartSvg = document.createElementNS(
-    'http://www.w3.org/2000/svg',
-    'svg'
-  );
-  fadHeartContainer.classList.add('fad-heart-container');
-  fadHeart.classList.add('fad-heart');
-  fadHeartSvg.setAttribute('width', '16');
-  fadHeartSvg.setAttribute('height', '16');
-  fadHeartSvg.setAttribute('viewBox', '0 0 16 16');
-  fadHeart.appendChild(fadHeartSvg);
-  fadHeartContainer.appendChild(fadHeart);
-
-  const songPreviewContainer = document.createElement('div');
-  const previousSong = document.createElement('button');
-  const nextSong = document.createElement('button');
-  songPreviewContainer.classList.add('song-preview');
-  songPreviewContainer.append(previousSong, nextSong);
+  const HEART_STATUS = {
+    DEFAULT: 0,
+    COLLECTED: 1,
+    DISABLED: 2,
+  };
 
   let isFADReady = false;
+  let fadRoot = null;
+
+  const updateEventSubscribe = (cb) => {
+    const removeListener = PlayerAPI._events.addListener('update', cb);
+    return removeListener;
+  };
+
+  const queueUpdateEventSubscribe = (cb) => {
+    const removeListener = PlayerAPI._events.addListener(
+      'queue_update',
+      cb
+    );
+    return removeListener;
+  };
+
+  const useHeartStatus = () =>
+    useSyncExternalStore(updateEventSubscribe, getHeartStatus);
+
+  const useQueue = () =>
+    useSyncExternalStore(
+      queueUpdateEventSubscribe,
+      () => Spicetify.Queue
+    );
+
+  const useSongPreviewConfig = ({
+    initialConfig = {},
+    isControllable = true,
+    queue = {},
+    restrictions: { canSkipPrevious = true, canSkipNext = true } = {},
+  }) => {
+    const staticConfig = useMemo(() => {
+      const {
+        commonConfig: { className, ...restCommonConfig } = {},
+        svgCommonConfig: { svgProps, ...restSvgCommonConfig } = {},
+        svgConfig = { prev: {}, next: {} },
+      } = initialConfig;
+
+      const combinedCommonConfig = {
+        className: classnames('song-preview-item', className),
+        ...restCommonConfig,
+      };
+
+      const combinedSVGCommonConfig = {
+        svgProps: { width: 10, height: 10, ...svgProps },
+        ...restSvgCommonConfig,
+      };
+
+      const combinedBasicsConfig = {
+        prev: { ...combinedCommonConfig, key: 'prev-track' },
+        next: { ...combinedCommonConfig, key: 'next-track' },
+      };
+
+      const combinedControlsConfig = {
+        prev: {
+          ...combinedSVGCommonConfig,
+          icon: SVGIcons['chevron-left'],
+          ...svgConfig.prev,
+          onClick: Player.back,
+        },
+        next: {
+          ...combinedSVGCommonConfig,
+          icon: SVGIcons['chevron-right'],
+          svgPriority: false,
+          ...svgConfig.next,
+          onClick: Player.next,
+        },
+      };
+
+      return {
+        basics: combinedBasicsConfig,
+        controls: combinedControlsConfig,
+      };
+    }, [initialConfig]);
+
+    const createControlConfig = (controlConfig, isEnable) =>
+      isControllable ? { ...controlConfig, disabled: !isEnable } : {};
+
+    const injectDynamicData = () => {
+      const { prevTrack, nextTrack } = getAdjacentTracks(
+        queue,
+        ({ contextTrack: { metadata } }) => metadata.title
+      );
+
+      return [
+        {
+          ...staticConfig.basics.prev,
+          text: prevTrack,
+          ...createControlConfig(
+            staticConfig.controls.prev,
+            canSkipPrevious
+          ),
+        },
+        {
+          ...staticConfig.basics.next,
+          text: nextTrack,
+          ...createControlConfig(
+            staticConfig.controls.next,
+            canSkipNext
+          ),
+        },
+      ];
+    };
+
+    return injectDynamicData();
+  };
+
+  const SVGButton = ({
+    text,
+    icon,
+    svgPriority = true,
+    svgProps = {},
+    className,
+    style = {},
+    disabled = false,
+    onClick,
+  }) => {
+    return react.createElement(
+      'button',
+      {
+        className: classnames('common-svg-button', className),
+        style,
+        disabled,
+        onClick,
+      },
+      react.createElement('svg', {
+        width: 16,
+        height: 16,
+        viewBox: '0 0 16 16',
+        fill: 'currentColor',
+        ...svgProps,
+        dangerouslySetInnerHTML: {
+          __html: icon,
+        },
+      }),
+      text &&
+        react.createElement(
+          'span',
+          {
+            style: {
+              order: svgPriority ? 0 : -1,
+            },
+          },
+          text
+        )
+    );
+  };
+
+  const Heart = () => {
+    const { COLLECTED, DISABLED } = HEART_STATUS;
+
+    const status = useHeartStatus();
+
+    return react.createElement(SVGButton, {
+      icon:
+        status === COLLECTED
+          ? SVGIcons['heart-active']
+          : SVGIcons.heart,
+      className: classnames('fad-heart', {
+        checked: status === COLLECTED,
+      }),
+      disabled: status === DISABLED,
+      onClick: toggleHeart,
+    });
+  };
+
+  const SongPreview = memo(
+    ({ initialConfig, containerClassName, mountPoints }) => {
+      const isControllable = !mountPoints;
+
+      const queue = useQueue();
+      const config = useSongPreviewConfig({
+        initialConfig,
+        isControllable,
+        queue,
+        restrictions: PlayerAPI._state.restrictions,
+      });
+
+      if (!isControllable) {
+        const [
+          { text: prevTrack, ...prevConfigItem },
+          { text: nextTrack, ...nextConfigItem },
+        ] = config;
+
+        return react.createElement(
+          Fragment,
+          null,
+          mountPoints.prev &&
+            createPortal(
+              react.createElement('span', prevConfigItem, prevTrack),
+              mountPoints.prev
+            ),
+          mountPoints.next &&
+            createPortal(
+              react.createElement('span', nextConfigItem, nextTrack),
+              mountPoints.next
+            )
+        );
+      }
+
+      return react.createElement(
+        'div',
+        { className: classnames('song-preview', containerClassName) },
+        config.map((item) => react.createElement(SVGButton, item))
+      );
+    }
+  );
+
+  const FADComponents = () => {
+    const nodesRef = useRef(null);
+
+    if (nodesRef.current === null) {
+      const fad = document.querySelector('#full-app-display');
+      nodesRef.current = {
+        fad,
+        fadFg: fad.querySelector('#fad-foreground'),
+      };
+    }
+
+    return react.createElement(
+      Fragment,
+      null,
+      createPortal(
+        react.createElement(SongPreview, {
+          containerClassName: 'fad-song-preview',
+        }),
+        nodesRef.current.fad
+      ),
+      createPortal(react.createElement(Heart), nodesRef.current.fadFg)
+    );
+  };
+
+  function getHeartStatus() {
+    const { DEFAULT, COLLECTED, DISABLED } = HEART_STATUS;
+    const status =
+      PlayerAPI._state.item?.metadata['collection.can_add'] !== 'true'
+        ? DISABLED
+        : getHeart()
+          ? COLLECTED
+          : DEFAULT;
+    return status;
+  }
+
+  function getAdjacentTracks(
+    { prevTracks = [], nextTracks = [] } = {},
+    mapper
+  ) {
+    const getTrack = (tracks) => {
+      for (let i = 0; i < tracks.length; i++) {
+        const track = tracks[i];
+        const {
+          provider,
+          contextTrack: { metadata },
+        } = track;
+        if (provider === 'ad' || metadata.hidden) continue;
+        return mapper ? mapper(track) : track;
+      }
+      return null;
+    };
+    return {
+      prevTrack: getTrack([...prevTracks].reverse()),
+      nextTrack: getTrack(nextTracks),
+    };
+  }
 
   function handleTurntable() {
-    const { item, isPaused, isBuffering } =
-      Spicetify.Player.origin._state;
+    const {
+      _state: { item, isPaused, isBuffering },
+    } = PlayerAPI;
     const playState = [!item, isPaused, isBuffering].some((el) => el)
       ? 'paused'
       : 'running';
@@ -53,60 +307,6 @@ window.addEventListener('load', function rotateTurntable() {
       '--turntable-play-state',
       playState
     );
-  }
-
-  function handleFadHeart() {
-    const isFadHeartContainer = document.querySelector(
-      '.fad-heart-container'
-    );
-
-    const stateItem = SpicetifyOrigin._state.item;
-
-    if (stateItem.isLocal || stateItem.type === 'ad') {
-      isFadHeartContainer?.remove();
-      return;
-    }
-
-    if (!isFadHeartContainer)
-      document
-        .querySelector('#fad-foreground')
-        ?.appendChild(fadHeartContainer);
-
-    if (Spicetify.Player.getHeart()) {
-      fadHeartSvg.innerHTML = Spicetify.SVGIcons['heart-active'];
-      fadHeart.classList.add('checked');
-    } else {
-      fadHeartSvg.innerHTML = Spicetify.SVGIcons.heart;
-      fadHeart.classList.remove('checked');
-    }
-  }
-
-  function handleTracksNamePreview() {
-    const prevTracks = Spicetify.Queue.prevTracks;
-    const currentTrack = Spicetify.Queue.track;
-    const nextTracks = Spicetify.Queue.nextTracks;
-
-    const trackCondition = (element) =>
-      !element.contextTrack.metadata.hidden &&
-      element.provider !== 'ad';
-
-    const prevTrack = prevTracks.slice().reverse().find(trackCondition);
-    const nextTrack = nextTracks.find(trackCondition);
-
-    const prevTrackTitle = prevTrack.contextTrack.metadata.title;
-    const currentTrackTitle = currentTrack.contextTrack.metadata.title;
-    const nextTrackTitle = nextTrack.contextTrack.metadata.title;
-
-    if (
-      currentTrackTitle === prevTrackTitle &&
-      currentTrackTitle === nextTrackTitle
-    ) {
-      previousSong.innerHTML = '';
-      nextSong.innerHTML = '';
-    } else {
-      previousSong.innerHTML = `&lt; ${prevTrackTitle}`;
-      nextSong.innerHTML = `${nextTrackTitle} &gt;`;
-    }
   }
 
   function handlePopupModalClick(event) {
@@ -162,21 +362,23 @@ window.addEventListener('load', function rotateTurntable() {
 
   function handleFAD() {
     const fullAppDisplay = document.querySelector('#full-app-display');
-    fullAppDisplay.appendChild(songPreviewContainer);
     if (Number(localStorage.getItem('enableBlurFad')))
       fullAppDisplay.dataset.isBlurFad = 'true';
     document
       .querySelector('#fad-main')
       .addEventListener('contextmenu', handleFADContextMenu);
     fullAppDisplay.addEventListener('dblclick', handleFADDblClick);
-    handleFadHeart();
+    renderFADComponents();
   }
 
   function handleFADToggle() {
-    if (!document.body.classList.contains('fad-activated')) {
+    const isFADActivated =
+      document.body.classList.contains('fad-activated');
+    if (!isFADActivated) {
       const billboard = document.querySelector('#view-billboard-ad');
       billboard?.closest('.ReactModalPortal').remove();
       billboardModalStyle.remove();
+      unmountFADComponents();
       isFADReady = false;
       return;
     }
@@ -186,36 +388,30 @@ window.addEventListener('load', function rotateTurntable() {
     isFADReady = true;
   }
 
+  function renderFADComponents() {
+    const fragment = document.createDocumentFragment();
+    fadRoot = createRoot(fragment);
+    fadRoot.render(react.createElement(FADComponents));
+  }
+
+  function unmountFADComponents() {
+    fadRoot.unmount();
+    fadRoot = null;
+  }
+
   function init() {
     handleTurntable();
-    handleTracksNamePreview();
   }
 
   function handleUpdateEvent() {
     handleTurntable();
-    handleFadHeart();
   }
 
   init();
 
-  Spicetify.Player.origin._events.addListener(
-    'update',
-    handleUpdateEvent
-  );
-  Spicetify.Player.origin._events.addListener(
-    'queue_update',
-    handleTracksNamePreview
-  );
+  PlayerAPI._events.addListener('update', handleUpdateEvent);
 
   Spicetify.PopupModal.addEventListener('click', handlePopupModalClick);
 
   window.addEventListener('fad-request', handleFADToggle);
-
-  fadHeart.addEventListener('click', Spicetify.Player.toggleHeart);
-  previousSong.addEventListener('click', () =>
-    SpicetifyOrigin.skipToPrevious()
-  );
-  nextSong.addEventListener('click', () =>
-    SpicetifyOrigin.skipToNext()
-  );
-});
+})();
