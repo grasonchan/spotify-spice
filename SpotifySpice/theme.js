@@ -249,6 +249,12 @@
       Fragment,
       null,
       createPortal(
+        react.createElement(SongPreview, {
+          containerClassName: 'fad-song-preview',
+        }),
+        document.querySelector('#full-app-display')
+      ),
+      createPortal(
         react.createElement(Heart),
         document.querySelector('#fad-foreground')
       )

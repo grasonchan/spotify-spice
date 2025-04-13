@@ -413,25 +413,10 @@
 }
 
 /* Full App Display - song preview */
-.song-preview {
+.fad-song-preview {
   width: 100%;
-  padding: 0 10%;
   position: absolute;
   bottom: 20px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.song-preview > button {
-  font-size: 14px;
-  color: #ccc !important;
-  background-color: unset;
-  border: unset;
-  cursor: pointer;
-}
-
-.song-preview > button:hover {
-  color: #fff !important;
 }
 
 /* Lyrics Plus */
