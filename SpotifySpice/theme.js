@@ -141,10 +141,10 @@
     return status;
   }
 
-  function getAdjacentTracks(mapper) {
-    const {
-      Queue: { prevTracks, nextTracks },
-    } = Spicetify;
+  function getAdjacentTracks(
+    { prevTracks = [], nextTracks = [] } = {},
+    mapper
+  ) {
     const getTrack = (tracks) => {
       for (let i = 0; i < tracks.length; i++) {
         const track = tracks[i];
