@@ -10,7 +10,8 @@
 
   /** @type {React} */
   const react = Spicetify.React;
-  const { Fragment, memo, useMemo, useSyncExternalStore } = react;
+  const { Fragment, memo, useRef, useMemo, useSyncExternalStore } =
+    react;
 
   /** @type {ReactDOM} */
   const reactDOM = Spicetify.ReactDOM;
@@ -244,21 +245,29 @@
     }
   );
 
-  const FADComponents = () =>
-    react.createElement(
+  const FADComponents = () => {
+    const nodesRef = useRef(null);
+
+    if (nodesRef.current === null) {
+      const fad = document.querySelector('#full-app-display');
+      nodesRef.current = {
+        fad,
+        fadFg: fad.querySelector('#fad-foreground'),
+      };
+    }
+
+    return react.createElement(
       Fragment,
       null,
       createPortal(
         react.createElement(SongPreview, {
           containerClassName: 'fad-song-preview',
         }),
-        document.querySelector('#full-app-display')
+        nodesRef.current.fad
       ),
-      createPortal(
-        react.createElement(Heart),
-        document.querySelector('#fad-foreground')
-      )
+      createPortal(react.createElement(Heart), nodesRef.current.fadFg)
     );
+  };
 
   function getHeartStatus() {
     const { DEFAULT, COLLECTED, DISABLED } = HEART_STATUS;
