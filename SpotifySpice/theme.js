@@ -34,6 +34,11 @@
   let isFADReady = false;
   let fadRoot = null;
 
+  const fadRequestEventSubscribe = (cb) => {
+    window.addEventListener('fad-request', cb);
+    return () => window.removeEventListener('fad-request', cb);
+  };
+
   const updateEventSubscribe = (cb) => {
     const removeListener = PlayerAPI._events.addListener('update', cb);
     return removeListener;
@@ -46,6 +51,11 @@
     );
     return removeListener;
   };
+
+  const useFADStatus = () =>
+    useSyncExternalStore(fadRequestEventSubscribe, () =>
+      document.body.classList.contains('fad-activated')
+    );
 
   const useHeartStatus = () =>
     useSyncExternalStore(updateEventSubscribe, getHeartStatus);
