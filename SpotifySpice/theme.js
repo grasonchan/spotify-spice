@@ -10,8 +10,7 @@
 
   /** @type {React} */
   const react = Spicetify.React;
-  const { Fragment, memo, useRef, useMemo, useSyncExternalStore } =
-    react;
+  const { Fragment, memo, useMemo, useSyncExternalStore } = react;
 
   /** @type {ReactDOM} */
   const reactDOM = Spicetify.ReactDOM;
@@ -32,7 +31,11 @@
   };
 
   let isFADReady = false;
-  let fadRoot = null;
+
+  const fadRequestEventSubscribe = (cb) => {
+    window.addEventListener('fad-request', cb);
+    return () => window.removeEventListener('fad-request', cb);
+  };
 
   const updateEventSubscribe = (cb) => {
     const removeListener = PlayerAPI._events.addListener('update', cb);
@@ -46,6 +49,11 @@
     );
     return removeListener;
   };
+
+  const useFADStatus = () =>
+    useSyncExternalStore(fadRequestEventSubscribe, () =>
+      document.body.classList.contains('fad-activated')
+    );
 
   const useHeartStatus = () =>
     useSyncExternalStore(updateEventSubscribe, getHeartStatus);
@@ -239,16 +247,19 @@
     }
   );
 
-  const FADComponents = () => {
-    const nodesRef = useRef(null);
+  const FADPortals = () => {
+    const status = useFADStatus();
 
-    if (nodesRef.current === null) {
+    const containers = useMemo(() => {
+      if (!status) return null;
       const fad = document.querySelector('#full-app-display');
-      nodesRef.current = {
+      return {
         fad,
         fadFg: fad.querySelector('#fad-foreground'),
       };
-    }
+    }, [status]);
+
+    if (!status) return null;
 
     return react.createElement(
       Fragment,
@@ -257,10 +268,24 @@
         react.createElement(SongPreview, {
           containerClassName: 'fad-song-preview',
         }),
-        nodesRef.current.fad
+        containers.fad
       ),
-      createPortal(react.createElement(Heart), nodesRef.current.fadFg)
+      createPortal(react.createElement(Heart), containers.fadFg)
     );
+  };
+
+  const PortalsRoot = () => {
+    return react.createElement(
+      Fragment,
+      null,
+      react.createElement(FADPortals)
+    );
+  };
+
+  const initPortals = () => {
+    const fragment = document.createDocumentFragment();
+    const portalsRoot = createRoot(fragment);
+    portalsRoot.render(react.createElement(PortalsRoot));
   };
 
   function getHeartStatus() {
@@ -368,7 +393,6 @@
       .querySelector('#fad-main')
       .addEventListener('contextmenu', handleFADContextMenu);
     fullAppDisplay.addEventListener('dblclick', handleFADDblClick);
-    renderFADComponents();
   }
 
   function handleFADToggle() {
@@ -378,7 +402,6 @@
       const billboard = document.querySelector('#view-billboard-ad');
       billboard?.closest('.ReactModalPortal').remove();
       billboardModalStyle.remove();
-      unmountFADComponents();
       isFADReady = false;
       return;
     }
@@ -388,19 +411,9 @@
     isFADReady = true;
   }
 
-  function renderFADComponents() {
-    const fragment = document.createDocumentFragment();
-    fadRoot = createRoot(fragment);
-    fadRoot.render(react.createElement(FADComponents));
-  }
-
-  function unmountFADComponents() {
-    fadRoot.unmount();
-    fadRoot = null;
-  }
-
   function init() {
     handleTurntable();
+    initPortals();
   }
 
   function handleUpdateEvent() {
