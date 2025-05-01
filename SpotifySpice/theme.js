@@ -12,6 +12,7 @@
   const react = Spicetify.React;
   const {
     Fragment,
+    forwardRef,
     memo,
     useState,
     useRef,
@@ -328,45 +329,50 @@
   };
 
   const SongPreview = memo(
-    ({ initialConfig, containerClassName, mountPoints }) => {
-      const isControllable = !mountPoints;
+    forwardRef(
+      ({ initialConfig, containerClassName, mountPoints }, ref) => {
+        const isControllable = !mountPoints;
 
-      const queue = useQueue();
-      const config = useSongPreviewConfig({
-        initialConfig,
-        isControllable,
-        queue,
-        restrictions: PlayerAPI._state.restrictions,
-      });
+        const queue = useQueue();
+        const config = useSongPreviewConfig({
+          initialConfig,
+          isControllable,
+          queue,
+          restrictions: PlayerAPI._state.restrictions,
+        });
 
-      if (!isControllable) {
-        const [
-          { text: prevTrack, ...prevConfigItem },
-          { text: nextTrack, ...nextConfigItem },
-        ] = config;
+        if (!isControllable) {
+          const [
+            { text: prevTrack, ...prevConfigItem },
+            { text: nextTrack, ...nextConfigItem },
+          ] = config;
+
+          return react.createElement(
+            Fragment,
+            null,
+            mountPoints.prev &&
+              createPortal(
+                react.createElement('span', prevConfigItem, prevTrack),
+                mountPoints.prev
+              ),
+            mountPoints.next &&
+              createPortal(
+                react.createElement('span', nextConfigItem, nextTrack),
+                mountPoints.next
+              )
+          );
+        }
 
         return react.createElement(
-          Fragment,
-          null,
-          mountPoints.prev &&
-            createPortal(
-              react.createElement('span', prevConfigItem, prevTrack),
-              mountPoints.prev
-            ),
-          mountPoints.next &&
-            createPortal(
-              react.createElement('span', nextConfigItem, nextTrack),
-              mountPoints.next
-            )
+          'div',
+          {
+            ref,
+            className: classnames('song-preview', containerClassName),
+          },
+          config.map((item) => react.createElement(SVGButton, item))
         );
       }
-
-      return react.createElement(
-        'div',
-        { className: classnames('song-preview', containerClassName) },
-        config.map((item) => react.createElement(SVGButton, item))
-      );
-    }
+    )
   );
 
   const MainPortals = () => {
