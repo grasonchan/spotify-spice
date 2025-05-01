@@ -387,12 +387,40 @@
       return portalsMap;
     }, []);
 
+    const findEnhancer = useCallback(
+      ({ selector, element: container, records }) => {
+        const isConcernedMutation = records.some(
+          ({ target, removedNodes }) =>
+            target.matches(selector) && removedNodes.length
+        );
+        if (!isConcernedMutation) return;
+        const nodes = getPortalsMap().get(container);
+        if (!nodes) return;
+        const lostNodes = [...nodes].filter(
+          (node) => !container.contains(node)
+        );
+        if (lostNodes.length)
+          return {
+            container,
+            lostNodes,
+          };
+      },
+      [getPortalsMap]
+    );
+
+    const handleFindEnhancerHit = useCallback((data) => {
+      data.forEach(({ container, lostNodes }) => {
+        container.append(...lostNodes);
+      });
+    }, []);
 
     const { portalsConfig, rootSelector, selectors } =
       useMainPortalsConfig();
     const containers = useDOMFinder({
       rootSelector,
       selectors,
+      findEnhancer,
+      onFindEnhancerHit: handleFindEnhancerHit,
     });
 
     useEffect(
