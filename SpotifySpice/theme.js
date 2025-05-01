@@ -376,6 +376,18 @@
   );
 
   const MainPortals = () => {
+    const portalsMapRef = useRef(null);
+
+    const getPortalsMap = useCallback(() => {
+      if (portalsMapRef.current !== null) {
+        return portalsMapRef.current;
+      }
+      const portalsMap = new Map();
+      portalsMapRef.current = portalsMap;
+      return portalsMap;
+    }, []);
+
+
     const { portalsConfig, rootSelector, selectors } =
       useMainPortalsConfig();
     const containers = useDOMFinder({
@@ -383,17 +395,38 @@
       selectors,
     });
 
+    useEffect(
+      () => () => {
+        portalsMapRef.current.clear();
+        portalsMapRef.current = null;
+      },
+      []
+    );
+
     return react.createElement(
       Fragment,
       null,
       selectors.map((selector) => {
         const container = containers[selector];
         if (!container) return null;
+        const portalsMap = getPortalsMap();
         return portalsConfig
           .get(selector)
-          .map(({ id, Component, props }) =>
+          .map(({ id, Component, props = {} }) =>
             createPortal(
-              react.createElement(Component, props),
+              react.createElement(Component, {
+                ...props,
+                ref: (node) => {
+                  if (!node) {
+                    portalsMap.delete(container);
+                    return;
+                  }
+                  if (!portalsMap.has(container)) {
+                    portalsMap.set(container, new Set());
+                  }
+                  portalsMap.get(container).add(node);
+                },
+              }),
               container,
               id
             )
