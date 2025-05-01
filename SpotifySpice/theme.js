@@ -10,7 +10,17 @@
 
   /** @type {React} */
   const react = Spicetify.React;
-  const { Fragment, memo, useMemo, useSyncExternalStore } = react;
+  const {
+    Fragment,
+    forwardRef,
+    memo,
+    useState,
+    useRef,
+    useMemo,
+    useCallback,
+    useEffect,
+    useSyncExternalStore,
+  } = react;
 
   /** @type {ReactDOM} */
   const reactDOM = Spicetify.ReactDOM;
@@ -48,6 +58,86 @@
       cb
     );
     return removeListener;
+  };
+
+  const useDOMFinder = ({
+    rootSelector,
+    selectors,
+    findEnhancer,
+    onFindEnhancerHit,
+  }) => {
+    const [elements, setElements] = useState({});
+    const elementsRef = useRef(elements);
+    const finderRef = useRef(null);
+
+    const root = useMemo(() => {
+      if (!rootSelector) return document.body;
+      const target = document.querySelector(rootSelector);
+      if (!target)
+        throw new Error(
+          `Selector ${rootSelector} does not match any stable DOM element. Please provide a valid selector targeting a persistent root node.`
+        );
+      return target;
+    }, [rootSelector]);
+
+    const handleMutation = useCallback(
+      (records) => {
+        const delta = {};
+        const enhancerResults = [];
+        selectors.forEach((selector) => {
+          const element = root.querySelector(selector);
+          if (elementsRef.current[selector] !== element) {
+            delta[selector] = element;
+            return;
+          }
+          if (!element) return;
+          const enhancerResult = findEnhancer?.({
+            selector,
+            element,
+            records,
+          });
+          if (!enhancerResult) return;
+          enhancerResults.push(enhancerResult);
+        });
+        if (enhancerResults.length)
+          onFindEnhancerHit?.(enhancerResults);
+        if (!Object.keys(delta).length) return;
+        setElements({
+          ...elementsRef.current,
+          ...delta,
+        });
+      },
+      [root, selectors, findEnhancer, onFindEnhancerHit]
+    );
+
+    useEffect(() => {
+      elementsRef.current = elements;
+    }, [elements]);
+
+    useEffect(() => {
+      const refreshedElements = Object.fromEntries(
+        selectors.map((selector) => [
+          selector,
+          root.querySelector(selector),
+        ])
+      );
+      setElements(refreshedElements);
+    }, [root, selectors]);
+
+    useEffect(() => {
+      finderRef.current = new MutationObserver(handleMutation);
+      finderRef.current.observe(root, {
+        childList: true,
+        subtree: true,
+      });
+
+      return () => {
+        finderRef.current.disconnect();
+        finderRef.current = null;
+      };
+    }, [root, handleMutation]);
+
+    return elements;
   };
 
   const useFADStatus = () =>
@@ -146,6 +236,39 @@
     return injectDynamicData();
   };
 
+  const useMainPortalsConfig = () => {
+    const portalsConfig = useMemo(
+      () =>
+        new Map([
+          [
+            '[data-testid="now-playing-bar"]',
+            [
+              {
+                id: 'main-song-preview',
+                Component: SongPreview,
+                props: {
+                  containerClassName: 'main-song-preview',
+                },
+              },
+            ],
+          ],
+        ]),
+      []
+    );
+
+    const rootSelector = '#main';
+    const selectors = useMemo(
+      () => Array.from(portalsConfig.keys()),
+      [portalsConfig]
+    );
+
+    return {
+      portalsConfig,
+      rootSelector,
+      selectors,
+    };
+  };
+
   const SVGButton = ({
     text,
     icon,
@@ -206,46 +329,139 @@
   };
 
   const SongPreview = memo(
-    ({ initialConfig, containerClassName, mountPoints }) => {
-      const isControllable = !mountPoints;
+    forwardRef(
+      ({ initialConfig, containerClassName, mountPoints }, ref) => {
+        const isControllable = !mountPoints;
 
-      const queue = useQueue();
-      const config = useSongPreviewConfig({
-        initialConfig,
-        isControllable,
-        queue,
-        restrictions: PlayerAPI._state.restrictions,
-      });
+        const queue = useQueue();
+        const config = useSongPreviewConfig({
+          initialConfig,
+          isControllable,
+          queue,
+          restrictions: PlayerAPI._state.restrictions,
+        });
 
-      if (!isControllable) {
-        const [
-          { text: prevTrack, ...prevConfigItem },
-          { text: nextTrack, ...nextConfigItem },
-        ] = config;
+        if (!isControllable) {
+          const [
+            { text: prevTrack, ...prevConfigItem },
+            { text: nextTrack, ...nextConfigItem },
+          ] = config;
+
+          return react.createElement(
+            Fragment,
+            null,
+            mountPoints.prev &&
+              createPortal(
+                react.createElement('span', prevConfigItem, prevTrack),
+                mountPoints.prev
+              ),
+            mountPoints.next &&
+              createPortal(
+                react.createElement('span', nextConfigItem, nextTrack),
+                mountPoints.next
+              )
+          );
+        }
 
         return react.createElement(
-          Fragment,
-          null,
-          mountPoints.prev &&
-            createPortal(
-              react.createElement('span', prevConfigItem, prevTrack),
-              mountPoints.prev
-            ),
-          mountPoints.next &&
-            createPortal(
-              react.createElement('span', nextConfigItem, nextTrack),
-              mountPoints.next
-            )
+          'div',
+          {
+            ref,
+            className: classnames('song-preview', containerClassName),
+          },
+          config.map((item) => react.createElement(SVGButton, item))
         );
       }
-
-      return react.createElement(
-        'div',
-        { className: classnames('song-preview', containerClassName) },
-        config.map((item) => react.createElement(SVGButton, item))
-      );
-    }
+    )
   );
+
+  const MainPortals = () => {
+    const portalsMapRef = useRef(null);
+
+    const getPortalsMap = useCallback(() => {
+      if (portalsMapRef.current !== null) {
+        return portalsMapRef.current;
+      }
+      const portalsMap = new Map();
+      portalsMapRef.current = portalsMap;
+      return portalsMap;
+    }, []);
+
+    const findEnhancer = useCallback(
+      ({ selector, element: container, records }) => {
+        const isConcernedMutation = records.some(
+          ({ target, removedNodes }) =>
+            target.matches(selector) && removedNodes.length
+        );
+        if (!isConcernedMutation) return;
+        const nodes = getPortalsMap().get(container);
+        if (!nodes) return;
+        const lostNodes = [...nodes].filter(
+          (node) => !container.contains(node)
+        );
+        if (lostNodes.length)
+          return {
+            container,
+            lostNodes,
+          };
+      },
+      [getPortalsMap]
+    );
+
+    const handleFindEnhancerHit = useCallback((data) => {
+      data.forEach(({ container, lostNodes }) => {
+        container.append(...lostNodes);
+      });
+    }, []);
+
+    const { portalsConfig, rootSelector, selectors } =
+      useMainPortalsConfig();
+    const containers = useDOMFinder({
+      rootSelector,
+      selectors,
+      findEnhancer,
+      onFindEnhancerHit: handleFindEnhancerHit,
+    });
+
+    useEffect(
+      () => () => {
+        portalsMapRef.current.clear();
+        portalsMapRef.current = null;
+      },
+      []
+    );
+
+    return react.createElement(
+      Fragment,
+      null,
+      selectors.map((selector) => {
+        const container = containers[selector];
+        if (!container) return null;
+        const portalsMap = getPortalsMap();
+        return portalsConfig
+          .get(selector)
+          .map(({ id, Component, props = {} }) =>
+            createPortal(
+              react.createElement(Component, {
+                ...props,
+                ref: (node) => {
+                  if (!node) {
+                    portalsMap.delete(container);
+                    return;
+                  }
+                  if (!portalsMap.has(container)) {
+                    portalsMap.set(container, new Set());
+                  }
+                  portalsMap.get(container).add(node);
+                },
+              }),
+              container,
+              id
+            )
+          );
+      })
+    );
+  };
 
   const FADPortals = () => {
     const status = useFADStatus();
@@ -278,6 +494,7 @@
     return react.createElement(
       Fragment,
       null,
+      react.createElement(MainPortals),
       react.createElement(FADPortals)
     );
   };
