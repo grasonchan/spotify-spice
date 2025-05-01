@@ -369,6 +369,33 @@
     }
   );
 
+  const MainPortals = () => {
+    const { portalsConfig, rootSelector, selectors } =
+      useMainPortalsConfig();
+    const containers = useDOMFinder({
+      rootSelector,
+      selectors,
+    });
+
+    return react.createElement(
+      Fragment,
+      null,
+      selectors.map((selector) => {
+        const container = containers[selector];
+        if (!container) return null;
+        return portalsConfig
+          .get(selector)
+          .map(({ id, Component, props }) =>
+            createPortal(
+              react.createElement(Component, props),
+              container,
+              id
+            )
+          );
+      })
+    );
+  };
+
   const FADPortals = () => {
     const status = useFADStatus();
 
@@ -400,6 +427,7 @@
     return react.createElement(
       Fragment,
       null,
+      react.createElement(MainPortals),
       react.createElement(FADPortals)
     );
   };
