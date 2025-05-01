@@ -3,6 +3,8 @@
   --round-value: 50%;
   --custom-progress-bar-height: 2px;
   --custom-progress-bar-slider-size: 8px;
+  --main-song-preview-height: 24px;
+  --main-song-preview-color: #051b0c;
   --main-blur-backdrop: blur(20px) saturate(180%);
   --turntable-shine: conic-gradient(
     from 15deg,
@@ -412,7 +414,18 @@
   color: var(--spotify-main-color);
 }
 
-/* Full App Display - song preview */
+/* song preview */
+.main-song-preview {
+  width: 100vw;
+  height: var(--main-song-preview-height);
+  padding: 0 10px;
+  position: relative;
+  left: calc(0px - var(--panel-gap));
+  bottom: calc(0px - var(--panel-gap));
+  background-color: var(--main-song-preview-color);
+  order: 100;
+}
+
 .fad-song-preview {
   width: 100%;
   position: absolute;

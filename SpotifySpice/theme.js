@@ -235,6 +235,39 @@
     return injectDynamicData();
   };
 
+  const useMainPortalsConfig = () => {
+    const portalsConfig = useMemo(
+      () =>
+        new Map([
+          [
+            '[data-testid="now-playing-bar"]',
+            [
+              {
+                id: 'main-song-preview',
+                Component: SongPreview,
+                props: {
+                  containerClassName: 'main-song-preview',
+                },
+              },
+            ],
+          ],
+        ]),
+      []
+    );
+
+    const rootSelector = '#main';
+    const selectors = useMemo(
+      () => Array.from(portalsConfig.keys()),
+      [portalsConfig]
+    );
+
+    return {
+      portalsConfig,
+      rootSelector,
+      selectors,
+    };
+  };
+
   const SVGButton = ({
     text,
     icon,
