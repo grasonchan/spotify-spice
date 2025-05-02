@@ -18,11 +18,8 @@ The turntable inspired by [Netease Music](https://music.163.com) and [Smartisan 
 
 ## Screenshots
 
-![spotify spice](screenshots/spotify_spice.png)
-![fullAppDisplay](screenshots/fad.png)
-![fullAppDisplay - vertical mode](screenshots/fad_vertical.png)
-![blur fullAppDisplay](screenshots/blur_fad.png)
-![blur fullAppDisplay - vertical mode](screenshots/blur_fad_vertical.png)
+![main](screenshots/main.png)
+![full_app_display](screenshots/full_app_display.png)
 
 ## Installation
 
