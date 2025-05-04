@@ -1,0 +1,12 @@
+{
+  "name": "Spotify Spice",
+  "description": "Based on Spotify original theme, includes turntable and song preview features.",
+  "preview": "screenshots/preview_marketplace.png",
+  "readme": "README.md",
+  "usercss": "SpotifySpice/user.css",
+  "schemes": "SpotifySpice/color.ini",
+  "include": [
+    "https://github.com/grasonchan/spotify-spice/blob/master/SpotifySpice/theme.js"
+  ],
+  "tags": ["turntable", "song preview"]
+}
