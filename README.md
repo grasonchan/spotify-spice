@@ -46,3 +46,15 @@ spicetify apply
 ```
 
 Once enabled, you can configure these extensions according to your preferences.
+
+## Migration Notice
+
+If you installed the theme before [this](https://github.com/grasonchan/spotify-spice/pull/19), please clean up the legacy script and remove the related Spicetify config.
+
+```shell
+rm <config-folder-path>/Extensions/spotifySpice.js
+
+spicetify config extensions spotifySpice.js-
+
+spicetify apply
+```
