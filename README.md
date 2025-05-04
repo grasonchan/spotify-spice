@@ -1,78 +1,48 @@
 # Spotify Spice
 
-[Spicetify](https://github.com/khanhas/spicetify-cli) theme, to change Spotify client UI.
+Based on Spotify original theme. The design of turntable is inspired by [Netease Music](https://music.163.com) and [Smartisan OS build-in Music Player](https://www.smartisan.com/os/#/beauty).
 
-Based on Spotify original theme.
-
-**Note:** Require Spicetify **v2.2.0** or higher! Otherwise, performance problems will happen when the turntable rotate!
-
-Develop and test on macOS. If there's any problem, please open issue or PR.
-
-## About Turntable
-
-Use CSS to achieve, not picture. This means it can be scaled to any size, but make sure the album cover is not blurry.
-
-Actually, the rotation of the turntable was created at spicetify v1, but in some cases, animation is affected by other factors. I think "fullAppDisplay.js high GPU usage" is the reason. Fortunately, it's normal now!
-
-The turntable inspired by [Netease Music](https://music.163.com) and [Smartisan OS build-in Music Player](https://www.smartisan.com/os/#/beauty) (not include code).
-
-## Screenshots
+If there's any problem, please open issue or PR. ❤️
 
 ![main](screenshots/main.png)
 ![full_app_display](screenshots/full_app_display.png)
 
+## Dependencies
+
+Latest version of [Spotify](https://www.spotify.com/) and [Spicetify](https://github.com/spicetify/cli).
+
 ## Installation
 
-1. [install spicetify-cli](https://spicetify.app/docs/getting-started#installation), then follow the [Basic Usage](https://spicetify.app/docs/getting-started#basic-usage)
+### Basic
 
-2. clone the repository, then put **SpotifySpice** and **spotifySpice.js** into the spicetify config folder
-* Linux/macOS: **~/.config/spicetify/**
-* Windows Powershell: **$env:APPDATA/spicetify/**
+clone the repository, follow the steps below:
 
 ```shell
 cd spotify-spice
 cp -r SpotifySpice <config-folder-path>/Themes
-cp spotifySpice.js <config-folder-path>/Extensions
-```
 
-3. select the theme and extensions ([Full App Display](https://spicetify.app/docs/advanced-usage/extensions#full-app-display))
-
-```shell
 spicetify config current_theme SpotifySpice
+spicetify config inject_theme_js 1
+
+spicetify apply
+```
+
+#### Notes
+
+Replace `<config-folder-path>` with your OS-specific path.
+
+* Linux / macOS: `~/.config/spicetify/`
+* Windows (Powershell): `$env:APPDATA/spicetify/`
+
+### Optional
+
+enable Spicetify's build-in extensions for a complete experience:
+
+```shell
 spicetify config extensions fullAppDisplay.js
-spicetify config extensions spotifySpice.js
-```
+spicetify config custom_apps lyrics-plus
 
-4. apply
-
-```shell
 spicetify apply
 ```
 
-## How to Uninstall
-
-1. remove **SpotifySpice** and **spotifySpice.js**
-
-```shell
-rm -r ~/.config/spicetify/Themes/SpotifySpice
-rm ~/.config/spicetify/Extensions/spotifySpice.js
-```
-
-2. config to spicetify default theme
-
-```shell
-spicetify config current_theme SpicetifyDefault
-```
-
-3. remove extensions
-
-```shell
-spicetify config extensions spotifySpice.js-
-spicetify config extensions fullAppDisplay.js-
-```
-
-4. apply
-
-```shell
-spicetify apply
-```
+Once enabled, you can configure these extensions according to your preferences.
