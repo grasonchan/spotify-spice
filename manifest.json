@@ -6,7 +6,7 @@
   "usercss": "SpotifySpice/user.css",
   "schemes": "SpotifySpice/color.ini",
   "include": [
-    "https://github.com/grasonchan/spotify-spice/blob/master/SpotifySpice/theme.js"
+    "https://raw.githubusercontent.com/grasonchan/spotify-spice/master/SpotifySpice/theme.js"
   ],
   "tags": ["turntable", "song preview"]
 }
