@@ -15,6 +15,12 @@ Latest version of [Spotify](https://www.spotify.com/) and [Spicetify](https://gi
 
 ### Basic
 
+#### Marketplace
+
+Use [Spicetify Marketplace](https://github.com/spicetify/marketplace) to install.
+
+#### Manual
+
 clone the repository, follow the steps below:
 
 ```shell
@@ -27,7 +33,7 @@ spicetify config inject_theme_js 1
 spicetify apply
 ```
 
-#### Notes
+##### Notes
 
 Replace `<config-folder-path>` with your OS-specific path.
 
