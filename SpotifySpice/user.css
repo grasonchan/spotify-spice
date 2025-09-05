@@ -91,12 +91,9 @@
 /* Playlist */
 .main-entityHeader-backgroundColor,
 .main-actionBarBackground-background,
-.main-topBar-overlay {
-  background-color: unset !important;
-}
-
-.main-entityHeader-overlay {
-  background: unset;
+.main-topBar-overlay,
+.playlist-playlist-actionBarBackground-background {
+  background: unset !important;
 }
 
 .main-actionBarBackground-background {
@@ -180,9 +177,7 @@
 .Root__now-playing-bar .playback-bar {
   width: 100vw;
   position: absolute;
-  bottom: calc(
-    0px - var(--panel-gap) + var(--main-song-preview-height)
-  );
+  bottom: calc(0px + var(--main-song-preview-height));
   z-index: 100;
 }
 
