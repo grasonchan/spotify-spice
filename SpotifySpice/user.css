@@ -197,7 +197,7 @@
 }
 
 .playback-bar__progress-time-elapsed,
-.main-playbackBarRemainingTime-container {
+[data-testid='playback-duration'] {
   height: var(--main-song-preview-height);
   position: absolute;
   top: var(--custom-progress-bar-height);
@@ -218,7 +218,7 @@
   transform: translateX(-50%);
 }
 
-.main-playbackBarRemainingTime-container {
+[data-testid='playback-duration'] {
   transform: translateX(10px);
 }
 
