@@ -551,14 +551,6 @@
     );
   }
 
-  function handlePopupModalClick(event) {
-    const { PopupModal } = Spicetify;
-    const { target } = event;
-    if (target.closest('.setting-row button.switch')) {
-      PopupModal.hide();
-    }
-  }
-
   function handleFADBackdrop(event) {
     const { currentTarget } = event;
     const fullAppDisplay = document.querySelector('#full-app-display');
@@ -640,8 +632,6 @@
   init();
 
   PlayerAPI._events.addListener('update', handleUpdateEvent);
-
-  Spicetify.PopupModal.addEventListener('click', handlePopupModalClick);
 
   window.addEventListener('fad-request', handleFADToggle);
 })();
