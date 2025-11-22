@@ -1,12 +1,15 @@
 /// <reference path="../types/spicetify.d.ts" />
 
 'use strict';
-(async function Turntable() {
+(async function () {
   await new Promise((res) => Spicetify.Events.webpackLoaded.on(res));
-  if (!Spicetify.Player.origin?._state) {
-    setTimeout(Turntable, 100);
-    return;
-  }
+  await new Promise((res) => {
+    const checkPlayerAPI = () => {
+      if (Spicetify.Player.origin?._state) return res();
+      setTimeout(checkPlayerAPI, 100);
+    };
+    checkPlayerAPI();
+  });
 
   /** @type {React} */
   const react = Spicetify.React;
