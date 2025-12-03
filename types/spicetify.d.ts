@@ -1419,7 +1419,7 @@ declare namespace Spicetify {
 			/**
 			 * Label to display in the tooltip
 			 */
-			label: string;
+			label: string | React.ReactNode;
 			/**
 			 * The child element that the tooltip will be attached to
 			 * and will display when hovered over
@@ -1814,11 +1814,12 @@ declare namespace Spicetify {
 	 */
 	namespace Topbar {
 		class Button {
-			constructor(label: string, icon: Icon | string, onClick: (self: Button) => void, disabled?: boolean);
+			constructor(label: string, icon: Icon | string, onClick: (self: Button) => void, disabled?: boolean, isRight?: boolean);
 			label: string;
 			icon: string;
 			onClick: (self: Button) => void;
 			disabled: boolean;
+			isRight: boolean;
 			element: HTMLButtonElement;
 			tippy: any;
 		}
