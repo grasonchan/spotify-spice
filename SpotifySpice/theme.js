@@ -148,6 +148,9 @@
       document.body.classList.contains('fad-activated')
     );
 
+  const usePlayStatus = () =>
+    useSyncExternalStore(updateEventSubscribe, getPlayStatus);
+
   const useHeartStatus = () =>
     useSyncExternalStore(updateEventSubscribe, getHeartStatus);
 
@@ -270,6 +273,17 @@
       rootSelector,
       selectors,
     };
+  };
+
+  const useTurntablePlayState = () => {
+    const playStatus = usePlayStatus();
+
+    useEffect(() => {
+      document.documentElement.style.setProperty(
+        '--turntable-play-state',
+        playStatus ? 'running' : 'paused'
+      );
+    }, [playStatus]);
   };
 
   const SVGButton = ({
@@ -494,6 +508,8 @@
   };
 
   const PortalsRoot = () => {
+    useTurntablePlayState();
+
     return react.createElement(
       Fragment,
       null,
@@ -507,6 +523,14 @@
     const portalsRoot = createRoot(fragment);
     portalsRoot.render(react.createElement(PortalsRoot));
   };
+
+  function getPlayStatus() {
+    const {
+      _state: { item, isPaused, isBuffering },
+    } = PlayerAPI;
+    const playStatus = ![!item, isPaused, isBuffering].some((el) => el);
+    return playStatus;
+  }
 
   function getHeartStatus() {
     const { DEFAULT, COLLECTED, DISABLED } = HEART_STATUS;
@@ -539,19 +563,6 @@
       prevTrack: getTrack([...prevTracks].reverse()),
       nextTrack: getTrack(nextTracks),
     };
-  }
-
-  function handleTurntable() {
-    const {
-      _state: { item, isPaused, isBuffering },
-    } = PlayerAPI;
-    const playState = [!item, isPaused, isBuffering].some((el) => el)
-      ? 'paused'
-      : 'running';
-    document.documentElement.style.setProperty(
-      '--turntable-play-state',
-      playState
-    );
   }
 
   function handleFADBackdrop(event) {
@@ -623,18 +634,7 @@
     isFADReady = true;
   }
 
-  function init() {
-    handleTurntable();
-    initPortals();
-  }
-
-  function handleUpdateEvent() {
-    handleTurntable();
-  }
-
-  init();
-
-  PlayerAPI._events.addListener('update', handleUpdateEvent);
+  initPortals();
 
   window.addEventListener('fad-request', handleFADToggle);
 })();
