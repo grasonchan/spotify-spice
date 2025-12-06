@@ -187,8 +187,14 @@
   height: var(--custom-progress-bar-height);
 }
 
-.x-progressBar-progressBarBg > div > div {
+.x-progressBar-fillColor {
   background-color: var(--spotify-main-color);
+}
+
+.playback-bar .x-progressBar-fillColor,
+.playback-bar [data-testid='progress-bar-handle'] {
+  transition-duration: var(--progress-bar-duration);
+  transition-timing-function: linear;
 }
 
 .progress-bar__slider {
