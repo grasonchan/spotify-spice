@@ -29,7 +29,7 @@
   const reactDOM = Spicetify.ReactDOM;
   const { createRoot, createPortal } = reactDOM;
 
-  const { Player, SVGIcons, classnames } = Spicetify;
+  const { Config, Player, SVGIcons, classnames } = Spicetify;
   const { origin: PlayerAPI, getHeart, toggleHeart } = Player;
 
   const BACKDROP_CONFIG_LABEL = 'Enable blur backdrop';
@@ -37,11 +37,17 @@
   const billboardModalStyle = document.createElement('style');
   billboardModalStyle.innerHTML = `.ReactModalPortal { display: none; }`;
 
+  const CONCERNED_CLI_CONFIG_MAP = {
+    exts: ['fullAppDisplay.js'],
+  };
+
   const HEART_STATUS = {
     DEFAULT: 0,
     COLLECTED: 1,
     DISABLED: 2,
   };
+
+  const concernedCLIConfig = getConcernedCLIConfig();
 
   let isFADReady = false;
 
@@ -508,13 +514,15 @@
   };
 
   const PortalsRoot = () => {
+    const { exts } = concernedCLIConfig;
+
     useTurntablePlayState();
 
     return react.createElement(
       Fragment,
       null,
       react.createElement(MainPortals),
-      react.createElement(FADPortals)
+      exts.fullAppDisplay && react.createElement(FADPortals)
     );
   };
 
@@ -523,6 +531,18 @@
     const portalsRoot = createRoot(fragment);
     portalsRoot.render(react.createElement(PortalsRoot));
   };
+
+  function getConcernedCLIConfig() {
+    const exts = {};
+    const { exts: concernedExts } = CONCERNED_CLI_CONFIG_MAP;
+    const currentExtSet = new Set(Config.extensions);
+    for (let i = 0; i < concernedExts.length; i++) {
+      const concernedExt = concernedExts[i];
+      const key = concernedExt.replace('.js', '');
+      exts[key] = currentExtSet.has(concernedExt);
+    }
+    return { exts };
+  }
 
   function getPlayStatus() {
     const {
