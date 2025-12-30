@@ -34,9 +34,6 @@
 
   const BACKDROP_CONFIG_LABEL = 'Enable blur backdrop';
 
-  const billboardModalStyle = document.createElement('style');
-  billboardModalStyle.innerHTML = `.ReactModalPortal { display: none; }`;
-
   const CONCERNED_CLI_CONFIG_MAP = {
     exts: ['fullAppDisplay.js'],
   };
@@ -487,6 +484,7 @@
   };
 
   const FADPortals = () => {
+    const billboardStyleRef = useRef(null);
     const status = useFADStatus();
 
     const containers = useMemo(() => {
@@ -496,6 +494,25 @@
         fad,
         fadFg: fad.querySelector('#fad-foreground'),
       };
+    }, [status]);
+
+    useEffect(() => {
+      const styleEle = document.createElement('style');
+      styleEle.innerHTML = `.ReactModalPortal { display: none; }`;
+      billboardStyleRef.current = styleEle;
+
+      return () => billboardStyleRef.current.remove();
+    }, []);
+
+    useEffect(() => {
+      const billboard = document.querySelector('#view-billboard-ad');
+      billboard?.closest('.ReactModalPortal').remove();
+
+      if (!status) {
+        billboardStyleRef.current.remove();
+        return;
+      }
+      document.body.append(billboardStyleRef.current);
     }, [status]);
 
     if (!status) return null;
@@ -642,15 +659,11 @@
     const isFADActivated =
       document.body.classList.contains('fad-activated');
     if (!isFADActivated) {
-      const billboard = document.querySelector('#view-billboard-ad');
-      billboard?.closest('.ReactModalPortal').remove();
-      billboardModalStyle.remove();
       isFADReady = false;
       return;
     }
     if (isFADReady) return;
     handleFAD();
-    document.body.append(billboardModalStyle);
     isFADReady = true;
   }
 
