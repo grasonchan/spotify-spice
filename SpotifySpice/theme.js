@@ -496,6 +496,13 @@
       };
     }, [status]);
 
+    const handleDblClick = useCallback((event) => {
+      const { target } = event;
+      if (target.closest('button')) {
+        event.stopPropagation();
+      }
+    }, []);
+
     useEffect(() => {
       const styleEle = document.createElement('style');
       styleEle.innerHTML = `.ReactModalPortal { display: none; }`;
@@ -514,6 +521,14 @@
       }
       document.body.append(billboardStyleRef.current);
     }, [status]);
+
+    useEffect(() => {
+      if (!containers) return;
+      const { fad } = containers;
+      fad.addEventListener('dblclick', handleDblClick);
+
+      return () => fad.removeEventListener('dblclick', handleDblClick);
+    }, [containers, handleDblClick]);
 
     if (!status) return null;
 
@@ -638,13 +653,6 @@
     backdropConfigBtn.addEventListener('click', handleFADBackdrop);
   }
 
-  function handleFADDblClick(event) {
-    const { target } = event;
-    if (target.closest('button')) {
-      event.stopPropagation();
-    }
-  }
-
   function handleFAD() {
     const fullAppDisplay = document.querySelector('#full-app-display');
     if (Number(localStorage.getItem('enableBlurFad')))
@@ -652,7 +660,6 @@
     document
       .querySelector('#fad-main')
       .addEventListener('contextmenu', handleFADContextMenu);
-    fullAppDisplay.addEventListener('dblclick', handleFADDblClick);
   }
 
   function handleFADToggle() {
