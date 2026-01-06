@@ -32,8 +32,6 @@
   const { Config, Player, SVGIcons, classnames } = Spicetify;
   const { origin: PlayerAPI, getHeart, toggleHeart } = Player;
 
-  const BACKDROP_CONFIG_LABEL = 'Enable blur backdrop';
-
   const CONCERNED_CLI_CONFIG_MAP = {
     exts: ['fullAppDisplay.js'],
   };
@@ -45,8 +43,6 @@
   };
 
   const concernedCLIConfig = getConcernedCLIConfig();
-
-  let isFADReady = false;
 
   const fadRequestEventSubscribe = (cb) => {
     window.addEventListener('fad-request', cb);
@@ -623,64 +619,5 @@
     };
   }
 
-  function handleFADBackdrop(event) {
-    const { currentTarget } = event;
-    const fullAppDisplay = document.querySelector('#full-app-display');
-    if (!Number(localStorage.getItem('enableBlurFad'))) {
-      fullAppDisplay.dataset.isBlurFad = 'true';
-      currentTarget.classList.remove('disabled');
-      localStorage.setItem('enableBlurFad', '1');
-    } else {
-      fullAppDisplay.dataset.isBlurFad = 'false';
-      currentTarget.classList.add('disabled');
-      localStorage.setItem('enableBlurFad', '0');
-    }
-  }
-
-  function handleFADContextMenu() {
-    const { PopupModal } = Spicetify;
-    const configContainer = PopupModal.querySelector('main > div');
-    const settingRow = document.createElement('div');
-    settingRow.classList.add('setting-row');
-    settingRow.innerHTML = `
-<label class="col description">${BACKDROP_CONFIG_LABEL}</label>
-<div class="col action">
-  <button class="${Number(localStorage.getItem('enableBlurFad')) ? 'switch' : 'switch disabled'}" data-blur-fad>
-    ${parseIcon('check')}
-  </button>
-</div>
-`;
-    configContainer.insertBefore(
-      settingRow,
-      configContainer.querySelector('.setting-row')
-    );
-    const backdropConfigBtn =
-      configContainer.querySelector('[data-blur-fad]');
-    backdropConfigBtn.addEventListener('click', handleFADBackdrop);
-  }
-
-  function handleFAD() {
-    const fullAppDisplay = document.querySelector('#full-app-display');
-    if (Number(localStorage.getItem('enableBlurFad')))
-      fullAppDisplay.dataset.isBlurFad = 'true';
-    document
-      .querySelector('#fad-main')
-      .addEventListener('contextmenu', handleFADContextMenu);
-  }
-
-  function handleFADToggle() {
-    const isFADActivated =
-      document.body.classList.contains('fad-activated');
-    if (!isFADActivated) {
-      isFADReady = false;
-      return;
-    }
-    if (isFADReady) return;
-    handleFAD();
-    isFADReady = true;
-  }
-
   initPortals();
-
-  window.addEventListener('fad-request', handleFADToggle);
 })();
