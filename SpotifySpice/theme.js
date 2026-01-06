@@ -541,7 +541,13 @@
         }),
         containers.fad
       ),
-      createPortal(react.createElement(Heart), containers.fadFg)
+      createPortal(react.createElement(Heart), containers.fadFg),
+      createPortal(
+        react.createElement('div', {
+          id: 'fad-mask',
+        }),
+        containers.fad
+      )
     );
   };
 

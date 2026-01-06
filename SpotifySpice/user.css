@@ -410,13 +410,23 @@
   display: unset;
 }
 
+[data-is-blur-fad='true'] #fad-mask {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgb(9 9 9 / 30%);
+  z-index: -2;
+}
+
 [data-is-blur-fad='true'] #fad-art::before {
   background: var(--turntable-shine), radial-gradient(#242424, #000);
 }
 
 [data-is-blur-fad='true'] #fad-art::after {
-  background-color: rgb(100 100 100 / 20%);
-  border: 1px solid rgb(150 150 150 / 10%);
+  background-color: rgb(100 100 100 / 10%);
+  border: 1px solid rgb(150 150 150 / 5%);
   box-shadow:
     0 0 1px rgb(40 40 40 / 20%) inset,
     0 0 1px rgb(200 200 200 / 20%);
