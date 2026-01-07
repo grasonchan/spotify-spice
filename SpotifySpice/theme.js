@@ -62,6 +62,14 @@
     return removeListener;
   };
 
+  const useLegacyCleaner = () => {
+    const LEGACY_CONFIG_KEY = 'enableBlurFad';
+
+    useEffect(() => {
+      localStorage.removeItem(LEGACY_CONFIG_KEY);
+    }, []);
+  };
+
   const useDOMFinder = ({
     rootSelector,
     selectors,
@@ -550,6 +558,7 @@
   const PortalsRoot = () => {
     const { exts } = concernedCLIConfig;
 
+    useLegacyCleaner();
     useTurntablePlayState();
 
     return react.createElement(
