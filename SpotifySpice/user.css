@@ -9,10 +9,21 @@
   --turntable-shine: conic-gradient(
     from 15deg,
     transparent,
-    #222 45deg,
+    rgb(200 200 200 / 10%) 45deg,
     transparent 90deg 180deg,
-    #222 225deg,
+    rgb(200 200 200 / 10%) 225deg,
     transparent 270deg 360deg
+  );
+  --turntable-groove: repeating-radial-gradient(
+    #0f0f0f,
+    #0c0c0c 2px,
+    #0f0f0f 2px,
+    #0c0c0c 4px,
+    #0f0f0f 4px,
+    #0c0c0c 6px,
+    #0f0f0f 6px,
+    #0c0c0c 8px,
+    #0a0a0a 8px 9px
   );
   --turntable-duration: 24s;
   --turntable-play-state: paused;
@@ -275,6 +286,7 @@
   box-shadow: 0 0 10px rgb(3 3 3 / 50%) inset;
 }
 
+[data-testid='track-visual-enhancement'] .cover-art-icon,
 #fad-art-overlay,
 #fad-art-inner {
   display: none !important;
@@ -295,6 +307,7 @@
 
 [data-testid='track-visual-enhancement'] .cover-art::before,
 #fad-art::before {
+  background: var(--turntable-shine), var(--turntable-groove);
   box-shadow:
     0 0 5px #0a0a0a inset,
     0 0 5px #000;
@@ -302,12 +315,7 @@
 }
 
 [data-testid='track-visual-enhancement'] .cover-art::before {
-  background: var(--turntable-shine), radial-gradient(#333, #000);
   filter: drop-shadow(0 0 5px #000);
-}
-
-#fad-art::before {
-  background: var(--turntable-shine), radial-gradient(#242424, #000);
 }
 
 #fad-art::after {
