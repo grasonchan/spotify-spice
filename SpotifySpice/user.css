@@ -25,7 +25,7 @@
     #0c0c0c 8px,
     #0a0a0a 8px 9px
   );
-  --turntable-duration: 24s;
+  --turntable-duration: 12s;
   --turntable-play-state: paused;
 }
 
