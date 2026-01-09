@@ -53,6 +53,18 @@ spicetify apply
 
 Once enabled, you can configure these extensions according to your preferences.
 
+## Usage Tips
+
+* Keep the turntable in Now Playing View: "Settings" --> "Display" --> Turn off the "Display short, looping visuals on tracks (Canvas)" switch
+* Extensions
+  * Full App Display
+    * toggle
+      * F11 to toggle
+      * click the "Full App Display" button on top bar to active
+      * Esc / double click to deactive
+    * config: rigth click the Full App Display
+  * Lyrics Plus - config: click the "Lyrics" button on top bar, then click the avatar
+
 ## Migration Notice
 
 If you installed the theme before [this](https://github.com/grasonchan/spotify-spice/pull/19), please clean up the legacy script and remove the related Spicetify config.
