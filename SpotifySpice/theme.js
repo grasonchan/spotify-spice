@@ -293,6 +293,39 @@
     }, [playStatus]);
   };
 
+  const useFADSideEffect = () => {
+    useEffect(() => {
+      const removeBillboard = () => {
+        const billboard = document.querySelector('#view-billboard-ad');
+        billboard?.closest('.ReactModalPortal').remove();
+      };
+
+      const styleEle = document.createElement('style');
+      styleEle.innerHTML = `.ReactModalPortal { display: none; }`;
+      document.body.append(styleEle);
+      removeBillboard();
+
+      return () => {
+        styleEle.remove();
+        removeBillboard();
+      };
+    }, []);
+
+    useEffect(() => {
+      const handleDblClick = (event) => {
+        const { target } = event;
+        if (target.closest('button')) {
+          event.stopPropagation();
+        }
+      };
+
+      const fad = document.querySelector('#full-app-display');
+      fad.addEventListener('dblclick', handleDblClick);
+
+      return () => fad.removeEventListener('dblclick', handleDblClick);
+    }, []);
+  };
+
   const SVGButton = ({
     text,
     icon,
@@ -487,54 +520,16 @@
     );
   };
 
-  const FADPortals = () => {
-    const billboardStyleRef = useRef(null);
-    const status = useFADStatus();
+  const FAD = () => {
+    useFADSideEffect();
 
     const containers = useMemo(() => {
-      if (!status) return null;
       const fad = document.querySelector('#full-app-display');
       return {
         fad,
         fadFg: fad.querySelector('#fad-foreground'),
       };
-    }, [status]);
-
-    const handleDblClick = useCallback((event) => {
-      const { target } = event;
-      if (target.closest('button')) {
-        event.stopPropagation();
-      }
     }, []);
-
-    useEffect(() => {
-      const styleEle = document.createElement('style');
-      styleEle.innerHTML = `.ReactModalPortal { display: none; }`;
-      billboardStyleRef.current = styleEle;
-
-      return () => billboardStyleRef.current.remove();
-    }, []);
-
-    useEffect(() => {
-      const billboard = document.querySelector('#view-billboard-ad');
-      billboard?.closest('.ReactModalPortal').remove();
-
-      if (!status) {
-        billboardStyleRef.current.remove();
-        return;
-      }
-      document.body.append(billboardStyleRef.current);
-    }, [status]);
-
-    useEffect(() => {
-      if (!containers) return;
-      const { fad } = containers;
-      fad.addEventListener('dblclick', handleDblClick);
-
-      return () => fad.removeEventListener('dblclick', handleDblClick);
-    }, [containers, handleDblClick]);
-
-    if (!status) return null;
 
     return react.createElement(
       Fragment,
@@ -553,6 +548,13 @@
         containers.fad
       )
     );
+  };
+
+  const FADPortals = () => {
+    const status = useFADStatus();
+
+    if (!status) return null;
+    return react.createElement(FAD);
   };
 
   const PortalsRoot = () => {
