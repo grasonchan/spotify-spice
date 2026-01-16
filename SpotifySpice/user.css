@@ -315,7 +315,7 @@
 }
 
 [data-testid='track-visual-enhancement'] .cover-art::before {
-  filter: drop-shadow(0 0 5px #000);
+  filter: drop-shadow(0 0 2px #000);
 }
 
 #fad-art::after {
