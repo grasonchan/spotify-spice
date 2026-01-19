@@ -1,5 +1,4 @@
 :root {
-  --spotify-main-color: #1db954;
   --round-value: 50%;
   --custom-progress-bar-height: 2px;
   --custom-progress-bar-slider-size: 8px;
@@ -35,7 +34,7 @@
   align-items: center;
   gap: 6px;
   font-size: 14px;
-  color: #ccc;
+  color: var(--spice-subtext);
   background-color: unset;
   border: unset;
   cursor: pointer;
@@ -47,7 +46,7 @@
 }
 
 .common-svg-button:not([disabled]):hover {
-  color: #fff;
+  color: var(--spice-text);
 }
 
 .song-preview {
@@ -86,29 +85,25 @@
 }
 
 .main-topBar-background {
-  background-color: #181818 !important;
+  background-color: var(--spice-main);
 }
 
 .main-rootlist-wrapper [role='row']:nth-child(odd) {
-  background: linear-gradient(to right, #121212, #191919, #121212);
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgb(120 120 120 / 5%),
+    transparent
+  );
+}
+
+.main-nowPlayingBar-nowPlayingBar {
+  height: 58px;
 }
 
 /* Cover Image */
 .main-coverSlotCollapsed-container {
-  margin-right: 5px;
-  font-size: 0;
-}
-
-[data-testid='cover-art-button'] {
-  border-radius: var(--round-value);
-  border: 2px solid #aaa;
-  box-shadow: 0 0 5px rgb(200 200 200 / 40%);
-}
-
-.main-nowPlayingWidget-coverArt .cover-art {
-  width: 58px !important;
-  height: 58px !important;
-  box-shadow: unset;
+  box-shadow: 0 0 16px rgb(var(--spice-rgb-subtext), 40%);
 }
 
 /* Progress Bar */
@@ -130,7 +125,7 @@
 }
 
 .x-progressBar-fillColor {
-  background-color: var(--spotify-main-color);
+  background-color: var(--spice-button);
 }
 
 .playback-bar .x-progressBar-fillColor,
@@ -161,7 +156,7 @@
   position: absolute;
   left: calc(100% + 10px);
   font-weight: bold;
-  color: var(--spotify-main-color);
+  color: var(--spice-button);
   content: '/';
   transform: translateX(-50%);
 }
@@ -241,12 +236,9 @@
   background: var(--turntable-shine), var(--turntable-groove);
   box-shadow:
     0 0 5px #0a0a0a inset,
-    0 0 5px #000;
+    0 0 3px #000,
+    0 0 6px #000;
   transform: scale(1.5);
-}
-
-[data-testid='track-visual-enhancement'] .cover-art::before {
-  filter: drop-shadow(0 0 2px #000);
 }
 
 #fad-art::after {
@@ -341,7 +333,7 @@
 }
 
 #fad-progress-inner {
-  background-color: var(--spotify-main-color) !important;
+  background-color: var(--spice-button) !important;
   box-shadow: unset !important;
 }
 
@@ -365,7 +357,7 @@
 
 .fad-heart:not([disabled]):hover,
 .fad-heart.checked {
-  color: var(--spotify-main-color);
+  color: var(--spice-button) !important;
 }
 
 /* song preview */
