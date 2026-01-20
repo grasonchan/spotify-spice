@@ -3,7 +3,6 @@
   --custom-progress-bar-height: 2px;
   --custom-progress-bar-slider-size: 8px;
   --main-song-preview-height: 24px;
-  --main-song-preview-color: #051b0c;
   --turntable-shine: conic-gradient(
     from 15deg,
     transparent,
@@ -25,6 +24,82 @@
   );
   --turntable-duration: 12s;
   --turntable-play-state: paused;
+}
+
+:root[data-theme='light'] {
+  --spice-main: #fafafa;
+  --spice-sidebar: #f0f0f0;
+  --spice-main-elevated: #fff;
+  --spice-highlight-elevated: #f9f9f9;
+  --spice-card: #fff;
+  --spice-player: #f5f5f5;
+  --spice-tab-active: #ccc;
+  --spice-button-active: #00b230;
+  --spice-button-disabled: #ccc;
+  --spice-text: #1a1a1a;
+  --spice-subtext: #3f3f3f;
+  --spice-rgb-selected-row: 80, 80, 80;
+  --spice-rgb-shadow: 220, 220, 220;
+  --spice-rgb-text: 0, 0, 0;
+  --main-song-preview-color: #ddebe0;
+
+  .encore-dark-theme {
+    --essential-base: #aaa;
+    --essential-subdued: #ccc;
+  }
+
+  .encore-inverted-light-set {
+    --background-highlight: #0f0f0f;
+  }
+
+  .encore-internal-color-text-subdued {
+    color: var(--spice-subtext);
+  }
+
+  .lAlBr1m_JfWdmeZEuPDA,
+  .dG81kVvy5TxHzrR6gBAL,
+  .EF2XXzGop5glVLQmKa2v,
+  .ojrBmBNrA3EfuQlTYybV {
+    filter: invert(1);
+  }
+
+  [data-testid='track-visual-enhancement'] .cover-art::before {
+    filter: brightness(1.6);
+  }
+
+  .main-nowPlayingView-contextItemInfo::before {
+    background: linear-gradient(
+      180deg,
+      hsl(0deg 0% 93% / 0%),
+      hsl(0deg 0% 93% / 45%) 18%,
+      var(--spice-main) 89%,
+      var(--spice-main) 96%
+    );
+  }
+
+  .main-trackCreditsModal-closeBtn path {
+    fill: currentcolor;
+  }
+
+  [data-testid='settings-page'] .x-toggle-indicator {
+    background: var(--spice-highlight-elevated) !important;
+  }
+
+  .fad-heart {
+    color: #ccc;
+  }
+
+  .fad-song-preview button {
+    color: #ccc;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+}
+
+:root[data-theme='dark'] {
+  --main-song-preview-color: #051b0c;
 }
 
 /* Common Components */

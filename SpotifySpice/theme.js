@@ -16,9 +16,11 @@
   const {
     Fragment,
     forwardRef,
+    createContext,
     memo,
     useState,
     useRef,
+    useContext,
     useMemo,
     useCallback,
     useEffect,
@@ -32,8 +34,15 @@
   const { Config, Player, SVGIcons, classnames } = Spicetify;
   const { origin: PlayerAPI, getHeart, toggleHeart } = Player;
 
+  const CONFIG_KEY = 'spotify-spice';
+
   const CONCERNED_CLI_CONFIG_MAP = {
     exts: ['fullAppDisplay.js'],
+  };
+
+  const THEMES = {
+    LIGHT: 'light',
+    DARK: 'dark',
   };
 
   const HEART_STATUS = {
@@ -43,6 +52,8 @@
   };
 
   const concernedCLIConfig = getConcernedCLIConfig();
+
+  const ThemeContext = createContext(null);
 
   const fadRequestEventSubscribe = (cb) => {
     window.addEventListener('fad-request', cb);
@@ -254,6 +265,18 @@
       () =>
         new Map([
           [
+            '#global-nav-bar .main-actionButtons',
+            [
+              {
+                id: 'theme-switcher',
+                Component: ThemeSwitcher,
+                props: {
+                  className: 'main-topBar-buddyFeed',
+                },
+              },
+            ],
+          ],
+          [
             '[data-testid="now-playing-bar"]',
             [
               {
@@ -365,6 +388,18 @@
           text
         )
     );
+  };
+
+  const ThemeSwitcher = (props = {}) => {
+    const { LIGHT, DARK } = THEMES;
+
+    const { theme, setTheme } = useContext(ThemeContext);
+
+    return react.createElement(SVGButton, {
+      icon: SVGIcons.brightness,
+      ...props,
+      onClick: () => setTheme(theme === DARK ? LIGHT : DARK),
+    });
   };
 
   const Heart = () => {
@@ -521,6 +556,7 @@
   };
 
   const FAD = () => {
+    const { theme } = useContext(ThemeContext);
     useFADSideEffect();
 
     const containers = useMemo(() => {
@@ -541,12 +577,13 @@
         containers.fad
       ),
       createPortal(react.createElement(Heart), containers.fadFg),
-      createPortal(
-        react.createElement('div', {
-          id: 'fad-mask',
-        }),
-        containers.fad
-      )
+      theme === THEMES.DARK &&
+        createPortal(
+          react.createElement('div', {
+            id: 'fad-mask',
+          }),
+          containers.fad
+        )
     );
   };
 
@@ -563,9 +600,30 @@
     useLegacyCleaner();
     useTurntablePlayState();
 
+    const [theme, setTheme] = useState(() => {
+      const config = JSON.parse(localStorage.getItem(CONFIG_KEY)) ?? {};
+      return config.theme ?? THEMES.LIGHT;
+    });
+
+    useEffect(() => {
+      document.documentElement.dataset.theme = theme;
+
+      const config = JSON.parse(localStorage.getItem(CONFIG_KEY)) ?? {};
+      if (config.theme === theme) return;
+      localStorage.setItem(
+        CONFIG_KEY,
+        JSON.stringify({ ...config, theme })
+      );
+    }, [theme]);
+
     return react.createElement(
-      Fragment,
-      null,
+      ThemeContext.Provider,
+      {
+        value: {
+          theme,
+          setTheme,
+        },
+      },
       react.createElement(MainPortals),
       exts.fullAppDisplay && react.createElement(FADPortals)
     );
