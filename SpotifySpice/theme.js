@@ -16,6 +16,7 @@
   const {
     Fragment,
     forwardRef,
+    createContext,
     memo,
     useState,
     useRef,
@@ -48,6 +49,8 @@
   };
 
   const concernedCLIConfig = getConcernedCLIConfig();
+
+  const ThemeContext = createContext(null);
 
   const fadRequestEventSubscribe = (cb) => {
     window.addEventListener('fad-request', cb);
@@ -568,9 +571,16 @@
     useLegacyCleaner();
     useTurntablePlayState();
 
+    const [theme, setTheme] = useState(THEMES.LIGHT);
+
     return react.createElement(
-      Fragment,
-      null,
+      ThemeContext.Provider,
+      {
+        value: {
+          theme,
+          setTheme,
+        },
+      },
       react.createElement(MainPortals),
       exts.fullAppDisplay && react.createElement(FADPortals)
     );
