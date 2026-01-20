@@ -598,6 +598,10 @@
 
     const [theme, setTheme] = useState(THEMES.LIGHT);
 
+    useEffect(() => {
+      document.documentElement.dataset.theme = theme;
+    }, [theme]);
+
     return react.createElement(
       ThemeContext.Provider,
       {
