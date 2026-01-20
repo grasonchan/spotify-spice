@@ -20,6 +20,7 @@
     memo,
     useState,
     useRef,
+    useContext,
     useMemo,
     useCallback,
     useEffect,
@@ -373,6 +374,18 @@
           text
         )
     );
+  };
+
+  const ThemeSwitcher = (props = {}) => {
+    const { LIGHT, DARK } = THEMES;
+
+    const { theme, setTheme } = useContext(ThemeContext);
+
+    return react.createElement(SVGButton, {
+      icon: SVGIcons.brightness,
+      ...props,
+      onClick: () => setTheme(theme === DARK ? LIGHT : DARK),
+    });
   };
 
   const Heart = () => {
