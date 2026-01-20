@@ -554,6 +554,7 @@
   };
 
   const FAD = () => {
+    const { theme } = useContext(ThemeContext);
     useFADSideEffect();
 
     const containers = useMemo(() => {
@@ -574,12 +575,13 @@
         containers.fad
       ),
       createPortal(react.createElement(Heart), containers.fadFg),
-      createPortal(
-        react.createElement('div', {
-          id: 'fad-mask',
-        }),
-        containers.fad
-      )
+      theme === THEMES.DARK &&
+        createPortal(
+          react.createElement('div', {
+            id: 'fad-mask',
+          }),
+          containers.fad
+        )
     );
   };
 
