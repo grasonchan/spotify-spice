@@ -263,6 +263,18 @@
       () =>
         new Map([
           [
+            '#global-nav-bar .main-actionButtons',
+            [
+              {
+                id: 'theme-switcher',
+                Component: ThemeSwitcher,
+                props: {
+                  className: 'main-topBar-buddyFeed',
+                },
+              },
+            ],
+          ],
+          [
             '[data-testid="now-playing-bar"]',
             [
               {
