@@ -34,6 +34,8 @@
   const { Config, Player, SVGIcons, classnames } = Spicetify;
   const { origin: PlayerAPI, getHeart, toggleHeart } = Player;
 
+  const CONFIG_KEY = 'spotify-spice';
+
   const CONCERNED_CLI_CONFIG_MAP = {
     exts: ['fullAppDisplay.js'],
   };
@@ -598,10 +600,20 @@
     useLegacyCleaner();
     useTurntablePlayState();
 
-    const [theme, setTheme] = useState(THEMES.LIGHT);
+    const [theme, setTheme] = useState(() => {
+      const config = JSON.parse(localStorage.getItem(CONFIG_KEY)) ?? {};
+      return config.theme ?? THEMES.LIGHT;
+    });
 
     useEffect(() => {
       document.documentElement.dataset.theme = theme;
+
+      const config = JSON.parse(localStorage.getItem(CONFIG_KEY)) ?? {};
+      if (config.theme === theme) return;
+      localStorage.setItem(
+        CONFIG_KEY,
+        JSON.stringify({ ...config, theme })
+      );
     }, [theme]);
 
     return react.createElement(
