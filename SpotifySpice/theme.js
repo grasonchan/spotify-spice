@@ -36,6 +36,11 @@
     exts: ['fullAppDisplay.js'],
   };
 
+  const THEMES = {
+    LIGHT: 'light',
+    DARK: 'dark',
+  };
+
   const HEART_STATUS = {
     DEFAULT: 0,
     COLLECTED: 1,
