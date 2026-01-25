@@ -571,19 +571,20 @@
       Fragment,
       null,
       createPortal(
-        react.createElement(SongPreview, {
-          containerClassName: 'fad-song-preview',
-        }),
+        react.createElement(
+          Fragment,
+          null,
+          react.createElement(SongPreview, {
+            containerClassName: 'fad-song-preview',
+          }),
+          theme === THEMES.DARK &&
+            react.createElement('div', {
+              id: 'fad-mask',
+            })
+        ),
         containers.fad
       ),
-      createPortal(react.createElement(Heart), containers.fadFg),
-      theme === THEMES.DARK &&
-        createPortal(
-          react.createElement('div', {
-            id: 'fad-mask',
-          }),
-          containers.fad
-        )
+      createPortal(react.createElement(Heart), containers.fadFg)
     );
   };
 
