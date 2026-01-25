@@ -12,16 +12,12 @@
     transparent 270deg 360deg
   );
   --turntable-groove: repeating-radial-gradient(
-    #0f0f0f,
-    #0c0c0c 2px,
-    #0f0f0f 2px,
-    #0c0c0c 4px,
-    #0f0f0f 4px,
-    #0c0c0c 6px,
-    #0f0f0f 6px,
-    #0c0c0c 8px,
-    #0a0a0a 8px 9px
+    transparent 0px 4px,
+    rgb(16 16 16) 4px 5px,
+    transparent 5px 9px,
+    rgb(16 16 16/ 70%) 9px 10px
   );
+  --turntable-base: radial-gradient(#0f0f0f, #0a0a0a);
   --turntable-duration: 12s;
   --turntable-play-state: paused;
 }
@@ -287,6 +283,11 @@
   box-shadow: 0 0 10px rgb(3 3 3 / 50%) inset;
 }
 
+[data-testid='track-visual-enhancement'] .cover-art-image,
+#fad-art-image {
+  background-color: #0f0f0f;
+}
+
 [data-testid='track-visual-enhancement'] .cover-art-icon,
 #fad-art-overlay,
 #fad-art-inner {
@@ -308,7 +309,9 @@
 
 [data-testid='track-visual-enhancement'] .cover-art::before,
 #fad-art::before {
-  background: var(--turntable-shine), var(--turntable-groove);
+  background:
+    var(--turntable-shine), var(--turntable-groove),
+    var(--turntable-base);
   box-shadow:
     0 0 5px #0a0a0a inset,
     0 0 3px #000,
