@@ -60,7 +60,7 @@
   }
 
   [data-testid='track-visual-enhancement'] .cover-art::before {
-    filter: brightness(1.6);
+    filter: drop-shadow(0 0 2px #000) brightness(1.6);
   }
 
   .main-nowPlayingView-contextItemInfo::before {
@@ -314,9 +314,9 @@
     var(--turntable-base);
   box-shadow:
     0 0 5px #0a0a0a inset,
-    0 0 3px #000,
-    0 0 6px #000;
+    0 0 2px #000;
   transform: scale(1.5);
+  filter: drop-shadow(0 0 2px #000);
 }
 
 #fad-art::after {
