@@ -10,7 +10,7 @@ export default [
   { files: ['**/*.{js,mjs,cjs,jsx}'] },
   {
     files: ['**/*.js'],
-    languageOptions: { sourceType: 'script' },
+    languageOptions: { sourceType: 'module' },
   },
   {
     languageOptions: {
