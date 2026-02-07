@@ -4,6 +4,10 @@
   "license": "MIT",
   "private": true,
   "type": "module",
+  "scripts": {
+    "watch": "webpack --watch",
+    "build": "webpack"
+  },
   "devDependencies": {
     "@eslint/js": "^9.22.0",
     "@types/react": "^18.3.18",
