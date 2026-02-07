@@ -1,3 +1,4 @@
+import webpack from 'webpack';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -20,4 +21,9 @@ export default {
       },
     ],
   },
+  plugins: [
+    new webpack.optimize.LimitChunkCountPlugin({
+      maxChunks: 1,
+    }),
+  ],
 };
