@@ -4,6 +4,11 @@ import {
   HEART_STATUS,
 } from './config/constants.js';
 import { concernedCLIConfig } from './config/cli.js';
+import {
+  getPlayStatus,
+  getHeartStatus,
+  getAdjacentTracks,
+} from './utils/track.js';
 
 /** @type {React} */
 const {
@@ -25,7 +30,7 @@ const {
 const { createPortal } = Spicetify.ReactDOM;
 
 const { Player, SVGIcons, classnames } = Spicetify;
-const { origin: PlayerAPI, getHeart, toggleHeart } = Player;
+const { origin: PlayerAPI, toggleHeart } = Player;
 
 const ThemeContext = createContext(null);
 
@@ -140,10 +145,14 @@ const useFADStatus = () =>
   );
 
 const usePlayStatus = () =>
-  useSyncExternalStore(updateEventSubscribe, getPlayStatus);
+  useSyncExternalStore(updateEventSubscribe, () =>
+    getPlayStatus(PlayerAPI._state)
+  );
 
 const useHeartStatus = () =>
-  useSyncExternalStore(updateEventSubscribe, getHeartStatus);
+  useSyncExternalStore(updateEventSubscribe, () =>
+    getHeartStatus(PlayerAPI._state)
+  );
 
 const useQueue = () =>
   useSyncExternalStore(
@@ -597,46 +606,5 @@ const App = () => {
     exts.fullAppDisplay && createElement(FADPortals)
   );
 };
-
-function getPlayStatus() {
-  const {
-    _state: { item, isPaused, isBuffering },
-  } = PlayerAPI;
-  const playStatus = ![!item, isPaused, isBuffering].some((el) => el);
-  return playStatus;
-}
-
-function getHeartStatus() {
-  const { DEFAULT, COLLECTED, DISABLED } = HEART_STATUS;
-  const status =
-    PlayerAPI._state.item?.metadata['collection.can_add'] !== 'true'
-      ? DISABLED
-      : getHeart()
-        ? COLLECTED
-        : DEFAULT;
-  return status;
-}
-
-function getAdjacentTracks(
-  { prevTracks = [], nextTracks = [] } = {},
-  mapper
-) {
-  const getTrack = (tracks) => {
-    for (let i = 0; i < tracks.length; i++) {
-      const track = tracks[i];
-      const {
-        provider,
-        contextTrack: { metadata },
-      } = track;
-      if (provider === 'ad' || metadata.hidden) continue;
-      return mapper ? mapper(track) : track;
-    }
-    return null;
-  };
-  return {
-    prevTrack: getTrack([...prevTracks].reverse()),
-    nextTrack: getTrack(nextTracks),
-  };
-}
 
 export default App;
