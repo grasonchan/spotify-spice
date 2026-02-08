@@ -1,3 +1,9 @@
+import {
+  CONFIG_KEY,
+  THEMES,
+  HEART_STATUS,
+} from './config/constants.js';
+
 /** @type {React} */
 const {
   Fragment,
@@ -20,21 +26,8 @@ const { createPortal } = Spicetify.ReactDOM;
 const { Config, Player, SVGIcons, classnames } = Spicetify;
 const { origin: PlayerAPI, getHeart, toggleHeart } = Player;
 
-const CONFIG_KEY = 'spotify-spice';
-
 const CONCERNED_CLI_CONFIG_MAP = {
   exts: ['fullAppDisplay.js'],
-};
-
-const THEMES = {
-  LIGHT: 'light',
-  DARK: 'dark',
-};
-
-const HEART_STATUS = {
-  DEFAULT: 0,
-  COLLECTED: 1,
-  DISABLED: 2,
 };
 
 const concernedCLIConfig = getConcernedCLIConfig();
