@@ -3,6 +3,7 @@ import {
   THEMES,
   HEART_STATUS,
 } from './config/constants.js';
+import { concernedCLIConfig } from './config/cli.js';
 
 /** @type {React} */
 const {
@@ -23,14 +24,8 @@ const {
 /** @type {ReactDOM} */
 const { createPortal } = Spicetify.ReactDOM;
 
-const { Config, Player, SVGIcons, classnames } = Spicetify;
+const { Player, SVGIcons, classnames } = Spicetify;
 const { origin: PlayerAPI, getHeart, toggleHeart } = Player;
-
-const CONCERNED_CLI_CONFIG_MAP = {
-  exts: ['fullAppDisplay.js'],
-};
-
-const concernedCLIConfig = getConcernedCLIConfig();
 
 const ThemeContext = createContext(null);
 
@@ -602,18 +597,6 @@ const App = () => {
     exts.fullAppDisplay && createElement(FADPortals)
   );
 };
-
-function getConcernedCLIConfig() {
-  const exts = {};
-  const { exts: concernedExts } = CONCERNED_CLI_CONFIG_MAP;
-  const currentExtSet = new Set(Config.extensions);
-  for (let i = 0; i < concernedExts.length; i++) {
-    const concernedExt = concernedExts[i];
-    const key = concernedExt.replace('.js', '');
-    exts[key] = currentExtSet.has(concernedExt);
-  }
-  return { exts };
-}
 
 function getPlayStatus() {
   const {
