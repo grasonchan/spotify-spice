@@ -1,4 +1,11 @@
 import {
+  classnames,
+  originPlayer,
+  Player,
+  queueGetter,
+  SVGIcons,
+} from './lib/spicetify.js';
+import {
   CONFIG_KEY,
   THEMES,
   HEART_STATUS,
@@ -29,9 +36,6 @@ const {
 /** @type {ReactDOM} */
 const { createPortal } = Spicetify.ReactDOM;
 
-const { Player, SVGIcons, classnames } = Spicetify;
-const { origin: PlayerAPI, toggleHeart } = Player;
-
 const ThemeContext = createContext(null);
 
 const fadRequestEventSubscribe = (cb) => {
@@ -40,12 +44,12 @@ const fadRequestEventSubscribe = (cb) => {
 };
 
 const updateEventSubscribe = (cb) => {
-  const removeListener = PlayerAPI._events.addListener('update', cb);
+  const removeListener = originPlayer._events.addListener('update', cb);
   return removeListener;
 };
 
 const queueUpdateEventSubscribe = (cb) => {
-  const removeListener = PlayerAPI._events.addListener(
+  const removeListener = originPlayer._events.addListener(
     'queue_update',
     cb
   );
@@ -146,19 +150,16 @@ const useFADStatus = () =>
 
 const usePlayStatus = () =>
   useSyncExternalStore(updateEventSubscribe, () =>
-    getPlayStatus(PlayerAPI._state)
+    getPlayStatus(originPlayer._state)
   );
 
 const useHeartStatus = () =>
   useSyncExternalStore(updateEventSubscribe, () =>
-    getHeartStatus(PlayerAPI._state)
+    getHeartStatus(originPlayer._state)
   );
 
 const useQueue = () =>
-  useSyncExternalStore(
-    queueUpdateEventSubscribe,
-    () => Spicetify.Queue
-  );
+  useSyncExternalStore(queueUpdateEventSubscribe, queueGetter);
 
 const useSongPreviewConfig = ({
   initialConfig = {},
@@ -393,7 +394,7 @@ const Heart = () => {
       checked: status === COLLECTED,
     }),
     disabled: status === DISABLED,
-    onClick: toggleHeart,
+    onClick: Player.toggleHeart,
   });
 };
 
@@ -407,7 +408,7 @@ const SongPreview = memo(
         initialConfig,
         isControllable,
         queue,
-        restrictions: PlayerAPI._state.restrictions,
+        restrictions: originPlayer._state.restrictions,
       });
 
       if (!isControllable) {

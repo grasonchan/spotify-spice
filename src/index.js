@@ -1,5 +1,3 @@
-/// <reference path="../types/spicetify.d.ts" />
-
 await new Promise((res) => Spicetify.Events.webpackLoaded.on(res));
 await new Promise((res) => {
   const checkPlayerAPI = () => {
