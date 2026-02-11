@@ -7,7 +7,7 @@ import eslintConfigPrettier from 'eslint-config-prettier/flat';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
-  { files: ['**/*.{js,mjs,cjs,jsx}'] },
+  { files: ['**/*.{js,mjs,jsx}'] },
   {
     files: ['**/*.js'],
     languageOptions: { sourceType: 'module' },
@@ -37,6 +37,7 @@ export default [
   eslintConfigPrettier,
   {
     rules: {
+      'no-restricted-imports': ['error', 'react', 'react-dom'],
       'no-implicit-globals': 'error',
       'no-implicit-coercion': ['error', { allow: ['!!', '~'] }],
       'no-var': 'error',
@@ -47,6 +48,13 @@ export default [
       'require-await': 'error',
       'no-await-in-loop': 'error',
       'no-console': ['error', { allow: ['warn', 'error'] }],
+    },
+  },
+  {
+    files: ['**/*.{js,mjs,jsx}'],
+    ignores: ['src/index.js', 'src/lib/**/*.{js,mjs}'],
+    rules: {
+      'no-restricted-globals': ['error', 'Spicetify'],
     },
   },
 ];
