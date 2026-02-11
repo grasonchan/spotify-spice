@@ -1,3 +1,17 @@
+import {
+  Fragment,
+  createElement,
+  createContext,
+  forwardRef,
+  memo,
+  useState,
+  useRef,
+  useContext,
+  useMemo,
+  useCallback,
+  useEffect,
+  useSyncExternalStore,
+} from './lib/react.js';
 import { createPortal } from './lib/react-dom.js';
 import {
   classnames,
@@ -17,22 +31,6 @@ import {
   getHeartStatus,
   getAdjacentTracks,
 } from './utils/track.js';
-
-/** @type {React} */
-const {
-  Fragment,
-  forwardRef,
-  createElement,
-  createContext,
-  memo,
-  useState,
-  useRef,
-  useContext,
-  useMemo,
-  useCallback,
-  useEffect,
-  useSyncExternalStore,
-} = Spicetify.React;
 
 const ThemeContext = createContext(null);
 

@@ -7,9 +7,7 @@ await new Promise((res) => {
   checkPlayerAPI();
 });
 
-/** @type {React} */
-const { createElement } = Spicetify.React;
-
+const { createElement } = await import('./lib/react.js');
 const { createRoot } = await import('./lib/react-dom.js');
 
 const { default: App } = await import('./App.js');
