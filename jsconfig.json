@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "module": "es2022",
+    "target": "es2024",
+    "lib": ["ES2024", "DOM"]
+  },
+  "include": ["src/**/*", "types/**/*"]
+}
