@@ -10,8 +10,7 @@ await new Promise((res) => {
 /** @type {React} */
 const { createElement } = Spicetify.React;
 
-/** @type {ReactDOM} */
-const { createRoot } = Spicetify.ReactDOM;
+const { createRoot } = await import('./lib/react-dom.js');
 
 const { default: App } = await import('./App.js');
 

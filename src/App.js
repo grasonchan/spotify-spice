@@ -1,3 +1,4 @@
+import { createPortal } from './lib/react-dom.js';
 import {
   classnames,
   originPlayer,
@@ -32,9 +33,6 @@ const {
   useEffect,
   useSyncExternalStore,
 } = Spicetify.React;
-
-/** @type {ReactDOM} */
-const { createPortal } = Spicetify.ReactDOM;
 
 const ThemeContext = createContext(null);
 
