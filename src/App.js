@@ -17,7 +17,6 @@ import {
   classnames,
   originPlayer,
   Player,
-  queueGetter,
   SVGIcons,
 } from './lib/spicetify.js';
 import {
@@ -27,10 +26,11 @@ import {
 } from './config/constants.js';
 import { concernedCLIConfig } from './config/cli.js';
 import { getAdjacentTracks } from './utils/track.js';
-import { queueUpdate, fadRequest } from './subscribe/host.js';
+import { fadRequest } from './subscribe/host.js';
 import { useDOMFinder } from './hooks/utils/use-dom-finder.js';
 import { usePlayStatus } from './hooks/host/use-play-status.js';
 import { useHeartStatus } from './hooks/host/use-heart-status.js';
+import { useQueue } from './hooks/host/use-queue.js';
 
 const ThemeContext = createContext(null);
 
@@ -46,8 +46,6 @@ const useFADStatus = () =>
   useSyncExternalStore(fadRequest, () =>
     document.body.classList.contains('fad-activated')
   );
-
-const useQueue = () => useSyncExternalStore(queueUpdate, queueGetter);
 
 const useSongPreviewConfig = ({
   initialConfig = {},
