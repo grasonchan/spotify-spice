@@ -30,6 +30,7 @@ import { useHeartStatus } from './hooks/host/use-heart-status.js';
 import { useQueue } from './hooks/host/use-queue.js';
 import { useFADStatus } from './hooks/host/use-fad-status.js';
 import { useTurntablePlayState } from './hooks/features/use-turntable-play-state.js';
+import { useFADSideEffect } from './hooks/features/use-fad-side-effect.js';
 
 const ThemeContext = createContext(null);
 
@@ -163,39 +164,6 @@ const useMainPortalsConfig = () => {
     rootSelector,
     selectors,
   };
-};
-
-const useFADSideEffect = () => {
-  useEffect(() => {
-    const removeBillboard = () => {
-      const billboard = document.querySelector('#view-billboard-ad');
-      billboard?.closest('.ReactModalPortal').remove();
-    };
-
-    const styleEle = document.createElement('style');
-    styleEle.innerHTML = `.ReactModalPortal { display: none; }`;
-    document.body.append(styleEle);
-    removeBillboard();
-
-    return () => {
-      styleEle.remove();
-      removeBillboard();
-    };
-  }, []);
-
-  useEffect(() => {
-    const handleDblClick = (event) => {
-      const { target } = event;
-      if (target.closest('button')) {
-        event.stopPropagation();
-      }
-    };
-
-    const fad = document.querySelector('#full-app-display');
-    fad.addEventListener('dblclick', handleDblClick);
-
-    return () => fad.removeEventListener('dblclick', handleDblClick);
-  }, []);
 };
 
 const SVGButton = ({
