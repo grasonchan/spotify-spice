@@ -10,7 +10,6 @@ import {
   useMemo,
   useCallback,
   useEffect,
-  useSyncExternalStore,
 } from './lib/react.js';
 import { createPortal } from './lib/react-dom.js';
 import {
@@ -26,11 +25,11 @@ import {
 } from './config/constants.js';
 import { concernedCLIConfig } from './config/cli.js';
 import { getAdjacentTracks } from './utils/track.js';
-import { fadRequest } from './subscribe/host.js';
 import { useDOMFinder } from './hooks/utils/use-dom-finder.js';
 import { usePlayStatus } from './hooks/host/use-play-status.js';
 import { useHeartStatus } from './hooks/host/use-heart-status.js';
 import { useQueue } from './hooks/host/use-queue.js';
+import { useFADStatus } from './hooks/host/use-fad-status.js';
 
 const ThemeContext = createContext(null);
 
@@ -41,11 +40,6 @@ const useLegacyCleaner = () => {
     localStorage.removeItem(LEGACY_CONFIG_KEY);
   }, []);
 };
-
-const useFADStatus = () =>
-  useSyncExternalStore(fadRequest, () =>
-    document.body.classList.contains('fad-activated')
-  );
 
 const useSongPreviewConfig = ({
   initialConfig = {},
