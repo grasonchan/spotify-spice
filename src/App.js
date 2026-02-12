@@ -26,6 +26,7 @@ import {
 import { concernedCLIConfig } from './config/cli.js';
 import { getAdjacentTracks } from './utils/track.js';
 import { useDOMFinder } from './hooks/utils/use-dom-finder.js';
+import { useLegacyCleaner } from './hooks/utils/use-legacy-cleaner.js';
 import { useHeartStatus } from './hooks/host/use-heart-status.js';
 import { useQueue } from './hooks/host/use-queue.js';
 import { useFADStatus } from './hooks/host/use-fad-status.js';
@@ -33,14 +34,6 @@ import { useTurntablePlayState } from './hooks/features/use-turntable-play-state
 import { useFADSideEffect } from './hooks/features/use-fad-side-effect.js';
 
 const ThemeContext = createContext(null);
-
-const useLegacyCleaner = () => {
-  const LEGACY_CONFIG_KEY = 'enableBlurFad';
-
-  useEffect(() => {
-    localStorage.removeItem(LEGACY_CONFIG_KEY);
-  }, []);
-};
 
 const useSongPreviewConfig = ({
   initialConfig = {},
