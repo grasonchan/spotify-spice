@@ -81,7 +81,7 @@
     background: var(--spice-highlight-elevated) !important;
   }
 
-  .fad-heart {
+  .fad-track-heart {
     color: #ccc;
   }
 
@@ -404,16 +404,6 @@
       ) /
       2
   ) !important;
-}
-
-/* Full App Display - heart */
-.fad-heart {
-  margin: 12px;
-}
-
-.fad-heart:not([disabled]):hover,
-.fad-heart.checked {
-  color: var(--spice-button) !important;
 }
 
 /* song preview */

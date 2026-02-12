@@ -1,0 +1,8 @@
+.track-heart {
+  margin: 12px;
+
+  &:not([disabled]):hover,
+  &.checked {
+    color: var(--spice-button) !important;
+  }
+}

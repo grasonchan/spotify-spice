@@ -18,21 +18,17 @@ import {
   Player,
   SVGIcons,
 } from './lib/spicetify.js';
-import {
-  CONFIG_KEY,
-  THEMES,
-  HEART_STATUS,
-} from './config/constants.js';
+import { CONFIG_KEY, THEMES } from './config/constants.js';
 import { concernedCLIConfig } from './config/cli.js';
 import { getAdjacentTracks } from './utils/track.js';
 import { useDOMFinder } from './hooks/utils/use-dom-finder.js';
 import { useLegacyCleaner } from './hooks/utils/use-legacy-cleaner.js';
-import { useHeartStatus } from './hooks/host/use-heart-status.js';
 import { useQueue } from './hooks/host/use-queue.js';
 import { useFADStatus } from './hooks/host/use-fad-status.js';
 import { useTurntablePlayState } from './hooks/features/use-turntable-play-state.js';
 import { useFADSideEffect } from './hooks/features/use-fad-side-effect.js';
 import SVGButton from './components/shared/svg-button.js';
+import TrackHeart from './components/host-aware/track-heart.js';
 
 const ThemeContext = createContext(null);
 
@@ -169,22 +165,6 @@ const ThemeSwitcher = (props = {}) => {
     icon: SVGIcons.brightness,
     ...props,
     onClick: () => setTheme(theme === DARK ? LIGHT : DARK),
-  });
-};
-
-const Heart = () => {
-  const { COLLECTED, DISABLED } = HEART_STATUS;
-
-  const status = useHeartStatus();
-
-  return createElement(SVGButton, {
-    icon:
-      status === COLLECTED ? SVGIcons['heart-active'] : SVGIcons.heart,
-    className: classnames('fad-heart', {
-      checked: status === COLLECTED,
-    }),
-    disabled: status === DISABLED,
-    onClick: Player.toggleHeart,
   });
 };
 
@@ -352,7 +332,12 @@ const FAD = () => {
       ),
       containers.fad
     ),
-    createPortal(createElement(Heart), containers.fadFg)
+    createPortal(
+      createElement(TrackHeart, {
+        className: 'fad-track-heart',
+      }),
+      containers.fadFg
+    )
   );
 };
 
