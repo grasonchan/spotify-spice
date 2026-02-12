@@ -2,111 +2,21 @@ import {
   Fragment,
   createElement,
   useState,
-  useRef,
   useContext,
   useMemo,
-  useCallback,
   useEffect,
 } from './lib/react.js';
 import { createPortal } from './lib/react-dom.js';
 import { CONFIG_KEY, THEMES } from './config/constants.js';
 import { concernedCLIConfig } from './config/cli.js';
 import ThemeContext from './context/theme.js';
-import { useDOMFinder } from './hooks/utils/use-dom-finder.js';
 import { useLegacyCleaner } from './hooks/utils/use-legacy-cleaner.js';
 import { useFADStatus } from './hooks/host/use-fad-status.js';
 import { useTurntablePlayState } from './hooks/features/use-turntable-play-state.js';
 import { useFADSideEffect } from './hooks/features/use-fad-side-effect.js';
-import { useMainConfig } from './hooks/config/use-main.js';
 import TrackHeart from './components/host-aware/track-heart.js';
 import SongPreview from './components/host-aware/song-preview.js';
-
-const MainPortals = () => {
-  const portalsMapRef = useRef(null);
-
-  const getPortalsMap = useCallback(() => {
-    if (portalsMapRef.current !== null) {
-      return portalsMapRef.current;
-    }
-    const portalsMap = new Map();
-    portalsMapRef.current = portalsMap;
-    return portalsMap;
-  }, []);
-
-  const findEnhancer = useCallback(
-    ({ selector, element: container, records }) => {
-      const isConcernedMutation = records.some(
-        ({ target, removedNodes }) =>
-          target.matches(selector) && removedNodes.length
-      );
-      if (!isConcernedMutation) return;
-      const nodes = getPortalsMap().get(container);
-      if (!nodes) return;
-      const lostNodes = [...nodes].filter(
-        (node) => !container.contains(node)
-      );
-      if (lostNodes.length)
-        return {
-          container,
-          lostNodes,
-        };
-    },
-    [getPortalsMap]
-  );
-
-  const handleFindEnhancerHit = useCallback((data) => {
-    data.forEach(({ container, lostNodes }) => {
-      container.append(...lostNodes);
-    });
-  }, []);
-
-  const { portalsConfig, rootSelector, selectors } = useMainConfig();
-  const containers = useDOMFinder({
-    rootSelector,
-    selectors,
-    findEnhancer,
-    onFindEnhancerHit: handleFindEnhancerHit,
-  });
-
-  useEffect(
-    () => () => {
-      portalsMapRef.current.clear();
-      portalsMapRef.current = null;
-    },
-    []
-  );
-
-  return createElement(
-    Fragment,
-    null,
-    selectors.map((selector) => {
-      const container = containers[selector];
-      if (!container) return null;
-      const portalsMap = getPortalsMap();
-      return portalsConfig
-        .get(selector)
-        .map(({ id, Component, props = {} }) =>
-          createPortal(
-            createElement(Component, {
-              ...props,
-              ref: (node) => {
-                if (!node) {
-                  portalsMap.delete(container);
-                  return;
-                }
-                if (!portalsMap.has(container)) {
-                  portalsMap.set(container, new Set());
-                }
-                portalsMap.get(container).add(node);
-              },
-            }),
-            container,
-            id
-          )
-        );
-    })
-  );
-};
+import Main from './components/injected/main.js';
 
 const FAD = () => {
   const { theme } = useContext(ThemeContext);
@@ -183,7 +93,7 @@ const App = () => {
         setTheme,
       },
     },
-    createElement(MainPortals),
+    createElement(Main),
     exts.fullAppDisplay && createElement(FADPortals)
   );
 };
