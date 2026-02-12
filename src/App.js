@@ -26,14 +26,11 @@ import {
   HEART_STATUS,
 } from './config/constants.js';
 import { concernedCLIConfig } from './config/cli.js';
-import { getHeartStatus, getAdjacentTracks } from './utils/track.js';
-import {
-  playerUpdate,
-  queueUpdate,
-  fadRequest,
-} from './subscribe/host.js';
+import { getAdjacentTracks } from './utils/track.js';
+import { queueUpdate, fadRequest } from './subscribe/host.js';
 import { useDOMFinder } from './hooks/utils/use-dom-finder.js';
 import { usePlayStatus } from './hooks/host/use-play-status.js';
+import { useHeartStatus } from './hooks/host/use-heart-status.js';
 
 const ThemeContext = createContext(null);
 
@@ -48,11 +45,6 @@ const useLegacyCleaner = () => {
 const useFADStatus = () =>
   useSyncExternalStore(fadRequest, () =>
     document.body.classList.contains('fad-activated')
-  );
-
-const useHeartStatus = () =>
-  useSyncExternalStore(playerUpdate, () =>
-    getHeartStatus(originPlayer._state)
   );
 
 const useQueue = () => useSyncExternalStore(queueUpdate, queueGetter);
