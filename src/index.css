@@ -98,18 +98,6 @@
   --main-song-preview-color: #051b0c;
 }
 
-.song-preview {
-  padding: 0 32px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 38px;
-}
-
-.song-preview-item {
-  font-size: 12px;
-}
-
 /* Remove Upgrade Button, AD */
 .main-topBar-UpgradeButton,
 [data-testid='test-ref-div'],

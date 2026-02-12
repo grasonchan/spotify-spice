@@ -1,8 +1,6 @@
 import {
   Fragment,
   createElement,
-  forwardRef,
-  memo,
   useState,
   useRef,
   useContext,
@@ -11,20 +9,17 @@ import {
   useEffect,
 } from './lib/react.js';
 import { createPortal } from './lib/react-dom.js';
-import { classnames, originPlayer } from './lib/spicetify.js';
 import { CONFIG_KEY, THEMES } from './config/constants.js';
 import { concernedCLIConfig } from './config/cli.js';
 import ThemeContext from './context/theme.js';
 import { useDOMFinder } from './hooks/utils/use-dom-finder.js';
 import { useLegacyCleaner } from './hooks/utils/use-legacy-cleaner.js';
-import { useQueue } from './hooks/host/use-queue.js';
 import { useFADStatus } from './hooks/host/use-fad-status.js';
 import { useTurntablePlayState } from './hooks/features/use-turntable-play-state.js';
 import { useFADSideEffect } from './hooks/features/use-fad-side-effect.js';
-import { useSongPreviewConfig } from './hooks/config/use-song-preview.js';
-import SVGButton from './components/shared/svg-button.js';
 import ThemeSwitcher from './components/shared/theme-switcher.js';
 import TrackHeart from './components/host-aware/track-heart.js';
+import SongPreview from './components/host-aware/song-preview.js';
 
 const useMainPortalsConfig = () => {
   const portalsConfig = useMemo(
@@ -70,53 +65,6 @@ const useMainPortalsConfig = () => {
     selectors,
   };
 };
-
-const SongPreview = memo(
-  forwardRef(
-    ({ initialConfig, containerClassName, mountPoints }, ref) => {
-      const isControllable = !mountPoints;
-
-      const queue = useQueue();
-      const config = useSongPreviewConfig({
-        initialConfig,
-        isControllable,
-        queue,
-        restrictions: originPlayer._state.restrictions,
-      });
-
-      if (!isControllable) {
-        const [
-          { text: prevTrack, ...prevConfigItem },
-          { text: nextTrack, ...nextConfigItem },
-        ] = config;
-
-        return createElement(
-          Fragment,
-          null,
-          mountPoints.prev &&
-            createPortal(
-              createElement('span', prevConfigItem, prevTrack),
-              mountPoints.prev
-            ),
-          mountPoints.next &&
-            createPortal(
-              createElement('span', nextConfigItem, nextTrack),
-              mountPoints.next
-            )
-        );
-      }
-
-      return createElement(
-        'div',
-        {
-          ref,
-          className: classnames('song-preview', containerClassName),
-        },
-        config.map((item) => createElement(SVGButton, item))
-      );
-    }
-  )
-);
 
 const MainPortals = () => {
   const portalsMapRef = useRef(null);
