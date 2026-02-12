@@ -11,15 +11,9 @@ import {
   useEffect,
 } from './lib/react.js';
 import { createPortal } from './lib/react-dom.js';
-import {
-  classnames,
-  originPlayer,
-  Player,
-  SVGIcons,
-} from './lib/spicetify.js';
+import { classnames, originPlayer } from './lib/spicetify.js';
 import { CONFIG_KEY, THEMES } from './config/constants.js';
 import { concernedCLIConfig } from './config/cli.js';
-import { getAdjacentTracks } from './utils/track.js';
 import ThemeContext from './context/theme.js';
 import { useDOMFinder } from './hooks/utils/use-dom-finder.js';
 import { useLegacyCleaner } from './hooks/utils/use-legacy-cleaner.js';
@@ -27,88 +21,10 @@ import { useQueue } from './hooks/host/use-queue.js';
 import { useFADStatus } from './hooks/host/use-fad-status.js';
 import { useTurntablePlayState } from './hooks/features/use-turntable-play-state.js';
 import { useFADSideEffect } from './hooks/features/use-fad-side-effect.js';
+import { useSongPreviewConfig } from './hooks/config/use-song-preview.js';
 import SVGButton from './components/shared/svg-button.js';
 import ThemeSwitcher from './components/shared/theme-switcher.js';
 import TrackHeart from './components/host-aware/track-heart.js';
-
-const useSongPreviewConfig = ({
-  initialConfig = {},
-  isControllable = true,
-  queue = {},
-  restrictions: { canSkipPrevious = true, canSkipNext = true } = {},
-}) => {
-  const staticConfig = useMemo(() => {
-    const {
-      commonConfig: { className, ...restCommonConfig } = {},
-      svgCommonConfig: { svgProps, ...restSvgCommonConfig } = {},
-      svgConfig = { prev: {}, next: {} },
-    } = initialConfig;
-
-    const combinedCommonConfig = {
-      className: classnames('song-preview-item', className),
-      ...restCommonConfig,
-    };
-
-    const combinedSVGCommonConfig = {
-      svgProps: { width: 10, height: 10, ...svgProps },
-      ...restSvgCommonConfig,
-    };
-
-    const combinedBasicsConfig = {
-      prev: { ...combinedCommonConfig, key: 'prev-track' },
-      next: { ...combinedCommonConfig, key: 'next-track' },
-    };
-
-    const combinedControlsConfig = {
-      prev: {
-        ...combinedSVGCommonConfig,
-        icon: SVGIcons['chevron-left'],
-        ...svgConfig.prev,
-        onClick: Player.back,
-      },
-      next: {
-        ...combinedSVGCommonConfig,
-        icon: SVGIcons['chevron-right'],
-        svgPriority: false,
-        ...svgConfig.next,
-        onClick: Player.next,
-      },
-    };
-
-    return {
-      basics: combinedBasicsConfig,
-      controls: combinedControlsConfig,
-    };
-  }, [initialConfig]);
-
-  const createControlConfig = (controlConfig, isEnable) =>
-    isControllable ? { ...controlConfig, disabled: !isEnable } : {};
-
-  const injectDynamicData = () => {
-    const { prevTrack, nextTrack } = getAdjacentTracks(
-      queue,
-      ({ contextTrack: { metadata } }) => metadata.title
-    );
-
-    return [
-      {
-        ...staticConfig.basics.prev,
-        text: prevTrack,
-        ...createControlConfig(
-          staticConfig.controls.prev,
-          canSkipPrevious
-        ),
-      },
-      {
-        ...staticConfig.basics.next,
-        text: nextTrack,
-        ...createControlConfig(staticConfig.controls.next, canSkipNext),
-      },
-    ];
-  };
-
-  return injectDynamicData();
-};
 
 const useMainPortalsConfig = () => {
   const portalsConfig = useMemo(
