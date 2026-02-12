@@ -32,6 +32,7 @@ import { useQueue } from './hooks/host/use-queue.js';
 import { useFADStatus } from './hooks/host/use-fad-status.js';
 import { useTurntablePlayState } from './hooks/features/use-turntable-play-state.js';
 import { useFADSideEffect } from './hooks/features/use-fad-side-effect.js';
+import SVGButton from './components/shared/svg-button.js';
 
 const ThemeContext = createContext(null);
 
@@ -157,47 +158,6 @@ const useMainPortalsConfig = () => {
     rootSelector,
     selectors,
   };
-};
-
-const SVGButton = ({
-  text,
-  icon,
-  svgPriority = true,
-  svgProps = {},
-  className,
-  style = {},
-  disabled = false,
-  onClick,
-}) => {
-  return createElement(
-    'button',
-    {
-      className: classnames('common-svg-button', className),
-      style,
-      disabled,
-      onClick,
-    },
-    createElement('svg', {
-      width: 16,
-      height: 16,
-      viewBox: '0 0 16 16',
-      fill: 'currentColor',
-      ...svgProps,
-      dangerouslySetInnerHTML: {
-        __html: icon,
-      },
-    }),
-    text &&
-      createElement(
-        'span',
-        {
-          style: {
-            order: svgPriority ? 0 : -1,
-          },
-        },
-        text
-      )
-  );
 };
 
 const ThemeSwitcher = (props = {}) => {
