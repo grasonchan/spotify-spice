@@ -31,27 +31,14 @@ import {
   getHeartStatus,
   getAdjacentTracks,
 } from './utils/track.js';
+import {
+  playerUpdate,
+  queueUpdate,
+  fadRequest,
+} from './subscribe/host.js';
 import { useDOMFinder } from './hooks/utils/use-dom-finder.js';
 
 const ThemeContext = createContext(null);
-
-const fadRequestEventSubscribe = (cb) => {
-  window.addEventListener('fad-request', cb);
-  return () => window.removeEventListener('fad-request', cb);
-};
-
-const updateEventSubscribe = (cb) => {
-  const removeListener = originPlayer._events.addListener('update', cb);
-  return removeListener;
-};
-
-const queueUpdateEventSubscribe = (cb) => {
-  const removeListener = originPlayer._events.addListener(
-    'queue_update',
-    cb
-  );
-  return removeListener;
-};
 
 const useLegacyCleaner = () => {
   const LEGACY_CONFIG_KEY = 'enableBlurFad';
@@ -62,22 +49,21 @@ const useLegacyCleaner = () => {
 };
 
 const useFADStatus = () =>
-  useSyncExternalStore(fadRequestEventSubscribe, () =>
+  useSyncExternalStore(fadRequest, () =>
     document.body.classList.contains('fad-activated')
   );
 
 const usePlayStatus = () =>
-  useSyncExternalStore(updateEventSubscribe, () =>
+  useSyncExternalStore(playerUpdate, () =>
     getPlayStatus(originPlayer._state)
   );
 
 const useHeartStatus = () =>
-  useSyncExternalStore(updateEventSubscribe, () =>
+  useSyncExternalStore(playerUpdate, () =>
     getHeartStatus(originPlayer._state)
   );
 
-const useQueue = () =>
-  useSyncExternalStore(queueUpdateEventSubscribe, queueGetter);
+const useQueue = () => useSyncExternalStore(queueUpdate, queueGetter);
 
 const useSongPreviewConfig = ({
   initialConfig = {},
