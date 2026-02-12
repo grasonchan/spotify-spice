@@ -28,6 +28,7 @@ import { useFADStatus } from './hooks/host/use-fad-status.js';
 import { useTurntablePlayState } from './hooks/features/use-turntable-play-state.js';
 import { useFADSideEffect } from './hooks/features/use-fad-side-effect.js';
 import SVGButton from './components/shared/svg-button.js';
+import ThemeSwitcher from './components/shared/theme-switcher.js';
 import TrackHeart from './components/host-aware/track-heart.js';
 
 const useSongPreviewConfig = ({
@@ -152,18 +153,6 @@ const useMainPortalsConfig = () => {
     rootSelector,
     selectors,
   };
-};
-
-const ThemeSwitcher = (props = {}) => {
-  const { LIGHT, DARK } = THEMES;
-
-  const { theme, setTheme } = useContext(ThemeContext);
-
-  return createElement(SVGButton, {
-    icon: SVGIcons.brightness,
-    ...props,
-    onClick: () => setTheme(theme === DARK ? LIGHT : DARK),
-  });
 };
 
 const SongPreview = memo(
