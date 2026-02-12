@@ -26,10 +26,10 @@ import {
 import { concernedCLIConfig } from './config/cli.js';
 import { getAdjacentTracks } from './utils/track.js';
 import { useDOMFinder } from './hooks/utils/use-dom-finder.js';
-import { usePlayStatus } from './hooks/host/use-play-status.js';
 import { useHeartStatus } from './hooks/host/use-heart-status.js';
 import { useQueue } from './hooks/host/use-queue.js';
 import { useFADStatus } from './hooks/host/use-fad-status.js';
+import { useTurntablePlayState } from './hooks/features/use-turntable-play-state.js';
 
 const ThemeContext = createContext(null);
 
@@ -163,17 +163,6 @@ const useMainPortalsConfig = () => {
     rootSelector,
     selectors,
   };
-};
-
-const useTurntablePlayState = () => {
-  const playStatus = usePlayStatus();
-
-  useEffect(() => {
-    document.documentElement.style.setProperty(
-      '--turntable-play-state',
-      playStatus ? 'running' : 'paused'
-    );
-  }, [playStatus]);
 };
 
 const useFADSideEffect = () => {
