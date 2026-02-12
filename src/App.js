@@ -17,54 +17,9 @@ import { useLegacyCleaner } from './hooks/utils/use-legacy-cleaner.js';
 import { useFADStatus } from './hooks/host/use-fad-status.js';
 import { useTurntablePlayState } from './hooks/features/use-turntable-play-state.js';
 import { useFADSideEffect } from './hooks/features/use-fad-side-effect.js';
-import ThemeSwitcher from './components/shared/theme-switcher.js';
+import { useMainConfig } from './hooks/config/use-main.js';
 import TrackHeart from './components/host-aware/track-heart.js';
 import SongPreview from './components/host-aware/song-preview.js';
-
-const useMainPortalsConfig = () => {
-  const portalsConfig = useMemo(
-    () =>
-      new Map([
-        [
-          '#global-nav-bar .main-actionButtons',
-          [
-            {
-              id: 'theme-switcher',
-              Component: ThemeSwitcher,
-              props: {
-                className: 'main-topBar-buddyFeed',
-              },
-            },
-          ],
-        ],
-        [
-          '[data-testid="now-playing-bar"]',
-          [
-            {
-              id: 'main-song-preview',
-              Component: SongPreview,
-              props: {
-                containerClassName: 'main-song-preview',
-              },
-            },
-          ],
-        ],
-      ]),
-    []
-  );
-
-  const rootSelector = '#main';
-  const selectors = useMemo(
-    () => Array.from(portalsConfig.keys()),
-    [portalsConfig]
-  );
-
-  return {
-    portalsConfig,
-    rootSelector,
-    selectors,
-  };
-};
 
 const MainPortals = () => {
   const portalsMapRef = useRef(null);
@@ -105,8 +60,7 @@ const MainPortals = () => {
     });
   }, []);
 
-  const { portalsConfig, rootSelector, selectors } =
-    useMainPortalsConfig();
+  const { portalsConfig, rootSelector, selectors } = useMainConfig();
   const containers = useDOMFinder({
     rootSelector,
     selectors,
