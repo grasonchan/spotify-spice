@@ -1,7 +1,6 @@
 import {
   Fragment,
   createElement,
-  createContext,
   forwardRef,
   memo,
   useState,
@@ -21,6 +20,7 @@ import {
 import { CONFIG_KEY, THEMES } from './config/constants.js';
 import { concernedCLIConfig } from './config/cli.js';
 import { getAdjacentTracks } from './utils/track.js';
+import ThemeContext from './context/theme.js';
 import { useDOMFinder } from './hooks/utils/use-dom-finder.js';
 import { useLegacyCleaner } from './hooks/utils/use-legacy-cleaner.js';
 import { useQueue } from './hooks/host/use-queue.js';
@@ -29,8 +29,6 @@ import { useTurntablePlayState } from './hooks/features/use-turntable-play-state
 import { useFADSideEffect } from './hooks/features/use-fad-side-effect.js';
 import SVGButton from './components/shared/svg-button.js';
 import TrackHeart from './components/host-aware/track-heart.js';
-
-const ThemeContext = createContext(null);
 
 const useSongPreviewConfig = ({
   initialConfig = {},
