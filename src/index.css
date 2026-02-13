@@ -139,8 +139,8 @@
 }
 
 .lyrics-config-button {
-  border-radius: 50%;
-  background-color: rgb(6 6 6 / 20%);
+  border-radius: 50% !important;
+  background-color: rgb(6 6 6 / 20%) !important;
   outline: 1px solid rgb(150 150 150 / 10%);
   box-shadow: 0 0 20px rgb(150 150 150 / 20%);
 }
