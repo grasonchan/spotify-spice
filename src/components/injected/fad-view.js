@@ -3,11 +3,11 @@ import {
   createElement,
   useContext,
   useMemo,
-} from '../../lib/react.js';
-import { createPortal } from '../../lib/react-dom.js';
-import { THEMES } from '../../config/constants.js';
-import ThemeContext from '../../context/theme.js';
-import { useFADSideEffect } from '../../hooks/features/use-fad-side-effect.js';
+} from '@/lib/react.js';
+import { createPortal } from '@/lib/react-dom.js';
+import { THEMES } from '@/config/constants.js';
+import ThemeContext from '@/context/theme.js';
+import { useFADSideEffect } from '@/hooks/features/use-fad-side-effect.js';
 import TrackHeart from '../host-aware/track-heart.js';
 import SongPreview from '../host-aware/song-preview.js';
 

@@ -1,5 +1,5 @@
-import { createElement } from '../../lib/react.js';
-import { useFADStatus } from '../../hooks/host/use-fad-status.js';
+import { createElement } from '@/lib/react.js';
+import { useFADStatus } from '@/hooks/host/use-fad-status.js';
 import FADView from './fad-view.js';
 import './fad.css';
 

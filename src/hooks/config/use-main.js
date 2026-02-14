@@ -1,6 +1,6 @@
-import { useMemo } from '../../lib/react.js';
-import ThemeSwitcher from '../../components/shared/theme-switcher.js';
-import SongPreview from '../../components/host-aware/song-preview.js';
+import { useMemo } from '@/lib/react.js';
+import ThemeSwitcher from '@/components/shared/theme-switcher.js';
+import SongPreview from '@/components/host-aware/song-preview.js';
 
 export const useMainConfig = () => {
   const portalsConfig = useMemo(

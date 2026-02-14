@@ -1,5 +1,5 @@
-import { useSyncExternalStore } from '../../lib/react.js';
-import { fadRequest } from '../../subscribe/host.js';
+import { useSyncExternalStore } from '@/lib/react.js';
+import { fadRequest } from '@/subscribe/host.js';
 
 export const useFADStatus = () =>
   useSyncExternalStore(fadRequest, () =>

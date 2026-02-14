@@ -1,4 +1,4 @@
-import { originPlayer } from '../lib/spicetify.js';
+import { originPlayer } from '@/lib/spicetify.js';
 
 export const playerUpdate = (cb) =>
   originPlayer._events.addListener('update', cb);

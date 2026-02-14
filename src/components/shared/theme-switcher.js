@@ -1,7 +1,7 @@
-import { createElement, useContext } from '../../lib/react.js';
-import { SVGIcons } from '../../lib/spicetify.js';
-import { THEMES } from '../../config/constants.js';
-import ThemeContext from '../../context/theme.js';
+import { createElement, useContext } from '@/lib/react.js';
+import { SVGIcons } from '@/lib/spicetify.js';
+import { THEMES } from '@/config/constants.js';
+import ThemeContext from '@/context/theme.js';
 import SVGButton from './svg-button.js';
 
 const ThemeSwitcher = (props = {}) => {

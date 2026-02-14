@@ -1,5 +1,5 @@
-import { createElement } from '../../lib/react.js';
-import { classnames } from '../../lib/spicetify.js';
+import { createElement } from '@/lib/react.js';
+import { classnames } from '@/lib/spicetify.js';
 import './svg-button.css';
 
 const SVGButton = ({

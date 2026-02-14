@@ -4,7 +4,7 @@ import {
   useMemo,
   useCallback,
   useEffect,
-} from '../../lib/react.js';
+} from '@/lib/react.js';
 
 export const useDOMFinder = ({
   rootSelector,

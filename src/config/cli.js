@@ -1,4 +1,4 @@
-import { cliConfig } from '../lib/spicetify.js';
+import { cliConfig } from '@/lib/spicetify.js';
 
 const CONCERNED_CONFIG = {
   exts: ['fullAppDisplay'],

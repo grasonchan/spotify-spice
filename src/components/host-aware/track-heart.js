@@ -1,7 +1,7 @@
-import { createElement } from '../../lib/react.js';
-import { classnames, Player, SVGIcons } from '../../lib/spicetify.js';
-import { HEART_STATUS } from '../../config/constants.js';
-import { useHeartStatus } from '../../hooks/host/use-heart-status.js';
+import { createElement } from '@/lib/react.js';
+import { classnames, Player, SVGIcons } from '@/lib/spicetify.js';
+import { HEART_STATUS } from '@/config/constants.js';
+import { useHeartStatus } from '@/hooks/host/use-heart-status.js';
 import SVGButton from '../shared/svg-button.js';
 import './track-heart.css';
 

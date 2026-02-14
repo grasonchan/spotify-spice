@@ -1,6 +1,6 @@
-import { useMemo } from '../../lib/react.js';
-import { classnames, Player, SVGIcons } from '../../lib/spicetify.js';
-import { getAdjacentTracks } from '../../utils/track.js';
+import { useMemo } from '@/lib/react.js';
+import { classnames, Player, SVGIcons } from '@/lib/spicetify.js';
+import { getAdjacentTracks } from '@/utils/track.js';
 
 export const useSongPreviewConfig = ({
   initialConfig = {},
