@@ -2,7 +2,10 @@
   "compilerOptions": {
     "module": "es2022",
     "target": "es2024",
-    "lib": ["ES2024", "DOM"]
+    "lib": ["ES2024", "DOM"],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
   },
   "include": ["src/**/*", "types/**/*"]
 }
