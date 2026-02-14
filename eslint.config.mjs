@@ -1,5 +1,6 @@
 import globals from 'globals';
 import js from '@eslint/js';
+import importPlugin from 'eslint-plugin-import';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
@@ -23,6 +24,7 @@ export default [
     },
   },
   js.configs.recommended,
+  importPlugin.flatConfigs.recommended,
   {
     ...react.configs.flat.recommended,
     plugins: { react },
@@ -36,6 +38,9 @@ export default [
   jsxA11y.flatConfigs.recommended,
   eslintConfigPrettier,
   {
+    languageOptions: { ecmaVersion: 'latest' },
+  },
+  {
     rules: {
       'no-restricted-imports': ['error', 'react', 'react-dom'],
       'no-implicit-globals': 'error',
@@ -48,6 +53,17 @@ export default [
       'require-await': 'error',
       'no-await-in-loop': 'error',
       'no-console': ['error', { allow: ['warn', 'error'] }],
+      'import/extensions': ['error', 'ignorePackages'],
+      'import/newline-after-import': ['error'],
+    },
+  },
+  {
+    files: ['src/**/*{js,mjs,jsx}'],
+    rules: {
+      'import/no-anonymous-default-export': [
+        'error',
+        { allowCallExpression: false },
+      ],
     },
   },
   {
