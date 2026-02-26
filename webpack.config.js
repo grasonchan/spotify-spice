@@ -13,7 +13,7 @@ export default {
   entry: './src/index.js',
   output: {
     filename: 'theme.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'SpotifySpice'),
     clean: true,
   },
   resolve: {
