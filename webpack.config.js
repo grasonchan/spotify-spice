@@ -1,6 +1,7 @@
 import webpack from 'webpack';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import CopyPlugin from 'copy-webpack-plugin';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
@@ -34,6 +35,9 @@ export default {
   plugins: [
     new webpack.optimize.LimitChunkCountPlugin({
       maxChunks: 1,
+    }),
+    new CopyPlugin({
+      patterns: ['src/color.ini'],
     }),
     new MiniCssExtractPlugin({
       filename: 'user.css',
