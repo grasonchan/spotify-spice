@@ -1,3 +1,4 @@
+import { globalIgnores } from 'eslint/config';
 import globals from 'globals';
 import js from '@eslint/js';
 import importPlugin from 'eslint-plugin-import';
@@ -8,6 +9,7 @@ import eslintConfigPrettier from 'eslint-config-prettier/flat';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
+  globalIgnores(['SpotifySpice/']),
   { files: ['**/*.{js,mjs,jsx}'] },
   {
     files: ['**/*.js'],
