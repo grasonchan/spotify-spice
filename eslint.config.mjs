@@ -32,17 +32,17 @@ export default [
       'import/resolver': 'webpack',
     },
   },
+  react.configs.flat.recommended,
+  react.configs.flat['jsx-runtime'],
+  reactHooks.configs['recommended-latest'],
+  jsxA11y.flatConfigs.recommended,
   {
-    ...react.configs.flat.recommended,
-    plugins: { react },
     settings: {
       react: {
         version: '18.3',
       },
     },
   },
-  reactHooks.configs['recommended-latest'],
-  jsxA11y.flatConfigs.recommended,
   eslintConfigPrettier,
   {
     languageOptions: { ecmaVersion: 'latest' },
