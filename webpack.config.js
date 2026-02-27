@@ -27,6 +27,26 @@ export default {
   module: {
     rules: [
       {
+        test: /\.(?:js|mjs|jsx)$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                [
+                  '@babel/preset-react',
+                  {
+                    runtime: 'automatic',
+                    importSource: '@/lib',
+                  },
+                ],
+              ],
+            },
+          },
+        ],
+      },
+      {
         test: /\.css$/i,
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
