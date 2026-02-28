@@ -1,4 +1,4 @@
-import { createElement, useContext } from '@/lib/react.js';
+import { useContext } from '@/lib/react.js';
 import { SVGIcons } from '@/lib/spicetify.js';
 import { THEMES } from '@/config/constants.js';
 import ThemeContext from '@/context/theme.js';
@@ -9,11 +9,13 @@ const ThemeSwitcher = (props = {}) => {
 
   const { theme, setTheme } = useContext(ThemeContext);
 
-  return createElement(SVGButton, {
-    icon: SVGIcons.brightness,
-    ...props,
-    onClick: () => setTheme(theme === DARK ? LIGHT : DARK),
-  });
+  return (
+    <SVGButton
+      icon={SVGIcons.brightness}
+      {...props}
+      onClick={() => setTheme(theme === DARK ? LIGHT : DARK)}
+    />
+  );
 };
 
 export default ThemeSwitcher;

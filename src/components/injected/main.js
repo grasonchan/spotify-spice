@@ -1,10 +1,4 @@
-import {
-  Fragment,
-  createElement,
-  useRef,
-  useCallback,
-  useEffect,
-} from '@/lib/react.js';
+import { useRef, useCallback, useEffect } from '@/lib/react.js';
 import { createPortal } from '@/lib/react-dom.js';
 import { useDOMFinder } from '@/hooks/utils/use-dom-finder.js';
 import { useMainConfig } from '@/hooks/config/use-main.js';
@@ -65,35 +59,35 @@ const Main = () => {
     []
   );
 
-  return createElement(
-    Fragment,
-    null,
-    selectors.map((selector) => {
-      const container = containers[selector];
-      if (!container) return null;
-      const portalsMap = getPortalsMap();
-      return portalsConfig
-        .get(selector)
-        .map(({ id, Component, props = {} }) =>
-          createPortal(
-            createElement(Component, {
-              ...props,
-              ref: (node) => {
-                if (!node) {
-                  portalsMap.delete(container);
-                  return;
-                }
-                if (!portalsMap.has(container)) {
-                  portalsMap.set(container, new Set());
-                }
-                portalsMap.get(container).add(node);
-              },
-            }),
-            container,
-            id
-          )
-        );
-    })
+  return (
+    <>
+      {selectors.map((selector) => {
+        const container = containers[selector];
+        if (!container) return null;
+        const portalsMap = getPortalsMap();
+        return portalsConfig
+          .get(selector)
+          .map(({ id, Component, props = {} }) =>
+            createPortal(
+              <Component
+                {...props}
+                ref={(node) => {
+                  if (!node) {
+                    portalsMap.delete(container);
+                    return;
+                  }
+                  if (!portalsMap.has(container)) {
+                    portalsMap.set(container, new Set());
+                  }
+                  portalsMap.get(container).add(node);
+                }}
+              />,
+              container,
+              id
+            )
+          );
+      })}
+    </>
   );
 };
 

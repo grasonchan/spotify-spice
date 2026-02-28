@@ -1,4 +1,4 @@
-import { createElement, useState, useEffect } from './lib/react.js';
+import { useState, useEffect } from './lib/react.js';
 import { CONFIG_KEY, THEMES } from './config/constants.js';
 import { concernedCLIConfig } from './config/cli.js';
 import ThemeContext from './context/theme.js';
@@ -29,16 +29,16 @@ const App = () => {
     );
   }, [theme]);
 
-  return createElement(
-    ThemeContext.Provider,
-    {
-      value: {
+  return (
+    <ThemeContext.Provider
+      value={{
         theme,
         setTheme,
-      },
-    },
-    createElement(Main),
-    exts.fullAppDisplay && createElement(FAD)
+      }}
+    >
+      <Main />
+      {exts.fullAppDisplay && <FAD />}
+    </ThemeContext.Provider>
   );
 };
 

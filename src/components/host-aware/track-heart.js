@@ -1,4 +1,3 @@
-import { createElement } from '@/lib/react.js';
 import { classnames, Player, SVGIcons } from '@/lib/spicetify.js';
 import { HEART_STATUS } from '@/config/constants.js';
 import { useHeartStatus } from '@/hooks/host/use-heart-status.js';
@@ -10,16 +9,19 @@ const TrackHeart = ({ className, ...restProps } = {}) => {
 
   const status = useHeartStatus();
 
-  return createElement(SVGButton, {
-    icon:
-      status === COLLECTED ? SVGIcons['heart-active'] : SVGIcons.heart,
-    className: classnames('track-heart', className, {
-      checked: status === COLLECTED,
-    }),
-    ...restProps,
-    disabled: status === DISABLED,
-    onClick: Player.toggleHeart,
-  });
+  return (
+    <SVGButton
+      icon={
+        status === COLLECTED ? SVGIcons['heart-active'] : SVGIcons.heart
+      }
+      className={classnames('track-heart', className, {
+        checked: status === COLLECTED,
+      })}
+      {...restProps}
+      disabled={status === DISABLED}
+      onClick={Player.toggleHeart}
+    />
+  );
 };
 
 export default TrackHeart;

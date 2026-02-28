@@ -1,9 +1,4 @@
-import {
-  Fragment,
-  createElement,
-  useContext,
-  useMemo,
-} from '@/lib/react.js';
+import { useContext, useMemo } from '@/lib/react.js';
 import { createPortal } from '@/lib/react-dom.js';
 import { THEMES } from '@/config/constants.js';
 import ThemeContext from '@/context/theme.js';
@@ -23,29 +18,20 @@ const FADView = () => {
     };
   }, []);
 
-  return createElement(
-    Fragment,
-    null,
-    createPortal(
-      createElement(
-        Fragment,
-        null,
-        createElement(SongPreview, {
-          containerClassName: 'fad-song-preview',
-        }),
-        theme === THEMES.DARK &&
-          createElement('div', {
-            id: 'fad-mask',
-          })
-      ),
-      containers.fad
-    ),
-    createPortal(
-      createElement(TrackHeart, {
-        className: 'fad-track-heart',
-      }),
-      containers.fadFg
-    )
+  return (
+    <>
+      {createPortal(
+        <>
+          <SongPreview containerClassName="fad-song-preview" />
+          {theme === THEMES.DARK && <div id="fad-mask" />}
+        </>,
+        containers.fad
+      )}
+      {createPortal(
+        <TrackHeart className="fad-track-heart" />,
+        containers.fadFg
+      )}
+    </>
   );
 };
 

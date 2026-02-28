@@ -1,9 +1,4 @@
-import {
-  Fragment,
-  createElement,
-  forwardRef,
-  memo,
-} from '@/lib/react.js';
+import { forwardRef, memo } from '@/lib/react.js';
 import { createPortal } from '@/lib/react-dom.js';
 import { classnames, originPlayer } from '@/lib/spicetify.js';
 import { useQueue } from '@/hooks/host/use-queue.js';
@@ -30,29 +25,31 @@ const SongPreview = memo(
           { text: nextTrack, ...nextConfigItem },
         ] = config;
 
-        return createElement(
-          Fragment,
-          null,
-          mountPoints.prev &&
-            createPortal(
-              createElement('span', prevConfigItem, prevTrack),
-              mountPoints.prev
-            ),
-          mountPoints.next &&
-            createPortal(
-              createElement('span', nextConfigItem, nextTrack),
-              mountPoints.next
-            )
+        return (
+          <>
+            {mountPoints.prev &&
+              createPortal(
+                <span {...prevConfigItem}>{prevTrack}</span>,
+                mountPoints.prev
+              )}
+            {mountPoints.next &&
+              createPortal(
+                <span {...nextConfigItem}>{nextTrack}</span>,
+                mountPoints.next
+              )}
+          </>
         );
       }
 
-      return createElement(
-        'div',
-        {
-          ref,
-          className: classnames('song-preview', containerClassName),
-        },
-        config.map((item) => createElement(SVGButton, item))
+      return (
+        <div
+          ref={ref}
+          className={classnames('song-preview', containerClassName)}
+        >
+          {config.map(({ key, ...restProps }) => (
+            <SVGButton key={key} {...restProps} />
+          ))}
+        </div>
       );
     }
   )
