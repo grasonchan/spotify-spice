@@ -73,6 +73,7 @@ export default [
       'no-console': ['error', { allow: ['warn', 'error'] }],
       'import/extensions': ['error', 'ignorePackages'],
       'import/newline-after-import': ['error'],
+      'react/prop-types': ['error', { skipUndeclared: true }],
     },
   },
   {
