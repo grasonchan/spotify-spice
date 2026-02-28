@@ -3,7 +3,7 @@ const React = Spicetify.React;
 
 export const { Fragment } = React;
 
-export const { createElement, createContext, forwardRef, memo } = React;
+export const { createContext, forwardRef, memo } = React;
 
 export const {
   useState,
