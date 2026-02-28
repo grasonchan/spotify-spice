@@ -49,7 +49,18 @@ export default [
   },
   {
     rules: {
-      'no-restricted-imports': ['error', 'react', 'react-dom'],
+      'no-restricted-imports': [
+        'error',
+        {
+          paths: ['react', 'react-dom'],
+          patterns: [
+            'react/*',
+            'react-dom/*',
+            '**/lib/**/jsx-runtime.js',
+            '**/lib/**/jsx-runtime.mjs',
+          ],
+        },
+      ],
       'no-implicit-globals': 'error',
       'no-implicit-coercion': ['error', { allow: ['!!', '~'] }],
       'no-var': 'error',
@@ -71,6 +82,12 @@ export default [
         'error',
         { allowCallExpression: false },
       ],
+    },
+  },
+  {
+    files: ['src/index.js'],
+    rules: {
+      'no-restricted-imports': ['error', { patterns: ['**/lib/**/*'] }],
     },
   },
   {
