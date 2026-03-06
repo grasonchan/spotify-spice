@@ -2,27 +2,24 @@ import webpack from 'webpack';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import CopyPlugin from 'copy-webpack-plugin';
-import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+
+export const THEME_NAME = 'SpotifySpice';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export default {
-  mode: 'production',
   entry: './src/index.js',
   output: {
     filename: 'theme.js',
-    path: path.resolve(__dirname, 'SpotifySpice'),
+    path: path.resolve(__dirname, THEME_NAME),
     clean: true,
   },
   resolve: {
     alias: {
       '@/*': path.resolve(__dirname, 'src/*'),
     },
-  },
-  optimization: {
-    minimizer: ['...', new CssMinimizerPlugin()],
   },
   module: {
     rules: [

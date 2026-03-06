@@ -5,8 +5,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "watch": "webpack --watch",
-    "build": "webpack"
+    "watch": "webpack --watch --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js"
   },
   "devDependencies": {
     "@babel/core": "^7.29.0",
