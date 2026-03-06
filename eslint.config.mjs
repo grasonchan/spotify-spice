@@ -15,16 +15,6 @@ export default [
     files: ['**/*.js'],
     languageOptions: { sourceType: 'module' },
   },
-  {
-    languageOptions: {
-      globals: {
-        ...globals.browser,
-        Spicetify: 'readonly',
-        parseIcon: 'readonly',
-        createIconComponent: 'readonly',
-      },
-    },
-  },
   js.configs.recommended,
   {
     ...importPlugin.flatConfigs.recommended,
@@ -72,15 +62,30 @@ export default [
       eqeqeq: 'error',
       'require-await': 'error',
       'no-await-in-loop': 'error',
-      'no-console': ['error', { allow: ['warn', 'error'] }],
       'import/extensions': ['error', 'ignorePackages'],
       'import/newline-after-import': ['error'],
       'react/prop-types': ['error', { skipUndeclared: true }],
     },
   },
   {
-    files: ['src/**/*{js,mjs,jsx}'],
+    files: ['**/*.{js,mjs}'],
+    ignores: ['src/**'],
+    languageOptions: {
+      globals: globals.node,
+    },
+  },
+  {
+    files: ['src/**/*.{js,mjs,jsx}'],
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        Spicetify: 'readonly',
+        parseIcon: 'readonly',
+        createIconComponent: 'readonly',
+      },
+    },
     rules: {
+      'no-console': ['error', { allow: ['warn', 'error'] }],
       'import/no-anonymous-default-export': [
         'error',
         { allowCallExpression: false },
