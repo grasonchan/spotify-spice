@@ -29,7 +29,9 @@ export default [
   {
     ...importPlugin.flatConfigs.recommended,
     settings: {
-      'import/resolver': 'webpack',
+      'import/resolver': {
+        webpack: { config: 'webpack.common.js' },
+      },
     },
   },
   react.configs.flat.recommended,
