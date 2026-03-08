@@ -92,25 +92,27 @@
   z-index: 100;
 }
 
-.playback-progressbar,
-.x-progressBar-progressBarBg,
-.x-progressBar-sliderArea {
+[data-testid='playback-progressbar'],
+[data-testid='progress-bar-background'],
+.x-progressBar-foregroundWrapper {
   height: var(--custom-progress-bar-height);
 }
 
-.x-progressBar-fillColor {
+.x-progressBar-foreground {
   background-color: var(--spice-button);
 }
 
-.playback-bar .x-progressBar-fillColor,
-.playback-bar [data-testid='progress-bar-handle'] {
-  transition-duration: var(--progress-bar-duration);
-  transition-timing-function: linear;
-}
-
-.progress-bar__slider {
+[data-testid='progress-bar-handle'] {
   width: var(--custom-progress-bar-slider-size);
   height: var(--custom-progress-bar-slider-size);
+}
+
+.playback-bar {
+  .x-progressBar-foreground,
+  [data-testid='progress-bar-handle'] {
+    transition-duration: var(--progress-bar-duration);
+    transition-timing-function: linear;
+  }
 }
 
 .playback-bar__progress-time-elapsed,
