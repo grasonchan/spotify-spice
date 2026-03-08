@@ -1,0 +1,156 @@
+:root {
+  --round-value: 50%;
+  --custom-progress-bar-height: 2px;
+  --custom-progress-bar-slider-size: 8px;
+  --turntable-shine: conic-gradient(
+    from 15deg,
+    transparent,
+    rgb(200 200 200 / 10%) 45deg,
+    transparent 90deg 180deg,
+    rgb(200 200 200 / 10%) 225deg,
+    transparent 270deg 360deg
+  );
+  --turntable-groove: repeating-radial-gradient(
+    transparent 0px 4px,
+    rgb(16 16 16) 4px 5px,
+    transparent 5px 9px,
+    rgb(16 16 16/ 70%) 9px 10px
+  );
+  --turntable-base: radial-gradient(#0f0f0f, #0a0a0a);
+  --turntable-duration: 12s;
+  --turntable-play-state: paused;
+}
+
+:root[data-theme='light'] {
+  --spice-main: #fafafa;
+  --spice-sidebar: #f0f0f0;
+  --spice-main-elevated: #fff;
+  --spice-highlight-elevated: #f9f9f9;
+  --spice-card: #fff;
+  --spice-player: #f5f5f5;
+  --spice-tab-active: #ccc;
+  --spice-button-active: #00b230;
+  --spice-button-disabled: #ccc;
+  --spice-text: #1a1a1a;
+  --spice-subtext: #3f3f3f;
+  --spice-rgb-selected-row: 80, 80, 80;
+  --spice-rgb-shadow: 220, 220, 220;
+  --spice-rgb-text: 0, 0, 0;
+
+  .encore-dark-theme {
+    --essential-base: #aaa;
+    --essential-subdued: #ccc;
+  }
+
+  .encore-inverted-light-set {
+    --background-highlight: #0f0f0f;
+  }
+
+  .encore-internal-color-text-subdued {
+    color: var(--spice-subtext);
+  }
+
+  .main-trackCreditsModal-closeBtn path {
+    fill: currentcolor;
+  }
+}
+
+[data-testid='track-visual-enhancement'] .cover-art-image,
+#fad-art,
+#fad-art-image,
+#fad-art-inner {
+  border-radius: var(--round-value) !important;
+}
+
+#fad-art {
+  width: 268px !important;
+  margin: 80px 100px;
+}
+
+[data-testid='track-visual-enhancement'] .cover-art {
+  margin: calc(17% + 5px);
+}
+
+[data-testid='track-visual-enhancement'] .cover-art,
+#fad-art {
+  position: relative;
+  animation: rotate-turntable var(--turntable-duration) linear infinite
+    var(--turntable-play-state);
+}
+
+[data-testid='track-visual-enhancement'] .cover-art::after,
+#fad-art-image {
+  box-shadow: 0 0 10px rgb(3 3 3 / 50%) inset;
+}
+
+[data-testid='track-visual-enhancement'] .cover-art-image,
+#fad-art-image {
+  background-color: #0f0f0f;
+}
+
+[data-testid='track-visual-enhancement'] .cover-art-icon,
+#fad-art-overlay,
+#fad-art-inner {
+  display: none !important;
+}
+
+[data-testid='track-visual-enhancement'] .cover-art::before,
+[data-testid='track-visual-enhancement'] .cover-art::after,
+#fad-art::before,
+#fad-art::after {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  content: '';
+}
+
+[data-testid='track-visual-enhancement'] .cover-art::before,
+#fad-art::before {
+  background:
+    var(--turntable-shine), var(--turntable-groove),
+    var(--turntable-base);
+  box-shadow:
+    0 0 5px #0a0a0a inset,
+    0 0 2px #000;
+  transform: scale(1.5);
+  filter: drop-shadow(0 0 2px #000);
+}
+
+#fad-art::after {
+  background-color: rgb(100 100 100 / 10%);
+  border: 1px solid rgb(150 150 150 / 5%);
+  box-shadow:
+    0 0 1px rgb(40 40 40 / 20%) inset,
+    0 0 1px rgb(200 200 200 / 20%);
+  transform: scale(1.65);
+  z-index: -1;
+}
+
+/* Lyrics Plus */
+.lyrics-lyricsContainer-LyricsLine {
+  font-weight: 600 !important;
+}
+
+.lyrics-config-button-container {
+  bottom: 10px;
+}
+
+.lyrics-config-button {
+  border-radius: 50% !important;
+  background-color: rgb(6 6 6 / 20%) !important;
+  outline: 1px solid rgb(150 150 150 / 10%);
+  box-shadow: 0 0 20px rgb(150 150 150 / 20%);
+}
+
+@keyframes rotate-turntable {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

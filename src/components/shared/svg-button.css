@@ -1,0 +1,20 @@
+.common-svg-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--spice-subtext);
+  background-color: unset;
+  border: unset;
+  cursor: pointer;
+
+  &[disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &:not([disabled]):hover {
+    color: var(--spice-text);
+  }
+}

@@ -1,5 +1,7 @@
+import { globalIgnores } from 'eslint/config';
 import globals from 'globals';
 import js from '@eslint/js';
+import importPlugin from 'eslint-plugin-import';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
@@ -7,36 +9,50 @@ import eslintConfigPrettier from 'eslint-config-prettier/flat';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
-  { files: ['**/*.{js,mjs,cjs,jsx}'] },
+  globalIgnores(['SpotifySpice/']),
+  { files: ['**/*.{js,mjs,jsx}'] },
   {
     files: ['**/*.js'],
-    languageOptions: { sourceType: 'script' },
-  },
-  {
-    languageOptions: {
-      globals: {
-        ...globals.browser,
-        Spicetify: 'readonly',
-        parseIcon: 'readonly',
-        createIconComponent: 'readonly',
-      },
-    },
+    languageOptions: { sourceType: 'module' },
   },
   js.configs.recommended,
   {
-    ...react.configs.flat.recommended,
-    plugins: { react },
+    ...importPlugin.flatConfigs.recommended,
+    settings: {
+      'import/resolver': {
+        webpack: { config: 'webpack.common.js' },
+      },
+    },
+  },
+  react.configs.flat.recommended,
+  react.configs.flat['jsx-runtime'],
+  reactHooks.configs['recommended-latest'],
+  jsxA11y.flatConfigs.recommended,
+  {
     settings: {
       react: {
         version: '18.3',
       },
     },
   },
-  reactHooks.configs['recommended-latest'],
-  jsxA11y.flatConfigs.recommended,
   eslintConfigPrettier,
   {
+    languageOptions: { ecmaVersion: 'latest' },
+  },
+  {
     rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          paths: ['react', 'react-dom'],
+          patterns: [
+            'react/*',
+            'react-dom/*',
+            '**/lib/**/jsx-runtime.js',
+            '**/lib/**/jsx-runtime.mjs',
+          ],
+        },
+      ],
       'no-implicit-globals': 'error',
       'no-implicit-coercion': ['error', { allow: ['!!', '~'] }],
       'no-var': 'error',
@@ -46,7 +62,47 @@ export default [
       eqeqeq: 'error',
       'require-await': 'error',
       'no-await-in-loop': 'error',
+      'import/extensions': ['error', 'ignorePackages'],
+      'import/newline-after-import': ['error'],
+      'react/prop-types': ['error', { skipUndeclared: true }],
+    },
+  },
+  {
+    files: ['**/*.{js,mjs}'],
+    ignores: ['src/**'],
+    languageOptions: {
+      globals: globals.node,
+    },
+  },
+  {
+    files: ['src/**/*.{js,mjs,jsx}'],
+    languageOptions: {
+      globals: {
+        ...globals.browser,
+        Spicetify: 'readonly',
+        parseIcon: 'readonly',
+        createIconComponent: 'readonly',
+      },
+    },
+    rules: {
       'no-console': ['error', { allow: ['warn', 'error'] }],
+      'import/no-anonymous-default-export': [
+        'error',
+        { allowCallExpression: false },
+      ],
+    },
+  },
+  {
+    files: ['src/index.js'],
+    rules: {
+      'no-restricted-imports': ['error', { patterns: ['**/lib/**/*'] }],
+    },
+  },
+  {
+    files: ['**/*.{js,mjs,jsx}'],
+    ignores: ['src/index.js', 'src/lib/**/*.{js,mjs}'],
+    rules: {
+      'no-restricted-globals': ['error', 'Spicetify'],
     },
   },
 ];

@@ -1,5 +1,6 @@
 /** @type {import('stylelint').Config} */
 export default {
+  ignoreFiles: ['SpotifySpice/**/*'],
   extends: ['stylelint-config-standard'],
   plugins: ['stylelint-high-performance-animation'],
   rules: {
