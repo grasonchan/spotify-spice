@@ -15,7 +15,7 @@ const App = () => {
 
   const [theme, setTheme] = useState(() => {
     const config = JSON.parse(localStorage.getItem(CONFIG_KEY)) ?? {};
-    return config.theme ?? THEMES.LIGHT;
+    return config.theme ?? THEMES.DARK;
   });
 
   useEffect(() => {
