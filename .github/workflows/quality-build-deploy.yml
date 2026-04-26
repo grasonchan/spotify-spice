@@ -1,0 +1,93 @@
+name: Quality & Build & Deploy
+
+on:
+  push:
+    branches: ['master']
+    paths-ignore:
+      - 'screenshots/**'
+      - 'types/**'
+  pull_request:
+    branches: ['master']
+    paths-ignore:
+      - 'screenshots/**'
+      - 'types/**'
+
+jobs:
+  quality-build-deploy:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: 'package.json'
+          cache: 'npm'
+      - name: Install node packages
+        run: |
+          npm ci
+      - name: Diff
+        id: diff
+        run: |
+          echo "Event Name: ${{ github.event_name }}"
+          if [ "${{ github.event_name }}" = "push" ]; then
+            BASE_SHA="${{ github.event.before }}"
+            HEAD_SHA="${{ github.event.after }}"
+          else
+            BASE_SHA="${{ github.event.pull_request.base.sha }}"
+            HEAD_SHA="${{ github.event.pull_request.head.sha }}"
+          fi
+          echo "DIFF: $BASE_SHA <==> $HEAD_SHA"
+          echo "::group::Calculating File Diff"
+          DIFF_FILES=$(git diff --name-only "$BASE_SHA" "$HEAD_SHA")
+          if [ -n "$DIFF_FILES" ]; then
+            {
+              echo "DIFF_FILES<<EOF"
+              echo "$DIFF_FILES"
+              echo "EOF"
+            } >> "$GITHUB_ENV"
+            echo "has_files=true" >> $GITHUB_OUTPUT
+            if echo "$DIFF_FILES" | grep -qE '^(src/|.*webpack.*\.js$|package.*\.json$)'; then
+              echo "should_build=true" >> $GITHUB_OUTPUT
+            fi
+          fi
+          echo "DIFF_FILES:"
+          echo "$DIFF_FILES"
+          echo "::endgroup::"
+      - name: Code quality
+        if: steps.diff.outputs.has_files == 'true'
+        run: |
+          EXIST_FILES=$(echo "$DIFF_FILES" | xargs -I {} sh -c 'if [ -f "{}" ]; then echo "{}"; fi')
+          if [ -z "$EXIST_FILES" ]; then
+            echo "No files to check (all changes are deletions)."
+          else
+            echo "ESLint..."
+            echo "$EXIST_FILES" | xargs npx eslint --no-warn-ignored
+            echo "Stylelint..."
+            CSS_FILES=$(echo "$EXIST_FILES" | grep '\.css$' || true)
+            if [ -n "$CSS_FILES" ]; then
+              echo "$CSS_FILES" | xargs npx stylelint
+            fi
+            echo "$EXIST_FILES" | xargs npx prettier --check -u
+          fi
+      - name: Build
+        if: steps.diff.outputs.should_build == 'true'
+        run: |
+          npm run build
+      - name: Deploy
+        if: github.event_name == 'push' && steps.diff.outputs.should_build == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- "${{ vars.DIST_DIR }}"; then
+            echo "No changes detected. Skipping commit."
+          else
+            git add "${{ vars.DIST_DIR }}"
+            git status
+            git commit -m "build: update dist"
+            git push
+          fi
