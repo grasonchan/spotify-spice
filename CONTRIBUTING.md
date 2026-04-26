@@ -26,10 +26,12 @@
    - use `@/` for path aliases
    - may use node packages
 
-1. when your changes are ready, build the production assets
+1. run the build command and verify the output (**SpotifySpice/**) in your Spotify client (this ensures your changes work correctly in the production environment)
 
    ```shell
    npm run build
    ```
 
-1. commit the updated build output (**SpotifySpice/**) in a final separate commit
+### Notice
+
+**Do NOT commit the build output.** The CI pipeline will automatically handle the production build and deployment upon merging
