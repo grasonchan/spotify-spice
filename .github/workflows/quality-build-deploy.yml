@@ -58,6 +58,14 @@ jobs:
           echo "DIFF_FILES:"
           echo "$DIFF_FILES"
           echo "::endgroup::"
+      - name: Check restricted files
+        if: github.event_name == 'pull_request'
+        run: |
+          DIST_DIR="${{ vars.DIST_DIR }}"
+          if echo "$DIFF_FILES" | grep -q "^${DIST_DIR}/"; then
+            echo "::error::Do NOT commit the build output ($DIST_DIR/). The CI pipeline will handle this automatically upon merging."
+            exit 1
+          fi
       - name: Code quality
         if: steps.diff.outputs.has_files == 'true'
         run: |
