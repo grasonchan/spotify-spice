@@ -37,8 +37,8 @@ spicetify apply
 
 Replace `<config-folder-path>` with your OS-specific path.
 
-* Linux / macOS: `~/.config/spicetify/`
-* Windows (Powershell): `$env:APPDATA/spicetify/`
+- Linux / macOS: `~/.config/spicetify/`
+- Windows (Powershell): `$env:APPDATA/spicetify/`
 
 ### Optional
 
@@ -55,15 +55,15 @@ Once enabled, you can configure these extensions according to your preferences.
 
 ## Usage Tips
 
-* Keep the turntable in Now Playing View: "Settings" --> "Display" --> Turn off the "Display short, looping visuals on tracks (Canvas)" switch
-* Extensions
-  * Full App Display
-    * toggle
-      * F11 to toggle
-      * click the "Full App Display" button on top bar to active
-      * Esc / double click to deactive
-    * config: rigth click the Full App Display
-  * Lyrics Plus - config: click the "Lyrics" button on top bar, then click the avatar
+- Keep the turntable in Now Playing View: "Settings" --> "Display" --> Turn off the "Display short, looping visuals on tracks (Canvas)" switch
+- Extensions
+  - Full App Display
+    - toggle
+      - F11 to toggle
+      - click the "Full App Display" button on top bar to active
+      - Esc / double click to deactive
+    - config: rigth click the Full App Display
+  - Lyrics Plus - config: click the "Lyrics" button on top bar, then click the avatar
 
 ## Migration Notice
 
