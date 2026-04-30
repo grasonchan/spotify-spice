@@ -4,8 +4,17 @@ Based on Spotify original theme. The design of turntable is inspired by [Netease
 
 If there's any problem, please open issue or PR. ❤️
 
-![main](screenshots/main.png)
-![full_app_display](screenshots/full_app_display.png)
+## Screenshots
+
+### Dark
+
+![main-dark](screenshots/main-dark.png)
+![full-app-display-dark](screenshots/full-app-display-dark.png)
+
+### Light
+
+![main-light](screenshots/main-light.png)
+![full-app-display-light](screenshots/full-app-display-light.png)
 
 ## Dependencies
 
