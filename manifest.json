@@ -1,12 +1,12 @@
 {
   "name": "Spotify Spice",
   "description": "Based on Spotify original theme.",
-  "preview": "screenshots/preview_marketplace.png",
+  "preview": "screenshots/marketplace-preview.png",
   "readme": "README.md",
   "usercss": "SpotifySpice/user.css",
   "schemes": "SpotifySpice/color.ini",
   "include": [
     "https://raw.githubusercontent.com/grasonchan/spotify-spice/master/SpotifySpice/theme.js"
   ],
-  "tags": ["multi-theme", "turntable", "song preview"]
+  "tags": ["multi-theme"]
 }
