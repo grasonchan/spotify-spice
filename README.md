@@ -2,7 +2,7 @@
 
 Based on Spotify original theme. The design of turntable is inspired by [Netease Music](https://music.163.com) and [Smartisan OS build-in Music Player](https://www.smartisan.com/os/#/beauty).
 
-If there's any problem, please open issue or PR. ❤️
+Join [Discord](https://discord.gg/UK84KCbNf6) for discussions and support. For bugs or improvements, please open an issue or PR. ❤️
 
 ## Screenshots
 
