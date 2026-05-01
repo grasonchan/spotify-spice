@@ -29,6 +29,11 @@ jobs:
           if [ "${{ github.event_name }}" = "push" ]; then
             BASE_SHA="${{ github.event.before }}"
             HEAD_SHA="${{ github.event.after }}"
+            if ! git cat-file -e "$BASE_SHA^{commit}" 2>/dev/null; then
+              echo "::warning title=Unreachable Base Commit::BASE_SHA $BASE_SHA is invalid or unreachable (likely due to force push)."
+              BASE_SHA=$(gh run list -L 1 -e push -b master -s success --json headSha -q '.[0].headSha' -w quality-build-deploy.yml)
+              echo "Falling back to commit $BASE_SHA from the latest successful workflow run."
+            fi
           else
             BASE_SHA="${{ github.event.pull_request.base.sha }}"
             HEAD_SHA="${{ github.event.pull_request.head.sha }}"
