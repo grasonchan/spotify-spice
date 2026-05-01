@@ -62,7 +62,14 @@
   background-color: var(--spice-main);
 }
 
-.main-rootlist-wrapper [role='row']:nth-child(odd) {
+.main-rootlist-wrapper
+  [role='row']:is(
+    [aria-rowindex$='0'],
+    [aria-rowindex$='2'],
+    [aria-rowindex$='4'],
+    [aria-rowindex$='6'],
+    [aria-rowindex$='8']
+  ) {
   background: linear-gradient(
     to right,
     transparent,
