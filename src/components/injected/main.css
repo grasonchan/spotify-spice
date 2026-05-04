@@ -95,38 +95,83 @@
 .Root__now-playing-bar .playback-bar {
   width: 100vw;
   position: absolute;
-  bottom: calc(0px + var(--main-song-preview-height));
+  bottom: calc(
+    0px - var(--progress-bar-center-offset) +
+      var(--main-song-preview-height)
+  );
   z-index: 100;
 }
 
-[data-testid='playback-progressbar'],
+.x-progressBar-wrapper,
 [data-testid='progress-bar-background'],
 .x-progressBar-foregroundWrapper {
+  height: var(--custom-progress-bar-slider-size);
+  display: flex;
+  align-items: center;
+}
+
+[data-testid='progress-bar-background'],
+.x-progressBar-middleground,
+.x-progressBar-foreground {
   height: var(--custom-progress-bar-height);
 }
 
 .x-progressBar-foreground {
   background-color: var(--spice-button);
+
+  &&::after {
+    width: var(--custom-progress-bar-slider-size);
+    height: var(--custom-progress-bar-slider-size);
+    display: none;
+    position: absolute;
+    top: calc(0px - var(--progress-bar-center-offset));
+    right: calc(0px - var(--custom-progress-bar-slider-size) / 2);
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 var(--custom-progress-bar-height)
+      var(--spice-button) inset;
+    content: '';
+    transform: translateX(
+      calc(
+        var(--custom-progress-bar-slider-size) / 2 -
+          (var(--progress-bar-transform) / 100%) *
+          var(--custom-progress-bar-slider-size)
+      )
+    );
+  }
+}
+
+[data-testid='playback-progressbar']:focus-within {
+  .x-progressBar-foreground::after {
+    display: block;
+  }
+}
+
+[data-testid='progress-bar'] {
+  &:hover,
+  &.x-progressBar-progressBarActive {
+    .x-progressBar-foreground::after {
+      display: block;
+    }
+  }
 }
 
 [data-testid='progress-bar-handle'] {
-  width: var(--custom-progress-bar-slider-size);
-  height: var(--custom-progress-bar-slider-size);
+  display: none !important;
 }
 
-.playback-bar {
-  .x-progressBar-foreground,
-  [data-testid='progress-bar-handle'] {
-    transition-duration: var(--progress-bar-duration);
-    transition-timing-function: linear;
-  }
+.playback-bar .x-progressBar-foreground {
+  transition: transform var(--progress-bar-duration) linear;
 }
 
 .playback-bar__progress-time-elapsed,
 [data-testid='playback-duration'] {
   height: var(--main-song-preview-height);
   position: absolute;
-  top: var(--custom-progress-bar-height);
+  top: calc(
+    var(--progress-bar-center-offset) +
+      var(--custom-progress-bar-height)
+  );
   left: 50%;
   line-height: var(--main-song-preview-height);
 }

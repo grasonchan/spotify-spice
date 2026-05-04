@@ -2,6 +2,13 @@
   --round-value: 50%;
   --custom-progress-bar-height: 2px;
   --custom-progress-bar-slider-size: 8px;
+  --progress-bar-center-offset: calc(
+    (
+        var(--custom-progress-bar-slider-size) -
+          var(--custom-progress-bar-height)
+      ) /
+      2
+  );
   --turntable-shine: conic-gradient(
     from 15deg,
     transparent,
