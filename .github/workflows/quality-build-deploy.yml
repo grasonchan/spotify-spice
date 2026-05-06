@@ -59,7 +59,7 @@ jobs:
           echo "$DIFF_FILES"
           echo "::endgroup::"
       - name: Check restricted files
-        if: github.event_name == 'pull_request' && steps.diff.outputs.has_files == 'true'
+        if: steps.diff.outputs.has_files == 'true'
         run: |
           DIST_DIR="${{ vars.DIST_DIR }}"
           if echo "$DIFF_FILES" | grep -q "^${DIST_DIR}/"; then
@@ -101,11 +101,15 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git worktree add "${{ vars.DEPLOY_TARGET }}"
+          cp -r "${{ vars.DIST_DIR }}" "${{ vars.DEPLOY_TARGET }}"
+          cd "${{ vars.DEPLOY_TARGET }}"
           if git diff --quiet -- "${{ vars.DIST_DIR }}"; then
             echo "No changes detected. Skipping commit."
           else
             git add "${{ vars.DIST_DIR }}"
             git status
-            git commit -m "build: update dist"
+            HEAD_SHORT_SHA=$(git rev-parse --short "${{ github.event.after }}")
+            git commit -m "build: update distribution from ${{ github.ref_name }}@$HEAD_SHORT_SHA"
             git push
           fi
