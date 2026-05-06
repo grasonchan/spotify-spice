@@ -1,0 +1,6 @@
+# macOS
+.DS_Store
+
+node_modules
+
+*.map
