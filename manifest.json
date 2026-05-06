@@ -1,12 +1,13 @@
 {
   "name": "Spotify Spice",
   "description": "Based on Spotify original theme.",
-  "preview": "screenshots/marketplace-preview.png",
-  "readme": "README.md",
+  "branch": "deploy",
+  "preview": "https://raw.githubusercontent.com/grasonchan/spotify-spice/refs/heads/master/screenshots/marketplace-preview.png",
+  "readme": "https://raw.githubusercontent.com/grasonchan/spotify-spice/refs/heads/master/README.md",
   "usercss": "SpotifySpice/user.css",
   "schemes": "SpotifySpice/color.ini",
   "include": [
-    "https://raw.githubusercontent.com/grasonchan/spotify-spice/master/SpotifySpice/theme.js"
+    "https://raw.githubusercontent.com/grasonchan/spotify-spice/refs/heads/deploy/SpotifySpice/theme.js"
   ],
   "tags": ["multi-theme"]
 }
