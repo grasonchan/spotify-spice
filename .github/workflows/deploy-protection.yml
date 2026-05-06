@@ -1,0 +1,21 @@
+name: Deploy protection
+
+on:
+  pull_request:
+    branches: ['deploy']
+
+jobs:
+  deploy-protection:
+    permissions:
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Block PRs
+        if: github.event.pull_request.author_association != 'OWNER'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          BLOCK_MSG: 'PRs to the "deploy" branch are strictly prohibited.'
+        run: |
+          echo "::error::$BLOCK_MSG"
+          gh pr close ${{ github.event.pull_request.number }} -c "$BLOCK_MSG"
+          exit 1
