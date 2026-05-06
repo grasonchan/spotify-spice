@@ -42,7 +42,8 @@ jobs:
           fi
           echo "DIFF: $BASE_SHA <==> $HEAD_SHA"
           echo "::group::Calculating File Diff"
-          DIFF_FILES=$(git diff --name-only "$BASE_SHA" "$HEAD_SHA" | grep -vE '^(screenshots/|types/)' || true)
+          RAW_DIFF_FILES=$(git diff --name-only "$BASE_SHA" "$HEAD_SHA")
+          DIFF_FILES=$(echo "$RAW_DIFF_FILES" | grep -vE '^(screenshots/|types/)' || true)
           if [ -n "$DIFF_FILES" ]; then
             {
               echo "DIFF_FILES<<EOF"
