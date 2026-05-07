@@ -34,11 +34,12 @@ clone the repository, follow the steps below:
 
 ```shell
 cd spotify-spice
+git checkout deploy
 cp -r SpotifySpice <config-folder-path>/Themes
 
 spicetify config current_theme SpotifySpice
+spicetify config color_scheme spotify-spice
 spicetify config inject_theme_js 1
-
 spicetify apply
 ```
 
