@@ -102,12 +102,13 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git worktree add "${{ vars.DEPLOY_TARGET }}"
+          rm -rf "${{ vars.DEPLOY_TARGET }}/${{ vars.DIST_DIR }}"
           cp -r "${{ vars.DIST_DIR }}" "${{ vars.DEPLOY_TARGET }}"
           cd "${{ vars.DEPLOY_TARGET }}"
-          if git diff --quiet -- "${{ vars.DIST_DIR }}"; then
+          git add "${{ vars.DIST_DIR }}"
+          if git diff --cached --quiet; then
             echo "No changes detected. Skipping commit."
           else
-            git add "${{ vars.DIST_DIR }}"
             git status
             HEAD_SHORT_SHA=$(git rev-parse --short "${{ github.event.after }}")
             git commit -m "build: update distribution from ${{ github.ref_name }}@$HEAD_SHORT_SHA"
