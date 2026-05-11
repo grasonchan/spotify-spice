@@ -140,21 +140,3 @@
 .lyrics-lyricsContainer-LyricsContainer.fad-enabled {
   height: inherit !important;
 }
-
-@media (width <= 908px) {
-  #fad-foreground {
-    flex-wrap: wrap;
-    align-content: center;
-  }
-
-  #fad-details {
-    padding-top: 50px;
-  }
-}
-
-@media (width >= 1460px) and (height >= 960px) {
-  #fad-foreground,
-  .main-trackCreditsModal-container {
-    transform: scale(1.2) !important;
-  }
-}
