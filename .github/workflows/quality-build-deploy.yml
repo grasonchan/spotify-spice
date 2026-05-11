@@ -108,7 +108,7 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git worktree add "${{ vars.DEPLOY_TARGET }}"
+          git worktree add "${{ vars.DEPLOY_TARGET }}" "${{ vars.DEPLOY_TARGET }}"
           rm -rf "${{ vars.DEPLOY_TARGET }}/${{ vars.DIST_DIR }}"
           cp -r "${{ vars.DIST_DIR }}" "${{ vars.DEPLOY_TARGET }}"
           cd "${{ vars.DEPLOY_TARGET }}"
