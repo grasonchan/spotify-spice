@@ -26,6 +26,11 @@
     );
   }
 
+  [data-testid='progress-bar'] {
+    --bg-color: #0000004d;
+    --mg-color: #000000b3;
+  }
+
   [data-testid='settings-page'] .x-toggle-indicator {
     background: var(--spice-highlight-elevated) !important;
   }
@@ -102,21 +107,21 @@
   z-index: 100;
 }
 
-.x-progressBar-wrapper,
+.playback-progressbar,
 [data-testid='progress-bar-background'],
-.x-progressBar-foregroundWrapper {
+.x-progressBar-sliderArea {
   height: var(--custom-progress-bar-slider-size);
   display: flex;
   align-items: center;
 }
 
 [data-testid='progress-bar-background'],
-.x-progressBar-middleground,
-.x-progressBar-foreground {
+.x-progressBar-progressFillColor,
+.x-progressBar-fillColor {
   height: var(--custom-progress-bar-height);
 }
 
-.x-progressBar-foreground {
+.x-progressBar-fillColor {
   background-color: var(--spice-button);
 
   &&::after {
@@ -142,15 +147,15 @@
 }
 
 [data-testid='playback-progressbar']:focus-within {
-  .x-progressBar-foreground::after {
+  .x-progressBar-fillColor::after {
     display: block;
   }
 }
 
 [data-testid='progress-bar'] {
   &:hover,
-  &.x-progressBar-progressBarActive {
-    .x-progressBar-foreground::after {
+  &.BHmy3gDonuwYeA9I {
+    .x-progressBar-fillColor::after {
       display: block;
     }
   }
@@ -160,7 +165,7 @@
   display: none !important;
 }
 
-.playback-bar .x-progressBar-foreground {
+.playback-bar .x-progressBar-fillColor {
   transition: transform var(--progress-bar-duration) linear;
 }
 
