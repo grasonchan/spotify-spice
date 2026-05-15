@@ -42,6 +42,18 @@
     }
   }
 
+  .main-trackList-trackListRow {
+    &:hover,
+    &:focus-within {
+      background-color: #8888881a;
+    }
+
+    &.q8suB2R_XkoUyIeZ,
+    &.q8suB2R_XkoUyIeZ:hover {
+      background-color: #8888884d;
+    }
+  }
+
   .Y_cU5gxVCf474dg4,
   .ldCmP3kZajc6aBTg,
   .DTD2wBL5oiABNB41,
