@@ -263,6 +263,22 @@
   [data-testid='settings-page'] .x-toggle-indicator {
     background: var(--spice-highlight-elevated) !important;
   }
+
+  .x-settings-equalizerSection {
+    background-color: var(--spice-sidebar);
+  }
+
+  .x-settings-equalizerPanelCanvas {
+    z-index: 100;
+  }
+
+  .x-settings-equalizerPanelFilters::before {
+    border-bottom: 1px solid #5555551a;
+  }
+
+  .x-settings-equalizerPanelFilter::after {
+    border-right: 1px solid #5555551a;
+  }
 }
 
 :root[data-theme='dark'] {
