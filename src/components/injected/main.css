@@ -161,7 +161,12 @@
   /* Search popup */
   .gQsOCrC4O3kYXib2,
   /* Search - All */
-  .WRAJX50Owww6lGws::before {
+  .WRAJX50Owww6lGws::before,
+  .main-actionBar-exploreButtonPlayIconWrapper,
+  /* Recommended */
+  .jI_IBNN4ddM_GyKh .T3i51foJdn0tRIOO,
+  /* Add to playlist Panel */
+  .yAqWz24y2vgpEYX8 {
     background: #fff9;
   }
 
@@ -203,14 +208,28 @@
     background-color: #0000001a;
   }
 
+  /* Playlist */
+  .main-playlistEditDetailsModal-closeBtn {
+    color: #000000b3;
+
+    &:hover,
+    &:focus {
+      background-color: #0000001a;
+    }
+  }
+
+  .main-playlistEditDetailsModal-textElement {
+    background-color: #0000001a;
+
+    &:focus {
+      background-color: var(--spice-highlight-elevated);
+    }
+  }
+
   /* Profile */
   .main-editImageButton-overlay,
   .tch9DldVF8oyie2D {
     background-color: #ffffffb3;
-  }
-
-  .main-entityHeader-metaData {
-    --text-subdued: unset !important;
   }
 
   .profile-userEditDetails-container {
@@ -218,6 +237,14 @@
     --user-edit-input-focus-bg: var(--spice-highlight-elevated);
     --user-edit-close-color: #000000b3;
     --user-edit-close-hover: #0000001a;
+  }
+
+  .main-entityHeader-metaData {
+    --text-subdued: unset !important;
+  }
+
+  .main-entityHeader-metaDataText {
+    color: unset;
   }
 
   [data-testid='settings-page'] .x-toggle-indicator {
