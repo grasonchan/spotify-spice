@@ -54,6 +54,7 @@
 
   .encore-inverted-light-set {
     --background-highlight: #0f0f0f;
+    --decorative-subdued: var(--spice-subtext);
   }
 
   .main-trackCreditsModal-closeBtn path {

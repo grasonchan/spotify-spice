@@ -90,6 +90,24 @@
     );
   }
 
+  /* About the artist */
+  .B3B0XuueQy4Swpyw.ppsr9k1cXo055Z3t.P1a_MNB6ZEIu50sz {
+    &::before {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        rgb(255 255 255 / 50%) 0%,
+        rgb(255 255 255 / 0%) 35%
+      );
+      content: '';
+      aspect-ratio: 3 / 2;
+    }
+
+    .oyoU3RD4WIkhZoGS {
+      position: relative;
+    }
+  }
+
   [data-encore-id='verifiedBadge'] {
     --encore-verified-badge-background: #5c9d62;
   }
@@ -193,7 +211,24 @@
     background: linear-gradient(#0000, #aaaaaa26);
   }
 
-  /* Artist - About - Modal - close button */
+  /* Artist */
+  .bHqdRdxo4vtOizQq {
+    background:
+      linear-gradient(#0000 0%, #ffffff80 100%), var(--background-noise);
+  }
+
+  /* About */
+  .J8g7rZ2MDknxmiYP.GUhu8mqqIMM0sZzG::before {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      rgb(255 255 255 / 0%) 25%,
+      rgb(255 255 255 / 50%) 100%
+    );
+    content: '';
+  }
+
+  /* close button */
   .EU1ylDKh7s2oMU0g:not(:hover) {
     color: #000000b3;
     background-color: #ffffffb3;
@@ -209,6 +244,10 @@
   }
 
   /* Playlist */
+  .f0DRpgeIxygEki9e {
+    background-color: #0000001a;
+  }
+
   .main-playlistEditDetailsModal-closeBtn {
     color: #000000b3;
 
@@ -258,6 +297,11 @@
 
   .main-entityHeader-metaDataText {
     color: unset;
+  }
+
+  .main-entityHeader-headerText
+    > div:has(.playlist-playlist-playlistDescription) {
+    --text-subdued: unset !important;
   }
 
   [data-testid='settings-page'] .x-toggle-indicator {
