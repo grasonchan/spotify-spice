@@ -72,7 +72,8 @@
     --text-subdued: #000000b3;
   }
 
-  .BEeVmHj340c0PYHe {
+  .BEeVmHj340c0PYHe,
+  .artist-artistDiscography-topBarScrolled {
     box-shadow: 0 6px 10px #fff9;
   }
 
@@ -108,6 +109,18 @@
     }
   }
 
+  /* NPV Expanded */
+  .Root__cinema-view {
+    .main-trackInfo-name a {
+      color: var(--text-base);
+    }
+
+    /* About the artist */
+    .JO5DuTPjVVoBxIKN {
+      background-color: #ffffff80;
+    }
+  }
+
   [data-encore-id='verifiedBadge'] {
     --encore-verified-badge-background: #5c9d62;
   }
@@ -121,6 +134,7 @@
   }
 
   .main-nowPlayingView-queueItem,
+  .main-nowPlayingView-credits,
   .YZ3y8n8ToUt_xDKt,
   .cRZ07x9PDlEsxMNl {
     [data-encore-id='listRow'] {
