@@ -44,17 +44,18 @@
   --spice-rgb-shadow: 220, 220, 220;
   --spice-rgb-text: 0, 0, 0;
 
-  .encore-dark-theme {
+  &.encore-dark-theme {
     --essential-base: #aaa;
     --essential-subdued: #ccc;
+    --background-tinted-base: #8888881a;
+    --background-tinted-highlight: #8888884d;
+    --background-tinted-press: #88888856;
+    --higher-contrast-text-base-color: #4a4a4a;
   }
 
   .encore-inverted-light-set {
     --background-highlight: #0f0f0f;
-  }
-
-  .encore-internal-color-text-subdued {
-    color: var(--spice-subtext);
+    --decorative-subdued: var(--spice-subtext);
   }
 
   .main-trackCreditsModal-closeBtn path {
