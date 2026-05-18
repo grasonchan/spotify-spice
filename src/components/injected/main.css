@@ -226,7 +226,8 @@
   .main-nowPlayingView-queueItem,
   .main-nowPlayingView-credits,
   .YZ3y8n8ToUt_xDKt,
-  .cRZ07x9PDlEsxMNl {
+  .cRZ07x9PDlEsxMNl,
+  .main-trackCreditsModalV2-container {
     [data-encore-id='listRow'] {
       --box-hover-background-color: var(
         --background-tinted-base
