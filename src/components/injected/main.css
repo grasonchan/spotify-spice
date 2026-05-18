@@ -5,6 +5,43 @@
 :root[data-theme='light'] {
   --main-song-preview-color: #ddebe0;
 
+  .main-home-content {
+    --carousel-start-chevron-gradient: #fafafab3;
+    --carousel-end-chevron-gradient: #fafafab3;
+  }
+
+  .view-homeShortcutsGrid-shortcut {
+    &:hover,
+    &:focus-within,
+    &[data-context-menu-open='true'] {
+      background: var(--background-tinted-highlight);
+    }
+  }
+
+  /* Shelf */
+  .qDV6iOY788QciaIM {
+    background: linear-gradient(
+      #fff9 46.75%,
+      #fff6 63.5%,
+      #ffffff1a 83.72%,
+      #fff0 97.91%
+    );
+  }
+
+  .im1AS_NJEoP8AhOc {
+    background: linear-gradient(
+      #fff0 2.09%,
+      #ffffff1a 16.28%,
+      #fff6 36.5%,
+      #fff9 53.25%
+    );
+  }
+
+  /* Preview button */
+  .fa_L1qIbh7QDDd_h {
+    background: #ffffff8a;
+  }
+
   .x-filterBox-expandButton,
   .x-filterBox-filterInput,
   .x-filterBox-filterInput::placeholder,
@@ -348,6 +385,19 @@
 [data-testid='test-ref-div'],
 [data-testid='billboard-minimized'] {
   display: none;
+}
+
+.main-home-homeHeader {
+  background: unset !important;
+}
+
+.main-home-filterChipsSection {
+  background-color: var(--spice-main);
+  box-shadow: 0 6px 10px rgb(var(--spice-rgb-shadow), 60%);
+
+  &::after {
+    background-color: unset !important;
+  }
 }
 
 /* Playlist */

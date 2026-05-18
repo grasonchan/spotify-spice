@@ -50,6 +50,7 @@
     --background-tinted-base: #8888881a;
     --background-tinted-highlight: #8888884d;
     --background-tinted-press: #88888856;
+    --higher-contrast-text-base-color: #4a4a4a;
   }
 
   .encore-inverted-light-set {
