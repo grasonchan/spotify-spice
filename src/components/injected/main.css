@@ -44,15 +44,19 @@
 
   /* Podcasts */
   :has(> [data-uri^='spotify:episode:']) {
+    --lightness-expression: l + 0.15;
+
     .JoGWpig38pszZzLf {
       background-color: oklch(
-        from var(--background-color) calc(l + 0.15) c h
+        from var(--background-color) calc(var(--lightness-expression)) c
+          h
       );
     }
 
     .XxkIgnusUQw8ZRBk {
       --color-from: oklch(
-        from var(--background-base-high-contrast) calc(l + 0.15) c h
+        from var(--background-base-high-contrast)
+          calc(var(--lightness-expression)) c h
       );
     }
 
