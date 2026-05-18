@@ -42,6 +42,59 @@
     background: #ffffff8a;
   }
 
+  /* Podcasts */
+  :has(> [data-uri^='spotify:episode:']) {
+    .JoGWpig38pszZzLf {
+      background-color: oklch(
+        from var(--background-color) calc(l + 0.15) c h
+      );
+    }
+
+    .XxkIgnusUQw8ZRBk {
+      --color-from: oklch(
+        from var(--background-base-high-contrast) calc(l + 0.15) c h
+      );
+    }
+
+    header a {
+      color: var(--text-base);
+
+      span {
+        color: unset;
+      }
+    }
+
+    .OV8dls1JOKM7Do3h {
+      background: var(--background-color, #ffffff4d);
+      box-shadow: 0 8px 24px #ffffff80;
+
+      &.FhMdQeQusAQ1KR4A::after {
+        background: #ffffff80;
+      }
+    }
+
+    /* Subtitles */
+    .VnkR524M39AkiN9o {
+      background: #ffffffb3;
+
+      .GYR_5jfbxRMCH9i2 {
+        color: #0000004d;
+      }
+    }
+
+    /* Preview episode */
+    .fa_L1qIbh7QDDd_h {
+      background: #0000008a;
+    }
+
+    .main-playButton-PlayButton {
+      .e-10451-button-primary__inner {
+        color: #000;
+        background-color: #fff;
+      }
+    }
+  }
+
   .x-filterBox-expandButton,
   .x-filterBox-filterInput,
   .x-filterBox-filterInput::placeholder,
