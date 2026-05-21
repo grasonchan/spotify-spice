@@ -2,6 +2,8 @@ import { useMemo } from '@/lib/react.js';
 import ThemeSwitcher from '@/components/shared/theme-switcher.js';
 import SongPreview from '@/components/host-aware/song-preview.js';
 
+let buddyFeedClassName = '';
+
 export const useMainConfig = () => {
   const portalsConfig = useMemo(
     () =>
@@ -13,7 +15,17 @@ export const useMainConfig = () => {
               id: 'theme-switcher',
               Component: ThemeSwitcher,
               props: {
-                className: 'main-topBar-buddyFeed',
+                plain: true,
+                get className() {
+                  if (!buddyFeedClassName) {
+                    const buddyFeed = document.querySelector(
+                      '.main-topBar-buddyFeed'
+                    );
+                    buddyFeedClassName =
+                      buddyFeed?.className ?? buddyFeedClassName;
+                  }
+                  return buddyFeedClassName;
+                },
               },
             },
           ],
