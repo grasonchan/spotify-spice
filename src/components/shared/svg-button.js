@@ -1,4 +1,5 @@
 import { classnames } from '@/lib/spicetify.js';
+import { TooltipWrapper } from '@/lib/host-components.js';
 import './svg-button.css';
 
 const SVGButton = ({
@@ -6,14 +7,19 @@ const SVGButton = ({
   icon,
   svgPriority = true,
   svgProps = {},
+  plain = false,
   className,
   style = {},
   disabled = false,
   onClick,
-}) => {
-  return (
+  tooltipProps = {},
+}) => (
+  <TooltipWrapper
+    {...tooltipProps}
+    disabled={disabled || tooltipProps.disabled}
+  >
     <button
-      className={classnames('common-svg-button', className)}
+      className={classnames({ 'common-svg-button': !plain }, className)}
       style={style}
       disabled={disabled}
       onClick={onClick}
@@ -38,7 +44,7 @@ const SVGButton = ({
         </span>
       )}
     </button>
-  );
-};
+  </TooltipWrapper>
+);
 
 export default SVGButton;
