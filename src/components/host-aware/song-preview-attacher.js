@@ -1,37 +1,55 @@
-import { memo } from '@/lib/react.js';
+import { memo, useMemo } from '@/lib/react.js';
 import { createPortal } from '@/lib/react-dom.js';
-import { originPlayer } from '@/lib/spicetify.js';
+import { useDOMFinder } from '@/hooks/utils/use-dom-finder.js';
 import { useQueue } from '@/hooks/host/use-queue.js';
 import { useSongPreviewConfig } from '@/hooks/config/use-song-preview.js';
 
-const SongPreviewAttacher = memo(({ initialConfig, mountPoints }) => {
-  const queue = useQueue();
-  const config = useSongPreviewConfig({
+const SongPreviewAttacher = memo(
+  ({
     initialConfig,
-    isControllable: false,
-    queue,
-    restrictions: originPlayer._state.restrictions,
-  });
+    containerSelector,
+    prevSelector,
+    nextSelector,
+  }) => {
+    const queue = useQueue();
 
-  const [
-    { text: prevTrack, ...prevConfigItem },
-    { text: nextTrack, ...nextConfigItem },
-  ] = config;
+    const [
+      { text: prevTrack, ...prevConfig },
+      { text: nextTrack, ...nextConfig },
+    ] = useSongPreviewConfig({
+      initialConfig,
+      isControllable: false,
+      queue,
+    });
 
-  return (
-    <>
-      {mountPoints.prev &&
-        createPortal(
-          <span {...prevConfigItem}>{prevTrack}</span>,
-          mountPoints.prev
-        )}
-      {mountPoints.next &&
-        createPortal(
-          <span {...nextConfigItem}>{nextTrack}</span>,
-          mountPoints.next
-        )}
-    </>
-  );
-});
+    const selectors = useMemo(
+      () => [prevSelector, nextSelector],
+      [prevSelector, nextSelector]
+    );
+
+    const {
+      [prevSelector]: prevMountPoint,
+      [nextSelector]: nextMountPoint,
+    } = useDOMFinder({
+      rootSelector: containerSelector,
+      selectors,
+    });
+
+    return (
+      <>
+        {prevMountPoint &&
+          createPortal(
+            <span {...prevConfig}>{prevTrack}</span>,
+            prevMountPoint
+          )}
+        {nextMountPoint &&
+          createPortal(
+            <span {...nextConfig}>{nextTrack}</span>,
+            nextMountPoint
+          )}
+      </>
+    );
+  }
+);
 
 export default SongPreviewAttacher;
