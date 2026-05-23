@@ -505,16 +505,31 @@
 }
 
 .main-nowPlayingBar-nowPlayingBar {
-  height: 58px;
+  height: 64px;
+}
+
+.main-nowPlayingBar-center {
+  margin-top: 28px;
+
+  [data-testid='control-button-playpause'] {
+    z-index: 1;
+  }
+
+  [data-testid='control-button-skip-back'] {
+    margin-right: -42px;
+    padding-right: 32px;
+  }
+
+  [data-testid='control-button-skip-forward'] {
+    margin-left: -42px;
+    padding-left: 32px;
+  }
 }
 
 .Root__now-playing-bar .playback-bar {
   width: 100vw;
   position: absolute;
-  bottom: calc(
-    0px - var(--progress-bar-center-offset) +
-      var(--main-song-preview-height)
-  );
+  top: 0;
   z-index: 100;
 }
 
@@ -601,7 +616,7 @@
   left: calc(100% + 10px);
   font-weight: bold;
   color: var(--spice-button);
-  content: '/';
+  content: '|';
   transform: translateX(-50%);
 }
 

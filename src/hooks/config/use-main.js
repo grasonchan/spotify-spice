@@ -1,6 +1,6 @@
 import { useMemo } from '@/lib/react.js';
 import ThemeSwitcher from '@/components/shared/theme-switcher.js';
-import SongPreview from '@/components/host-aware/song-preview.js';
+import SongPreviewAttacher from '@/components/host-aware/song-preview-attacher.js';
 
 let buddyFeedClassName = '';
 
@@ -31,13 +31,17 @@ export const useMainConfig = () => {
           ],
         ],
         [
-          '[data-testid="now-playing-bar"]',
+          '[data-testid="general-controls"]',
           [
             {
               id: 'main-song-preview',
-              Component: SongPreview,
+              Component: SongPreviewAttacher,
               props: {
-                containerClassName: 'main-song-preview',
+                containerSelector: '[data-testid="general-controls"]',
+                prevSelector:
+                  '[data-testid="control-button-skip-back"]',
+                nextSelector:
+                  '[data-testid="control-button-skip-forward"]',
               },
             },
           ],
