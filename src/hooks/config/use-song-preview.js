@@ -4,7 +4,6 @@ import { getAdjacentTracks } from '@/utils/track.js';
 
 export const useSongPreviewConfig = ({
   initialConfig = {},
-  isControllable = true,
   queue = {},
   restrictions: { canSkipPrevious = true, canSkipNext = true } = {},
 }) => {
@@ -52,9 +51,6 @@ export const useSongPreviewConfig = ({
     };
   }, [initialConfig]);
 
-  const createControlConfig = (controlConfig, isEnable) =>
-    isControllable ? { ...controlConfig, disabled: !isEnable } : {};
-
   const injectDynamicData = () => {
     const { prevTrack, nextTrack } = getAdjacentTracks(
       queue,
@@ -65,15 +61,14 @@ export const useSongPreviewConfig = ({
       {
         ...staticConfig.basics.prev,
         text: prevTrack,
-        ...createControlConfig(
-          staticConfig.controls.prev,
-          canSkipPrevious
-        ),
+        ...staticConfig.controls.prev,
+        disabled: !canSkipPrevious,
       },
       {
         ...staticConfig.basics.next,
         text: nextTrack,
-        ...createControlConfig(staticConfig.controls.next, canSkipNext),
+        ...staticConfig.controls.next,
+        disabled: !canSkipNext,
       },
     ];
   };
