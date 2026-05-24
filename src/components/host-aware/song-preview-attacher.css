@@ -1,0 +1,42 @@
+:has(> .song-preview-attacher) {
+  padding: 0 3px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--main-song-preview-color);
+  border: 1px solid rgb(var(--spice-rgb-button), 25%);
+  border-radius: 20px;
+
+  .song-preview-attacher {
+    width: 126px;
+    height: 100%;
+    padding: 2px 0;
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: nowrap;
+  }
+
+  .prev-attacher {
+    justify-content: flex-start;
+    order: -1;
+  }
+
+  .next-attacher {
+    justify-content: flex-end;
+    flex-direction: row-reverse;
+  }
+
+  .attacher-track-image {
+    border-radius: 50%;
+    box-shadow: 0 0 16px rgb(var(--spice-rgb-subtext), 40%);
+  }
+
+  .attacher-track-title {
+    padding: 0 8px;
+    flex: 1;
+    font-size: 12px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
