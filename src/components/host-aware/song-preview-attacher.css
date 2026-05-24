@@ -4,7 +4,7 @@
   justify-content: center;
   align-items: center;
   background-color: var(--main-song-preview-color);
-  border: 1px solid rgb(var(--spice-rgb-text), 25%);
+  border: 1px solid rgb(var(--spice-rgb-button), 25%);
   border-radius: 20px;
 
   .song-preview-attacher {

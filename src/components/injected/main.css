@@ -3,7 +3,7 @@
 }
 
 :root[data-theme='light'] {
-  --main-song-preview-color: #ddebe0;
+  --main-song-preview-color: #eaf2ec;
 
   .main-home-content {
     --carousel-start-chevron-gradient: #fafafab3;
@@ -438,6 +438,15 @@
   --main-song-preview-color: #051b0c;
 }
 
+:root[style*='--turntable-play-state: paused'] {
+  .main-nowPlayingBar-center .song-preview-attacher {
+    img,
+    svg {
+      animation: unset;
+    }
+  }
+}
+
 /* Remove Upgrade Button, AD */
 .main-topBar-UpgradeButton,
 [data-testid='test-ref-div'],
@@ -518,11 +527,28 @@
   [data-testid='control-button-skip-back'] {
     margin-right: -42px;
     padding-right: 32px;
+    border-left: 2px dotted var(--spice-button);
   }
 
   [data-testid='control-button-skip-forward'] {
     margin-left: -42px;
     padding-left: 32px;
+    border-right: 2px dotted var(--spice-button);
+  }
+
+  .song-preview-attacher {
+    img,
+    svg {
+      animation: glow-pulse 2.8s infinite ease-in-out;
+    }
+  }
+
+  .prev-attacher {
+    --glow-offset-x: -8px;
+  }
+
+  .next-attacher {
+    --glow-offset-x: 8px;
   }
 }
 
