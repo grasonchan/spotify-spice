@@ -536,6 +536,21 @@
     border-right: 2px dotted var(--spice-button);
   }
 
+  :has(> .song-preview-attacher) {
+    transform: translateX(0);
+    transition: transform 0.2s ease-out;
+
+    &:hover {
+      &[data-testid='control-button-skip-back'] {
+        transform: translateX(-3px);
+      }
+
+      &[data-testid='control-button-skip-forward'] {
+        transform: translateX(3px);
+      }
+    }
+  }
+
   .song-preview-attacher {
     img,
     svg {
