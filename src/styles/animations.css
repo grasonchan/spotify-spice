@@ -1,0 +1,12 @@
+@keyframes glow-pulse {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 0 rgb(var(--spice-rgb-button), 0));
+  }
+
+  50% {
+    filter: drop-shadow(
+      var(--glow-offset-x) 0 6px rgb(var(--spice-rgb-button), 50%)
+    );
+  }
+}
