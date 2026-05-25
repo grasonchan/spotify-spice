@@ -656,8 +656,8 @@
   position: absolute;
   left: calc(100% + 10px);
   font-weight: bold;
-  color: var(--spice-button);
-  content: '|';
+  color: rgb(var(--spice-rgb-button), 50%);
+  content: '/';
   transform: translateX(-50%);
 }
 
