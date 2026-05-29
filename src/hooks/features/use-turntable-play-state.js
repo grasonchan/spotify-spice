@@ -1,4 +1,4 @@
-import { useEffect } from '@/lib/react.js';
+import { useEffect } from 'react';
 import { usePlayStatus } from '../host/use-play-status.js';
 
 export const useTurntablePlayState = () => {

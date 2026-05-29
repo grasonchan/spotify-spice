@@ -1,4 +1,4 @@
-import { useContext } from '@/lib/react.js';
+import { useContext } from 'react';
 import { SVGIcons } from '@/lib/spicetify.js';
 import { THEMES } from '@/config/constants.js';
 import ThemeContext from '@/context/theme.js';

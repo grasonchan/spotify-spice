@@ -1,4 +1,4 @@
-import { useSyncExternalStore } from '@/lib/react.js';
+import { useSyncExternalStore } from 'react';
 import { queueGetter } from '@/lib/spicetify.js';
 import { queueUpdate } from '@/subscribe/host.js';
 

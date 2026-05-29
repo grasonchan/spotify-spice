@@ -1,4 +1,4 @@
-import { createRoot } from './lib/react-dom.js';
+import { createRoot } from 'react-dom/client';
 import App from './app.js';
 
 const fragment = document.createDocumentFragment();

@@ -1,5 +1,5 @@
-import { useMemo } from '@/lib/react.js';
-import { createPortal } from '@/lib/react-dom.js';
+import { useMemo } from 'react';
+import { createPortal } from 'react-dom';
 import { classnames, SVGIcons } from '@/lib/spicetify.js';
 import { TooltipWrapper } from '@/lib/host-components.js';
 import { GREETING, NO_MORE_TRACKS } from '@/config/constants.js';

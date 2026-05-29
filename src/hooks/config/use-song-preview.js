@@ -1,4 +1,4 @@
-import { useMemo } from '@/lib/react.js';
+import { useMemo } from 'react';
 import { classnames, Player, SVGIcons } from '@/lib/spicetify.js';
 import { getAdjacentTracks } from '@/utils/track.js';
 

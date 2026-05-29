@@ -1,5 +1,5 @@
-import { useRef, useCallback, useEffect } from '@/lib/react.js';
-import { createPortal } from '@/lib/react-dom.js';
+import { useRef, useCallback, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { useDOMFinder } from '@/hooks/utils/use-dom-finder.js';
 import { useMainConfig } from '@/hooks/config/use-main.js';
 import './main.css';
