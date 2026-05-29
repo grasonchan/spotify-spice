@@ -1,4 +1,4 @@
-import { useEffect } from '@/lib/react.js';
+import { useEffect } from 'react';
 
 export const useFADSideEffect = () => {
   useEffect(() => {

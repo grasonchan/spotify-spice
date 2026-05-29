@@ -1,4 +1,4 @@
-import { useSyncExternalStore } from '@/lib/react.js';
+import { useSyncExternalStore } from 'react';
 import { originPlayer } from '@/lib/spicetify.js';
 import { getHeartStatus } from '@/utils/track.js';
 import { playerUpdate } from '@/subscribe/host.js';

@@ -16,6 +16,12 @@ export default {
     path: path.resolve(__dirname, THEME_NAME),
     clean: true,
   },
+  externals: {
+    react: 'Spicetify.React',
+    'react/jsx-runtime': 'Spicetify.ReactJSX',
+    'react-dom': 'Spicetify.ReactDOM',
+    'react-dom/client': 'Spicetify.ReactDOM',
+  },
   resolve: {
     alias: {
       '@/*': path.resolve(__dirname, 'src/*'),
@@ -31,13 +37,7 @@ export default {
             loader: 'babel-loader',
             options: {
               presets: [
-                [
-                  '@babel/preset-react',
-                  {
-                    runtime: 'automatic',
-                    importSource: '@/lib',
-                  },
-                ],
+                ['@babel/preset-react', { runtime: 'automatic' }],
               ],
             },
           },

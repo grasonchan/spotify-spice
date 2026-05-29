@@ -1,5 +1,5 @@
-import { useContext, useMemo } from '@/lib/react.js';
-import { createPortal } from '@/lib/react-dom.js';
+import { useContext, useMemo } from 'react';
+import { createPortal } from 'react-dom';
 import { THEMES } from '@/config/constants.js';
 import ThemeContext from '@/context/theme.js';
 import { useFADSideEffect } from '@/hooks/features/use-fad-side-effect.js';

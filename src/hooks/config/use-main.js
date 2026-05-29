@@ -1,4 +1,4 @@
-import { useMemo } from '@/lib/react.js';
+import { useMemo } from 'react';
 import ThemeSwitcher from '@/components/shared/theme-switcher.js';
 import SongPreviewAttacher from '@/components/host-aware/song-preview-attacher.js';
 

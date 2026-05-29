@@ -1,4 +1,4 @@
-import { forwardRef, memo } from '@/lib/react.js';
+import { forwardRef, memo } from 'react';
 import { classnames, originPlayer } from '@/lib/spicetify.js';
 import { useQueue } from '@/hooks/host/use-queue.js';
 import { useSongPreviewConfig } from '@/hooks/config/use-song-preview.js';
