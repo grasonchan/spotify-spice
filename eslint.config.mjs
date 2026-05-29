@@ -43,15 +43,7 @@ export default [
     rules: {
       'no-restricted-imports': [
         'error',
-        {
-          paths: ['react', 'react-dom'],
-          patterns: [
-            'react/*',
-            'react-dom/*',
-            '**/lib/**/jsx-runtime.js',
-            '**/lib/**/jsx-runtime.mjs',
-          ],
-        },
+        { paths: ['react/jsx-runtime'] },
       ],
       'no-implicit-globals': 'error',
       'no-implicit-coercion': ['error', { allow: ['!!', '~'] }],
