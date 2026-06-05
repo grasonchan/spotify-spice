@@ -85,14 +85,19 @@ export default [
     },
   },
   {
-    files: ['src/index.js'],
+    files: ['src/index.js', 'src/extensions/*/index.js'],
     rules: {
       'no-restricted-imports': ['error', { patterns: ['**/lib/**/*'] }],
     },
   },
   {
     files: ['**/*.{js,mjs,jsx}'],
-    ignores: ['src/index.js', 'src/lib/**/*.{js,mjs}'],
+    ignores: [
+      'src/index.js',
+      'src/extensions/*/index.js',
+      'src/utils/index.js',
+      'src/lib/**/*.{js,mjs}',
+    ],
     rules: {
       'no-restricted-globals': ['error', 'Spicetify'],
     },
