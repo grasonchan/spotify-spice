@@ -9,7 +9,7 @@ import eslintConfigPrettier from 'eslint-config-prettier/flat';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
-  globalIgnores(['SpotifySpice/']),
+  globalIgnores(['dist/']),
   { files: ['**/*.{js,mjs,jsx}'] },
   {
     files: ['**/*.js'],
