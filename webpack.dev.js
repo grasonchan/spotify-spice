@@ -7,6 +7,7 @@ export default merge(common, {
   devtool: 'eval-source-map',
   plugins: [
     new SpicetifyDeployPlugin({
+      mode: 'theme',
       theme: THEME_NAME,
       scheme: 'spotify-spice',
     }),

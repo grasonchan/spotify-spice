@@ -1,127 +1,185 @@
 import path from 'node:path';
-import { cpSync, rmSync } from 'node:fs';
+import { copyFileSync, cpSync, readdirSync, rmSync } from 'node:fs';
 import { rename, writeFile } from 'node:fs/promises';
 import { spawn, execSync } from 'node:child_process';
 
+const spicetify = {
+  getPath(...params) {
+    const cmd = `spicetify path ${params.join(' ')}`;
+    return execSync(cmd, { encoding: 'utf-8' }).trim();
+  },
+
+  get(param = '') {
+    const cmd = `spicetify config ${param}`;
+    return execSync(cmd, { encoding: 'utf-8' }).trim();
+  },
+
+  set(...params) {
+    const cmd = `spicetify config ${params.join(' ')}`;
+    console.log('>', cmd);
+    execSync(cmd, { stdio: 'inherit' });
+  },
+
+  apply() {
+    const cmd = 'spicetify apply';
+    console.log('>', cmd);
+    execSync(cmd, { stdio: 'inherit' });
+  },
+
+  watch(param = '-l') {
+    const params = ['watch', param];
+    console.log('>', 'spicetify', ...params);
+    return spawn('spicetify', params, { stdio: 'inherit' });
+  },
+};
+
 class SpicetifyDeployPlugin {
-  constructor(options) {
+  constructor(options = {}) {
+    const supportedModes = Object.values(this.#MODES);
+    if (!supportedModes.includes(options.mode)) {
+      throw new Error('Invalid mode.');
+    }
+    if (
+      options.mode === this.#MODES.THEME &&
+      !(options.theme && options.scheme)
+    ) {
+      throw new Error('Theme and scheme need to be provided together.');
+    }
     this.options = options;
   }
 
-  #originalTheme = '';
-  #originalScheme = '';
-  #shouldApplyTheme = false;
+  #MODES = {
+    THEME: 'theme',
+    EXTENSIONS: 'extensions',
+  };
+
+  #deployDir = spicetify.getPath('userdata');
+  #srcDir = '';
+  #targetDir = '';
 
   #watchProcess = null;
-
   #initialSetupCompleted = false;
 
-  static deployDir = execSync('spicetify path userdata', {
-    encoding: 'utf-8',
-  }).trim();
+  #strategies = {
+    [this.#MODES.THEME]: () => {
+      let originalTheme = '';
+      let originalScheme = '';
+      let shouldApply = false;
+      return {
+        getTargetDir: () =>
+          path.resolve(this.#deployDir, 'Themes', this.options.theme),
+        initialize: () => {
+          originalTheme = spicetify.get('current_theme');
+          originalScheme = spicetify.get('color_scheme');
+        },
+        beforeWatch: () => {
+          rmSync(this.#targetDir, { recursive: true, force: true });
+          cpSync(this.#srcDir, this.#targetDir, { recursive: true });
+          shouldApply =
+            originalTheme !== this.options.theme ||
+            originalScheme !== this.options.scheme;
+          if (!shouldApply) return;
+          spicetify.set(
+            'current_theme',
+            this.options.theme,
+            'color_scheme',
+            this.options.scheme
+          );
+          spicetify.apply();
+        },
+        onExit: () => {
+          if (!shouldApply) return;
+          spicetify.set(
+            'current_theme',
+            originalTheme,
+            'color_scheme',
+            originalScheme
+          );
+          spicetify.apply();
+        },
+      };
+    },
 
-  static VALID_THEME_FILES = new Set([
-    'theme.js',
-    'user.css',
-    'color.ini',
-  ]);
-
-  static CONFIG_THEME_CMD = 'spicetify config current_theme';
-  static CONFIG_SCHEME_CMD = 'spicetify config color_scheme';
-  static APPLY_CMD = 'spicetify apply';
-
-  static applyTheme(theme, scheme) {
-    const { CONFIG_THEME_CMD, CONFIG_SCHEME_CMD, APPLY_CMD } =
-      SpicetifyDeployPlugin;
-
-    const configThemeCmd = `${CONFIG_THEME_CMD} ${theme}`;
-    const configSchemeCmd = `${CONFIG_SCHEME_CMD} ${scheme}`;
-
-    console.log(`> ${configThemeCmd}`);
-    execSync(configThemeCmd, { stdio: 'inherit' });
-    console.log(`> ${configSchemeCmd}`);
-    execSync(configSchemeCmd, { stdio: 'inherit' });
-    console.log(`> ${APPLY_CMD}`);
-    execSync(APPLY_CMD, { stdio: 'inherit' });
-  }
-
-  static startWatch(param = '-s') {
-    const params = ['watch', param];
-    console.log(`> spicetify`, ...params);
-    const watchProcess = spawn('spicetify', params, {
-      stdio: 'inherit',
-    });
-    return watchProcess;
-  }
+    [this.#MODES.EXTENSIONS]: () => {
+      const diffExts = [];
+      let originalExts = null;
+      return {
+        getTargetDir: () => path.resolve(this.#deployDir, 'Extensions'),
+        initialize: () => {
+          originalExts = new Set(
+            spicetify.get('extensions').split(/\s+/)
+          );
+        },
+        beforeWatch: () => {
+          const dirents = readdirSync(this.#srcDir, {
+            withFileTypes: true,
+          });
+          for (const dirent of dirents) {
+            if (!dirent.isFile()) continue;
+            copyFileSync(
+              path.resolve(this.#srcDir, dirent.name),
+              path.resolve(this.#targetDir, dirent.name)
+            );
+            if (!originalExts.has(dirent.name)) {
+              diffExts.push(dirent.name);
+            }
+          }
+          if (!diffExts.length) return;
+          spicetify.set('extensions', diffExts.join('|'));
+          spicetify.apply();
+        },
+        onExit: () => {
+          if (!diffExts.length) return;
+          spicetify.set(
+            'extensions',
+            diffExts.map((ext) => `${ext}-`).join('|')
+          );
+          spicetify.apply();
+        },
+      };
+    },
+  };
 
   apply(compiler) {
-    const {
-      name: pluginName,
-      deployDir,
-      VALID_THEME_FILES,
-      CONFIG_THEME_CMD,
-      CONFIG_SCHEME_CMD,
-      applyTheme,
-    } = SpicetifyDeployPlugin;
+    const strategy = this.#strategies[this.options.mode]();
 
-    const srcDir = compiler.options.output.path;
-    const themeDir = path.resolve(
-      deployDir,
-      'Themes',
-      this.options.theme
+    const pluginName = SpicetifyDeployPlugin.name;
+    this.#srcDir = compiler.options.output.path;
+    this.#targetDir = strategy.getTargetDir();
+
+    compiler.hooks.environment.tap(pluginName, () =>
+      strategy.initialize?.()
     );
-
-    compiler.hooks.environment.tap(pluginName, () => {
-      this.#originalTheme = execSync(CONFIG_THEME_CMD, {
-        encoding: 'utf-8',
-      }).trim();
-      this.#originalScheme = execSync(CONFIG_SCHEME_CMD, {
-        encoding: 'utf-8',
-      }).trim();
-
-      this.#shouldApplyTheme =
-        this.#originalTheme !== this.options.theme ||
-        this.#originalScheme !== this.options.scheme;
-    });
 
     compiler.hooks.assetEmitted.tapPromise(
       pluginName,
       async (file, { content }) => {
-        if (
-          this.#initialSetupCompleted &&
-          VALID_THEME_FILES.has(file)
-        ) {
-          const tempFile = path.resolve(themeDir, `.${file}`);
-          const deployFile = path.resolve(themeDir, file);
-          await writeFile(tempFile, content);
-          await rename(tempFile, deployFile);
-        }
+        if (!this.#initialSetupCompleted) return;
+        const tempFile = path.resolve(this.#targetDir, `.${file}`);
+        const deployFile = path.resolve(this.#targetDir, file);
+        await writeFile(tempFile, content);
+        await rename(tempFile, deployFile);
       }
     );
 
     compiler.hooks.afterEmit.tap(pluginName, () => {
-      const { startWatch } = SpicetifyDeployPlugin;
       if (this.#initialSetupCompleted) return;
-
-      rmSync(themeDir, { recursive: true, force: true });
-      cpSync(srcDir, themeDir, { recursive: true });
-
-      if (this.#shouldApplyTheme) {
-        applyTheme(this.options.theme, this.options.scheme);
-      }
-
-      const watchProcess = startWatch();
+      strategy.beforeWatch?.();
+      const WATCH_MODES = {
+        [this.#MODES.THEME]: '-s',
+        [this.#MODES.EXTENSIONS]: '-e',
+      };
+      const watchProcess = spicetify.watch(
+        WATCH_MODES[this.options.mode]
+      );
       watchProcess.on('close', (code) => process.exit(code));
       this.#watchProcess = watchProcess;
-
       this.#initialSetupCompleted = true;
     });
 
     process.on('exit', () => {
       this.#watchProcess?.kill();
-      if (this.#shouldApplyTheme) {
-        applyTheme(this.#originalTheme, this.#originalScheme);
-      }
+      strategy?.onExit();
     });
   }
 }
