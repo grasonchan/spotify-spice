@@ -1,19 +1,25 @@
 :has(> .song-preview-attacher) {
+  width: 178px;
   padding: 0 3px;
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--main-song-preview-color);
+  background-color: color-mix(
+    in srgb,
+    var(--spice-button) 8%,
+    var(--spice-sidebar)
+  );
   border: 1px solid rgb(var(--spice-rgb-button), 25%);
   border-radius: 20px;
 
   .song-preview-attacher {
-    width: 126px;
+    min-width: 0;
     height: 100%;
     padding: 2px 0;
     display: inline-flex;
     align-items: center;
     flex-wrap: nowrap;
+    flex: 1;
   }
 
   .prev-attacher {
