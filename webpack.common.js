@@ -50,6 +50,7 @@ const baseConfig = {
 };
 
 const themeCommon = merge(baseConfig, {
+  name: 'theme',
   entry: './src/index.js',
   output: {
     filename: 'theme.js',
@@ -75,6 +76,7 @@ const themeCommon = merge(baseConfig, {
 });
 
 const extensionsCommon = merge(baseConfig, {
+  name: 'extensions',
   context: path.resolve(__dirname, 'src/extensions'),
   entry: {
     'track-peek': './track-peek/index.js',
