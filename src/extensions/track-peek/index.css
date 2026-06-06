@@ -1,0 +1,105 @@
+@import '../../styles/animations.css';
+
+.main-nowPlayingBar-center {
+  [data-testid='general-controls'] {
+    container: general-controls / inline-size;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .player-controls__left,
+  .player-controls__right {
+    width: 50%;
+    position: absolute;
+  }
+
+  .player-controls__left {
+    right: calc(50% - 8px);
+  }
+
+  .player-controls__right {
+    left: calc(50% - 8px);
+  }
+
+  [data-testid='control-button-playpause'] {
+    z-index: 1;
+  }
+
+  :has([data-testid='control-button-playpause'][aria-label='Play']) {
+    .track-peek {
+      img,
+      svg {
+        animation: unset;
+      }
+    }
+  }
+
+  [data-testid='control-button-skip-back'] {
+    padding-right: 32px;
+    border-left: 2px dotted var(--spice-button);
+    mask-image: radial-gradient(
+      16px circle at 100% 50%,
+      transparent 99%,
+      #000 100%
+    );
+  }
+
+  [data-testid='control-button-skip-forward'] {
+    padding-left: 32px;
+    border-right: 2px dotted var(--spice-button);
+    mask-image: radial-gradient(
+      16px circle at 0% 50%,
+      transparent 99%,
+      #000 100%
+    );
+  }
+
+  :has(> .track-peek) {
+    width: unset;
+    flex-basis: 178px;
+    transform: translateX(0);
+    transition: transform 0.2s ease-out;
+
+    &:hover {
+      &[data-testid='control-button-skip-back'] {
+        transform: translateX(-3px);
+      }
+
+      &[data-testid='control-button-skip-forward'] {
+        transform: translateX(3px);
+      }
+    }
+  }
+
+  @container general-controls (max-width: 300px) {
+    :has(> .track-peek) {
+      flex: unset;
+      background-color: unset;
+      border: unset;
+    }
+
+    .track-peek {
+      display: none !important;
+    }
+  }
+
+  .track-peek {
+    img,
+    svg {
+      animation: glow-pulse 2.8s infinite ease-in-out;
+    }
+  }
+
+  .prev-track-peek {
+    --glow-offset-x: -8px;
+  }
+
+  .next-track-peek {
+    --glow-offset-x: 8px;
+  }
+
+  [data-testid='playback-progressbar'] [data-testid='progress-label'] {
+    z-index: 2;
+  }
+}

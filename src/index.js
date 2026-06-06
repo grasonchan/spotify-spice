@@ -1,12 +1,5 @@
+import { waitHostReady } from './utils/index.js';
 import './styles/index.css';
 
-await new Promise((res) => Spicetify.Events.webpackLoaded.on(res));
-await new Promise((res) => {
-  const checkPlayerAPI = () => {
-    if (Spicetify.Player.origin?._state) return res();
-    setTimeout(checkPlayerAPI, 100);
-  };
-  checkPlayerAPI();
-});
-
+await waitHostReady();
 import('./root.js');

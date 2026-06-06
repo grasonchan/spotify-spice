@@ -1,4 +1,4 @@
-import webpack from 'webpack';
+import { merge } from 'webpack-merge';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import CopyPlugin from 'copy-webpack-plugin';
@@ -9,12 +9,9 @@ export const THEME_NAME = 'SpotifySpice';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-export default {
-  entry: './src/index.js',
-  output: {
-    filename: 'theme.js',
-    path: path.resolve(__dirname, THEME_NAME),
-    clean: true,
+const baseConfig = {
+  optimization: {
+    splitChunks: false,
   },
   externals: {
     react: 'Spicetify.React',
@@ -24,10 +21,15 @@ export default {
   },
   resolve: {
     alias: {
-      '@/*': path.resolve(__dirname, 'src/*'),
+      '@': path.resolve(__dirname, 'src'),
     },
   },
   module: {
+    parser: {
+      javascript: {
+        dynamicImportMode: 'eager',
+      },
+    },
     rules: [
       {
         test: /\.(?:js|mjs|jsx)$/,
@@ -43,6 +45,20 @@ export default {
           },
         ],
       },
+    ],
+  },
+};
+
+const themeCommon = merge(baseConfig, {
+  name: 'theme',
+  entry: './src/index.js',
+  output: {
+    filename: 'theme.js',
+    path: path.resolve(__dirname, 'dist', THEME_NAME),
+    clean: true,
+  },
+  module: {
+    rules: [
       {
         test: /\.css$/i,
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
@@ -50,9 +66,6 @@ export default {
     ],
   },
   plugins: [
-    new webpack.optimize.LimitChunkCountPlugin({
-      maxChunks: 1,
-    }),
     new CopyPlugin({
       patterns: ['src/color.ini'],
     }),
@@ -60,4 +73,27 @@ export default {
       filename: 'user.css',
     }),
   ],
-};
+});
+
+const extensionsCommon = merge(baseConfig, {
+  name: 'extensions',
+  context: path.resolve(__dirname, 'src/extensions'),
+  entry: {
+    'track-peek': './track-peek/index.js',
+  },
+  output: {
+    filename: '[name].js',
+    path: path.resolve(__dirname, 'dist', 'extensions'),
+    clean: true,
+  },
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
+    ],
+  },
+});
+
+export default [themeCommon, extensionsCommon];

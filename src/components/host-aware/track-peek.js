@@ -6,9 +6,9 @@ import { GREETING, NO_MORE_TRACKS } from '@/config/constants.js';
 import { getAdjacentTracks } from '@/utils/track.js';
 import { useDOMFinder } from '@/hooks/utils/use-dom-finder.js';
 import { useQueue } from '@/hooks/host/use-queue.js';
-import './song-preview-attacher.css';
+import './track-peek.css';
 
-const AttacherItem = ({
+const TrackPeekItem = ({
   metadata,
   className,
   style = {},
@@ -37,7 +37,7 @@ const AttacherItem = ({
       {...tooltipProps}
     >
       <div
-        className={classnames('song-preview-attacher', className)}
+        className={classnames('track-peek', className)}
         style={style}
       >
         {!image_url ? (
@@ -56,10 +56,10 @@ const AttacherItem = ({
             alt="cover"
             width={24}
             height={24}
-            className="attacher-track-image"
+            className="track-peek-cover"
           />
         )}
-        <span className="attacher-track-title">
+        <span className="track-peek-title">
           {isEmpty ? GREETING : title}
         </span>
       </div>
@@ -67,7 +67,7 @@ const AttacherItem = ({
   );
 };
 
-const SongPreviewAttacher = ({
+const TrackPeek = ({
   containerSelector,
   prevSelector,
   nextSelector,
@@ -96,13 +96,13 @@ const SongPreviewAttacher = ({
       id: 'prev',
       mountPoint: prevMountPoint,
       metadata: prevTrack,
-      defaultClassName: 'prev-attacher',
+      defaultClassName: 'prev-track-peek',
     },
     {
       id: 'next',
       mountPoint: nextMountPoint,
       metadata: nextTrack,
-      defaultClassName: 'next-attacher',
+      defaultClassName: 'next-track-peek',
     },
   ];
 
@@ -111,7 +111,7 @@ const SongPreviewAttacher = ({
       {data.map(({ id, mountPoint, defaultClassName, metadata }) => {
         if (!mountPoint) return null;
         return createPortal(
-          <AttacherItem
+          <TrackPeekItem
             className={classnames(defaultClassName, className)}
             style={style}
             tooltipProps={tooltipProps}
@@ -125,4 +125,4 @@ const SongPreviewAttacher = ({
   );
 };
 
-export default SongPreviewAttacher;
+export default TrackPeek;

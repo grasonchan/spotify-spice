@@ -5,7 +5,11 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "watch:theme": "webpack --watch --config webpack.dev.js --config-name theme",
+    "watch:exts": "webpack --watch --config webpack.dev.js --config-name extensions",
     "watch": "webpack --watch --config webpack.dev.js",
+    "build:theme": "webpack --config webpack.prod.js --config-name theme",
+    "build:exts": "webpack --config webpack.prod.js --config-name extensions",
     "build": "webpack --config webpack.prod.js"
   },
   "devDependencies": {
@@ -28,6 +32,7 @@
     "globals": "^16.0.0",
     "mini-css-extract-plugin": "^2.10.0",
     "prettier": "3.5.3",
+    "style-loader": "^4.0.0",
     "stylelint": "^16.15.0",
     "stylelint-config-standard": "^37.0.0",
     "stylelint-high-performance-animation": "^1.11.0",
