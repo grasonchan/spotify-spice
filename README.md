@@ -1,88 +1,44 @@
 # Spotify Spice
 
-Based on Spotify original theme. The design of turntable is inspired by [Netease Music](https://music.163.com) and [Smartisan OS build-in Music Player](https://www.smartisan.com/os/#/beauty).
+![Discord](https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/67ece93be2524af5cf14dc1c_Logo-black-bg.svg)
 
-Join [Discord](https://discord.gg/UK84KCbNf6) for discussions and support. For bugs or improvements, please open an issue or PR. ❤️
+Join [Discord](https://discord.gg/UK84KCbNf6) for discussions and support.
 
-## Screenshots
+For bugs or improvements, please open an issue or PR. ❤️
 
-### Dark
-
-![main-dark](screenshots/main-dark.png)
-![full-app-display-dark](screenshots/full-app-display-dark.png)
-
-### Light
-
-![main-light](screenshots/main-light.png)
-![full-app-display-light](screenshots/full-app-display-light.png)
-
-## Dependencies
+## Compatibility
 
 Latest version of [Spotify](https://www.spotify.com/) and [Spicetify](https://github.com/spicetify/cli).
 
+_Looking for older versions? Download legacy versions from the [Releases](https://github.com/grasonchan/spotify-spice/releases) page._
+
 ## Installation
-
-### Basic
-
-#### Marketplace
 
 Use [Spicetify Marketplace](https://github.com/spicetify/marketplace) to install.
 
-#### Manual
+## Extensions
 
-clone the repository, follow the steps below:
+### Track Peek
 
-```shell
-cd spotify-spice
-git checkout deploy
-cp -r SpotifySpice <config-folder-path>/Themes
+Peek into adjacent tracks.
 
-spicetify config current_theme SpotifySpice
-spicetify config color_scheme spotify-spice
-spicetify config inject_theme_js 1
-spicetify apply
-```
+![track-peek](screenshots/track-peek.png)
 
-##### Notes
+## Theme
 
-Replace `<config-folder-path>` with your OS-specific path.
+A seamless extension of the native Spotify aesthetic, featuring a native-quality Light Mode alongside an optimized Dark Mode.
 
-- Linux / macOS: `~/.config/spicetify/`
-- Windows (Powershell): `$env:APPDATA/spicetify/`
+_Tip: Keep vinyl records in Now Playing View by turning off `Settings` → `Display` → `Display short, looping visuals on tracks (Canvas)`._
+
+![main-dark](screenshots/main.png)
+![full-app-display-dark](screenshots/full-app-display.png)
 
 ### Optional
 
-enable Spicetify's build-in extensions for a complete experience:
+enable Spicetify's built-in extensions and custom apps for the complete experience:
 
 ```shell
 spicetify config extensions fullAppDisplay.js
 spicetify config custom_apps lyrics-plus
-
-spicetify apply
-```
-
-Once enabled, you can configure these extensions according to your preferences.
-
-## Usage Tips
-
-- Keep the turntable in Now Playing View: "Settings" --> "Display" --> Turn off the "Display short, looping visuals on tracks (Canvas)" switch
-- Extensions
-  - Full App Display
-    - toggle
-      - F11 to toggle
-      - click the "Full App Display" button on top bar to active
-      - Esc / double click to deactive
-    - config: rigth click the Full App Display
-  - Lyrics Plus - config: click the "Lyrics" button on top bar, then click the avatar
-
-## Migration Notice
-
-If you installed the theme before [this](https://github.com/grasonchan/spotify-spice/pull/19), please clean up the legacy script and remove the related Spicetify config.
-
-```shell
-rm <config-folder-path>/Extensions/spotifySpice.js
-
-spicetify config extensions spotifySpice.js-
-
 spicetify apply
 ```
