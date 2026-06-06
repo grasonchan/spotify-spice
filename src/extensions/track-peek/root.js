@@ -1,10 +1,10 @@
 import { createRoot } from 'react-dom/client';
-import SongPreviewAttacher from '@/components/host-aware/song-preview-attacher.js';
+import TrackPeek from '@/components/host-aware/track-peek.js';
 
 const fragment = document.createDocumentFragment();
 const root = createRoot(fragment);
 root.render(
-  <SongPreviewAttacher
+  <TrackPeek
     containerSelector=".Root__now-playing-bar"
     prevSelector="[data-testid='control-button-skip-back']"
     nextSelector="[data-testid='control-button-skip-forward']"

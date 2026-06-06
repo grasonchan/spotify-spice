@@ -27,7 +27,7 @@
   }
 
   :has([data-testid='control-button-playpause'][aria-label='Play']) {
-    .song-preview-attacher {
+    .track-peek {
       img,
       svg {
         animation: unset;
@@ -55,7 +55,7 @@
     );
   }
 
-  :has(> .song-preview-attacher) {
+  :has(> .track-peek) {
     width: unset;
     flex-basis: 178px;
     transform: translateX(0);
@@ -73,29 +73,29 @@
   }
 
   @container general-controls (max-width: 300px) {
-    :has(> .song-preview-attacher) {
+    :has(> .track-peek) {
       flex: unset;
       background-color: unset;
       border: unset;
     }
 
-    .song-preview-attacher {
+    .track-peek {
       display: none !important;
     }
   }
 
-  .song-preview-attacher {
+  .track-peek {
     img,
     svg {
       animation: glow-pulse 2.8s infinite ease-in-out;
     }
   }
 
-  .prev-attacher {
+  .prev-track-peek {
     --glow-offset-x: -8px;
   }
 
-  .next-attacher {
+  .next-track-peek {
     --glow-offset-x: 8px;
   }
 
