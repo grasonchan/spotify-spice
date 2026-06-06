@@ -1,13 +1,23 @@
-{
-  "name": "Spotify Spice",
-  "description": "Based on Spotify original theme.",
-  "branch": "deploy",
-  "preview": "https://raw.githubusercontent.com/grasonchan/spotify-spice/refs/heads/master/screenshots/marketplace-preview.png",
-  "readme": "https://raw.githubusercontent.com/grasonchan/spotify-spice/refs/heads/master/README.md",
-  "usercss": "SpotifySpice/user.css",
-  "schemes": "SpotifySpice/color.ini",
-  "include": [
-    "https://raw.githubusercontent.com/grasonchan/spotify-spice/refs/heads/deploy/SpotifySpice/theme.js"
-  ],
-  "tags": ["multi-theme"]
-}
+[
+  {
+    "name": "Track Peek",
+    "description": "Peek into adjacent tracks.",
+    "branch": "deploy",
+    "main": "extensions/track-peek.js",
+    "preview": "https://raw.githubusercontent.com/grasonchan/spotify-spice/refs/heads/master/screenshots/marketplace-track-peek.png",
+    "readme": "https://raw.githubusercontent.com/grasonchan/spotify-spice/refs/heads/master/README.md"
+  },
+  {
+    "name": "Spotify Spice",
+    "description": "A seamless extension of the native Spotify aesthetic, featuring a native-quality Light Mode alongside an optimized Dark Mode.",
+    "branch": "deploy",
+    "usercss": "SpotifySpice/user.css",
+    "schemes": "SpotifySpice/color.ini",
+    "include": [
+      "https://raw.githubusercontent.com/grasonchan/spotify-spice/refs/heads/deploy/SpotifySpice/theme.js"
+    ],
+    "preview": "https://raw.githubusercontent.com/grasonchan/spotify-spice/refs/heads/master/screenshots/marketplace-theme.png",
+    "readme": "https://raw.githubusercontent.com/grasonchan/spotify-spice/refs/heads/master/README.md",
+    "tags": ["multi-theme"]
+  }
+]
