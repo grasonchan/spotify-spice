@@ -1,8 +1,12 @@
 import { HEART_STATUS } from '@/config/constants.js';
 
-export function getPlayStatus({ item, isPaused, isBuffering }) {
-  const playStatus = ![!item, isPaused, isBuffering].some((el) => el);
-  return playStatus;
+export function getPlayStatus(
+  { item, isPaused, isBuffering },
+  includeBuffering = true
+) {
+  if (!item || isPaused) return false;
+  if (includeBuffering && isBuffering) return false;
+  return true;
 }
 
 export function getHeartStatus({ item }) {
