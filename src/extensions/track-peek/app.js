@@ -15,6 +15,7 @@ const App = () => {
   const audioRef = useRef(null);
   const isAudioActiveRef = useRef(false);
   const shouldResumePlayRef = useRef(false);
+  const cacheMapRef = useRef(null);
 
   const cleanAudio = useCallback(() => {
     isAudioActiveRef.current = false;
@@ -33,8 +34,10 @@ const App = () => {
 
   useEffect(() => {
     audioRef.current = new Audio();
+    cacheMapRef.current = new Map();
 
     const MENU_ITEM_NAME = 'Track peek';
+    const MAX_CACHE_SIZE = 1000;
     let clickId = 0;
 
     const onMenuItemClick = async ([trackUri]) => {
@@ -47,27 +50,57 @@ const App = () => {
       isAudioActiveRef.current = true;
 
       try {
-        const {
-          data: { trackUnion },
-        } = await GraphQL.Request(GraphQL.Definitions.getTrack, {
-          uri: trackUri,
-        });
+        if (!cacheMapRef.current.has(trackUri)) {
+          const {
+            data: { trackUnion },
+          } = await GraphQL.Request(GraphQL.Definitions.getTrack, {
+            uri: trackUri,
+          });
 
-        const {
-          data: { getWatchFeedForEntity },
-        } = await GraphQL.Request(GraphQL.Definitions.watchFeedEntity, {
-          watchFeedUri: `spotify:watch-feed:album:${trackUnion.albumOfTrack.id}`,
-          limit: trackUnion.albumOfTrack.tracks?.totalCount,
-          offset: 0,
-        });
+          const {
+            data: { getWatchFeedForEntity },
+          } = await GraphQL.Request(
+            GraphQL.Definitions.watchFeedEntity,
+            {
+              watchFeedUri: `spotify:watch-feed:album:${trackUnion.albumOfTrack.id}`,
+              limit: trackUnion.albumOfTrack.tracks?.totalCount,
+              offset: 0,
+            }
+          );
+
+          const albumTracks =
+            trackUnion.albumOfTrack.tracks.items ?? [];
+          const feedItems = getWatchFeedForEntity.items ?? [];
+          let previewOffset = 0;
+          for (let i = 0; i < albumTracks.length; i++) {
+            const { track } = albumTracks[i];
+            const feedData = feedItems[previewOffset]?.data;
+            let previewUrl = '';
+            if (
+              previewOffset < feedItems.length &&
+              feedData?.uri === track.uri
+            ) {
+              previewOffset++;
+              const url =
+                feedData?.previews?.audioPreviews?.items?.[0]?.url;
+              if (url) previewUrl = url;
+            }
+            cacheMapRef.current.set(track.uri, previewUrl);
+          }
+
+          const overflowCount =
+            cacheMapRef.current.size - MAX_CACHE_SIZE;
+          if (overflowCount > 0) {
+            const iterator = cacheMapRef.current.keys();
+            for (let i = 0; i < overflowCount; i++) {
+              cacheMapRef.current.delete(iterator.next().value);
+            }
+          }
+        }
 
         if (!(isAudioActiveRef.current && clickId === currentClickId))
           return;
-        const targetItem = getWatchFeedForEntity.items.find(
-          ({ data }) => data.uri === trackUri
-        );
-        const src =
-          targetItem?.data?.previews?.audioPreviews?.items?.[0]?.url;
+        const src = cacheMapRef.current.get(trackUri);
         if (!src) {
           showNotification('[Track Peek]: No audio preview available.');
           cleanAudio();
