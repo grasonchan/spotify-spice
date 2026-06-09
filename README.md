@@ -20,9 +20,11 @@ Use [Spicetify Marketplace](https://github.com/spicetify/marketplace) to install
 
 ### Track Peek
 
-Peek into adjacent tracks.
+Peek into tracks without switching playback.
 
 ![track-peek](screenshots/track-peek.png)
+
+![track-peek-audio-preview](screenshots/track-peek-audio-preview.png)
 
 ## Theme
 

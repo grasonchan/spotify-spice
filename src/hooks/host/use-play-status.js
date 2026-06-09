@@ -3,7 +3,7 @@ import { originPlayer } from '@/lib/spicetify.js';
 import { getPlayStatus } from '@/utils/track.js';
 import { playerUpdate } from '@/subscribe/host.js';
 
-export const usePlayStatus = () =>
+export const usePlayStatus = ({ includeBuffering } = {}) =>
   useSyncExternalStore(playerUpdate, () =>
-    getPlayStatus(originPlayer._state)
+    getPlayStatus(originPlayer._state, includeBuffering)
   );

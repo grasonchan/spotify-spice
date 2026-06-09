@@ -85,7 +85,11 @@ export default [
     },
   },
   {
-    files: ['src/index.js', 'src/extensions/*/index.js'],
+    files: [
+      'src/index.js',
+      'src/extensions/*/index.js',
+      'src/utils/index.js',
+    ],
     rules: {
       'no-restricted-imports': ['error', { patterns: ['**/lib/**/*'] }],
     },

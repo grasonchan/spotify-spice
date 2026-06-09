@@ -1,7 +1,7 @@
 [
   {
     "name": "Track Peek",
-    "description": "Peek into adjacent tracks.",
+    "description": "Peek into tracks without switching playback.",
     "branch": "deploy",
     "main": "extensions/track-peek.js",
     "preview": "https://raw.githubusercontent.com/grasonchan/spotify-spice/refs/heads/master/screenshots/marketplace-track-peek.png",

@@ -1,7 +1,11 @@
 export const {
   classnames,
+  URI,
+  GraphQL,
   Config: cliConfig,
   Player,
+  ContextMenu,
+  showNotification,
   SVGIcons,
 } = Spicetify;
 
