@@ -42,7 +42,7 @@ const App = () => {
 
     const onMenuItemClick = async ([trackUri]) => {
       const currentClickId = ++clickId;
-      if (!audioRef.current.onended && !originPlayer._state.isPaused) {
+      if (!isAudioActiveRef.current && !originPlayer._state.isPaused) {
         shouldResumePlayRef.current = true;
         originPlayer.pause();
       }
@@ -112,9 +112,7 @@ const App = () => {
           cleanAudio();
           autoResumePlay();
         };
-        audioRef.current.play().catch((error) => {
-          console.warn('[Track Peek]:', error.message);
-        });
+        await audioRef.current.play();
       } catch (error) {
         if (!(isAudioActiveRef.current && clickId === currentClickId))
           return;
