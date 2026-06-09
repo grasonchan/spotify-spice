@@ -5,7 +5,8 @@
     "branch": "deploy",
     "main": "extensions/track-peek.js",
     "preview": "https://raw.githubusercontent.com/grasonchan/spotify-spice/refs/heads/master/screenshots/marketplace-track-peek.png",
-    "readme": "https://raw.githubusercontent.com/grasonchan/spotify-spice/refs/heads/master/README.md"
+    "readme": "https://raw.githubusercontent.com/grasonchan/spotify-spice/refs/heads/master/README.md",
+    "tags": ["audio-preview", "playback", "efficiency"]
   },
   {
     "name": "Spotify Spice",
@@ -18,6 +19,6 @@
     ],
     "preview": "https://raw.githubusercontent.com/grasonchan/spotify-spice/refs/heads/master/screenshots/marketplace-theme.png",
     "readme": "https://raw.githubusercontent.com/grasonchan/spotify-spice/refs/heads/master/README.md",
-    "tags": ["multi-theme"]
+    "tags": ["multi-theme", "vinyl", "minimal"]
   }
 ]
