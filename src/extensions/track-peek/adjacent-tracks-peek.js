@@ -6,7 +6,7 @@ import { GREETING, NO_MORE_TRACKS } from '@/config/constants.js';
 import { getAdjacentTracks } from '@/utils/track.js';
 import { useDOMFinder } from '@/hooks/utils/use-dom-finder.js';
 import { useQueue } from '@/hooks/host/use-queue.js';
-import './track-peek.css';
+import './adjacent-tracks-peek.css';
 
 const TrackPeekItem = ({
   metadata,
@@ -67,7 +67,7 @@ const TrackPeekItem = ({
   );
 };
 
-const TrackPeek = ({
+const AdjacentTracksPeek = ({
   containerSelector,
   prevSelector,
   nextSelector,
@@ -125,4 +125,4 @@ const TrackPeek = ({
   );
 };
 
-export default TrackPeek;
+export default AdjacentTracksPeek;

@@ -8,7 +8,7 @@ import {
   URI,
 } from '@/lib/spicetify.js';
 import { usePlayStatus } from '@/hooks/host/use-play-status.js';
-import TrackPeek from '@/components/host-aware/track-peek.js';
+import AdjacentTracksPeek from './adjacent-tracks-peek.js';
 
 const App = () => {
   const playStatus = usePlayStatus({ includeBuffering: false });
@@ -163,7 +163,7 @@ const App = () => {
   }, [cleanAudio]);
 
   return (
-    <TrackPeek
+    <AdjacentTracksPeek
       containerSelector=".Root__now-playing-bar"
       prevSelector="[data-testid='control-button-skip-back']"
       nextSelector="[data-testid='control-button-skip-forward']"
