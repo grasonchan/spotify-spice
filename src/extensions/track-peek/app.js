@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
 import {
   ContextMenu,
   GraphQL,
@@ -7,6 +7,7 @@ import {
   SVGIcons,
   URI,
 } from '@/lib/spicetify.js';
+import { useDOMFinder } from '@/hooks/utils/use-dom-finder.js';
 import { usePlayStatus } from '@/hooks/host/use-play-status.js';
 import AdjacentTracksPeek from './adjacent-tracks-peek.js';
 
@@ -16,6 +17,17 @@ const App = () => {
   const isAudioActiveRef = useRef(false);
   const shouldResumePlayRef = useRef(false);
   const cacheMapRef = useRef(null);
+
+  const rootSelector = '.Root__now-playing-bar';
+  const prevSelector = "[data-testid='control-button-skip-back']";
+  const nextSelector = "[data-testid='control-button-skip-forward']";
+
+  const selectors = useMemo(() => [prevSelector, nextSelector], []);
+
+  const {
+    [prevSelector]: prevMountPoint,
+    [nextSelector]: nextMountPoint,
+  } = useDOMFinder({ rootSelector, selectors });
 
   const cleanAudio = useCallback(() => {
     isAudioActiveRef.current = false;
@@ -164,9 +176,8 @@ const App = () => {
 
   return (
     <AdjacentTracksPeek
-      containerSelector=".Root__now-playing-bar"
-      prevSelector="[data-testid='control-button-skip-back']"
-      nextSelector="[data-testid='control-button-skip-forward']"
+      prevMountPoint={prevMountPoint}
+      nextMountPoint={nextMountPoint}
     />
   );
 };
