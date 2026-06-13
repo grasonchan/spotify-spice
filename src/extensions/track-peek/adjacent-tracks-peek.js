@@ -1,12 +1,10 @@
-import { useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { classnames, SVGIcons } from '@/lib/spicetify.js';
 import { TooltipWrapper } from '@/lib/host-components.js';
 import { GREETING, NO_MORE_TRACKS } from '@/config/constants.js';
 import { getAdjacentTracks } from '@/utils/track.js';
-import { useDOMFinder } from '@/hooks/utils/use-dom-finder.js';
 import { useQueue } from '@/hooks/host/use-queue.js';
-import './track-peek.css';
+import './adjacent-tracks-peek.css';
 
 const TrackPeekItem = ({
   metadata,
@@ -67,24 +65,14 @@ const TrackPeekItem = ({
   );
 };
 
-const TrackPeek = ({
-  containerSelector,
-  prevSelector,
-  nextSelector,
+const AdjacentTracksPeek = ({
+  prevMountPoint,
+  nextMountPoint,
   className,
   style,
   tooltipProps = {},
 }) => {
-  const selectors = useMemo(
-    () => [prevSelector, nextSelector],
-    [prevSelector, nextSelector]
-  );
-
   const queue = useQueue();
-  const {
-    [prevSelector]: prevMountPoint,
-    [nextSelector]: nextMountPoint,
-  } = useDOMFinder({ rootSelector: containerSelector, selectors });
 
   const { prevTrack, nextTrack } = getAdjacentTracks(
     queue,
@@ -125,4 +113,4 @@ const TrackPeek = ({
   );
 };
 
-export default TrackPeek;
+export default AdjacentTracksPeek;
