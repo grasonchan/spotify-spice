@@ -15,3 +15,9 @@ export const HEART_STATUS = {
   COLLECTED: 1,
   DISABLED: 2,
 };
+
+export const AUDIO_PREVIEW_STATUS = {
+  IDLE: 'IDLE',
+  LOADING: 'LOADING',
+  PLAYING: 'PLAYING',
+};
