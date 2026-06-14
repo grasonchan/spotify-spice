@@ -16,7 +16,7 @@ const SVGButton = ({
 }) => (
   <TooltipWrapper
     {...tooltipProps}
-    disabled={disabled || tooltipProps.disabled}
+    disabled={disabled || !tooltipProps.label || tooltipProps.disabled}
   >
     <button
       className={classnames({ 'common-svg-button': !plain }, className)}
