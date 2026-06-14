@@ -22,9 +22,11 @@ Use [Spicetify Marketplace](https://github.com/spicetify/marketplace) to install
 
 Peek into tracks without switching playback.
 
-![track-peek](screenshots/track-peek.png)
+Right-click any track to access the audio preview.
 
-![track-peek-audio-preview](screenshots/track-peek-audio-preview.png)
+![track-peek](screenshots/adjacent-tracks-peek.png)
+
+![track-peek-audio-preview](screenshots/audio-preview.png)
 
 ## Theme
 
