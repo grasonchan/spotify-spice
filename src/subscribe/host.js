@@ -1,4 +1,7 @@
-import { originPlayer } from '@/lib/spicetify.js';
+import { Platform, originPlayer } from '@/lib/spicetify.js';
+
+export const volumeUpdate = (cb) =>
+  Platform.PlaybackAPI._events.addListener('volume', cb);
 
 export const playerUpdate = (cb) =>
   originPlayer._events.addListener('update', cb);

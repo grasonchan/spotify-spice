@@ -16,6 +16,7 @@ import {
 } from '@/lib/spicetify.js';
 import { TooltipWrapper } from '@/lib/host-components.js';
 import { AUDIO_PREVIEW_STATUS } from '@/config/constants.js';
+import { volumeUpdate } from '@/subscribe/host.js';
 import SVGButton from '@/components/shared/svg-button.js';
 import './audio-preview.css';
 
@@ -203,6 +204,15 @@ const AudioPreview = ({ container, playStatus }) => {
       autoResumePlay();
     };
   }, [autoResumePlay, cleanAudio]);
+
+  useEffect(() => {
+    const removeSubscribe = volumeUpdate((event) => {
+      const currentVolume = event.data.volume;
+      if (!audioRef.current) return;
+      audioRef.current.volume = currentVolume;
+    });
+    return removeSubscribe;
+  }, []);
 
   useEffect(() => {
     if (!playStatus) return;

@@ -3,6 +3,7 @@ export const {
   URI,
   GraphQL,
   Config: cliConfig,
+  Platform,
   Player,
   ContextMenu,
   showNotification,
