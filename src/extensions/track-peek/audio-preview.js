@@ -1,4 +1,11 @@
-import { useCallback, useEffect, useRef } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
+import { createPortal } from 'react-dom';
 import {
   ContextMenu,
   GraphQL,
@@ -7,8 +14,18 @@ import {
   SVGIcons,
   URI,
 } from '@/lib/spicetify.js';
+import { TooltipWrapper } from '@/lib/host-components.js';
+import { AUDIO_PREVIEW_STATUS } from '@/config/constants.js';
+import SVGButton from '@/components/shared/svg-button.js';
+import './audio-preview.css';
 
-const AudioPreview = ({ playStatus }) => {
+const activeClassName = 'tp-audio-preview-active';
+const inClassName = 'tp-audio-preview-in';
+
+const AudioPreview = ({ container, playStatus }) => {
+  const [status, setStatus] = useState(AUDIO_PREVIEW_STATUS.IDLE);
+  const [isRendered, setIsRendered] = useState(false);
+  const [currentTrack, setCurrentTrack] = useState(null);
   const audioRef = useRef(null);
   const isAudioActiveRef = useRef(false);
   const shouldResumePlayRef = useRef(false);
@@ -16,6 +33,8 @@ const AudioPreview = ({ playStatus }) => {
 
   const cleanAudio = useCallback(() => {
     isAudioActiveRef.current = false;
+    setStatus(AUDIO_PREVIEW_STATUS.IDLE);
+    setCurrentTrack(null);
     const audio = audioRef.current;
     if (!audio) return;
     audio.pause();
@@ -28,6 +47,33 @@ const AudioPreview = ({ playStatus }) => {
     shouldResumePlayRef.current = false;
     originPlayer.resume();
   }, []);
+
+  const handleTransitionEnd = useCallback(
+    (event) => {
+      if (
+        event.target !== event.currentTarget ||
+        event.propertyName !== 'opacity' ||
+        container.classList.contains(inClassName)
+      ) {
+        return;
+      }
+      setIsRendered(false);
+      container.classList.remove(activeClassName);
+    },
+    [container]
+  );
+
+  useLayoutEffect(() => {
+    if (!container || status === AUDIO_PREVIEW_STATUS.IDLE) return;
+    container.classList.add(activeClassName);
+    const rafId = requestAnimationFrame(() =>
+      container.classList.add(inClassName)
+    );
+    return () => {
+      cancelAnimationFrame(rafId);
+      container.classList.remove(inClassName);
+    };
+  }, [container, status]);
 
   useEffect(() => {
     audioRef.current = new Audio();
@@ -45,6 +91,8 @@ const AudioPreview = ({ playStatus }) => {
       }
       cleanAudio();
       isAudioActiveRef.current = true;
+      setStatus(AUDIO_PREVIEW_STATUS.LOADING);
+      setIsRendered(true);
 
       try {
         if (!cacheMapRef.current.has(trackUri)) {
@@ -72,17 +120,30 @@ const AudioPreview = ({ playStatus }) => {
           for (let i = 0; i < albumTracks.length; i++) {
             const { track } = albumTracks[i];
             const feedData = feedItems[previewOffset]?.data;
+            let name = '';
+            let artists = [];
+            let coverUrl = '';
             let previewUrl = '';
             if (
               previewOffset < feedItems.length &&
               feedData?.uri === track.uri
             ) {
               previewOffset++;
+              name = feedData.name;
+              artists = feedData.artists.items.map(
+                ({ profile }) => profile.name
+              );
+              coverUrl = feedData.albumOfTrack.coverArt.sources[0].url;
               const url =
                 feedData?.previews?.audioPreviews?.items?.[0]?.url;
               if (url) previewUrl = url;
             }
-            cacheMapRef.current.set(track.uri, previewUrl);
+            cacheMapRef.current.set(track.uri, {
+              name,
+              artists,
+              coverUrl,
+              previewUrl,
+            });
           }
 
           const overflowCount =
@@ -97,14 +158,17 @@ const AudioPreview = ({ playStatus }) => {
 
         if (!(isAudioActiveRef.current && clickId === currentClickId))
           return;
-        const src = cacheMapRef.current.get(trackUri);
-        if (!src) {
+        const { name, artists, coverUrl, previewUrl } =
+          cacheMapRef.current.get(trackUri) ?? {};
+        if (!previewUrl) {
           showNotification('[Track Peek]: No audio preview available.');
           cleanAudio();
           autoResumePlay();
           return;
         }
-        audioRef.current.src = src;
+        setStatus(AUDIO_PREVIEW_STATUS.PLAYING);
+        setCurrentTrack({ trackUri, name, artists, coverUrl });
+        audioRef.current.src = previewUrl;
         audioRef.current.onended = () => {
           cleanAudio();
           autoResumePlay();
@@ -159,7 +223,97 @@ const AudioPreview = ({ playStatus }) => {
     };
   }, [cleanAudio]);
 
-  return null;
+  const disabled = status !== AUDIO_PREVIEW_STATUS.PLAYING;
+
+  const controlsData = [
+    {
+      icon: 'addToQueue',
+      label: 'Add to queue',
+      onClick: async () => {
+        await originPlayer.addToQueue([{ uri: currentTrack.trackUri }]);
+        cleanAudio();
+        autoResumePlay();
+      },
+      disabled,
+    },
+    {
+      icon: 'play',
+      label: 'Play now',
+      onClick: async () => {
+        await originPlayer.playAsNextInQueue([
+          { uri: currentTrack.trackUri },
+        ]);
+      },
+      disabled,
+    },
+    {
+      icon: 'pause',
+      label: 'Stop',
+      onClick: () => {
+        cleanAudio();
+        autoResumePlay();
+      },
+    },
+  ];
+
+  return (
+    container &&
+    isRendered &&
+    createPortal(
+      <div
+        className="tp-audio-preview"
+        onTransitionEnd={handleTransitionEnd}
+      >
+        <TooltipWrapper
+          label={
+            <>
+              {currentTrack?.name}
+              {currentTrack?.artists && (
+                <span
+                  style={{
+                    fontSize: 12,
+                    color: 'var(--spice-subtext)',
+                  }}
+                >{` · ${currentTrack.artists.join(', ')}`}</span>
+              )}
+            </>
+          }
+          placement="top"
+          disabled={disabled}
+        >
+          <div className="tp-audio-preview-metadata">
+            <div className="tp-audio-preview-cover">
+              {currentTrack?.coverUrl && (
+                <img
+                  src={currentTrack.coverUrl}
+                  alt="cover"
+                  width={24}
+                  height={24}
+                />
+              )}
+            </div>
+            <span className="tp-audio-preview-title">
+              {currentTrack?.name ?? 'Loading...'}
+            </span>
+          </div>
+        </TooltipWrapper>
+        <div className="tp-audio-preview-controls">
+          {controlsData.map(
+            ({ icon, label, onClick, disabled = false }) => (
+              <SVGButton
+                key={label}
+                icon={SVGIcons[icon]}
+                onClick={onClick}
+                tooltipProps={{ label }}
+                disabled={disabled}
+              />
+            )
+          )}
+        </div>
+      </div>,
+      container
+    )
+  );
 };
 
 export default AudioPreview;

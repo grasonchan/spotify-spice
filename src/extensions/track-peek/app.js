@@ -1,19 +1,21 @@
-import { useMemo } from 'react';
 import { useDOMFinder } from '@/hooks/utils/use-dom-finder.js';
 import { usePlayStatus } from '@/hooks/host/use-play-status.js';
 import AdjacentTracksPeek from './adjacent-tracks-peek.js';
 import AudioPreview from './audio-preview.js';
 
-const App = () => {
-  const rootSelector = '.Root__now-playing-bar';
-  const prevSelector = "[data-testid='control-button-skip-back']";
-  const nextSelector = "[data-testid='control-button-skip-forward']";
+const rootSelector = '.Root__now-playing-bar';
+const prevSelector = "[data-testid='control-button-skip-back']";
+const nextSelector = "[data-testid='control-button-skip-forward']";
+const generalControlsSelector = '[data-testid="general-controls"]';
 
+const selectors = [prevSelector, nextSelector, generalControlsSelector];
+
+const App = () => {
   const playStatus = usePlayStatus({ includeBuffering: false });
-  const selectors = useMemo(() => [prevSelector, nextSelector], []);
   const {
     [prevSelector]: prevMountPoint,
     [nextSelector]: nextMountPoint,
+    [generalControlsSelector]: generalControls,
   } = useDOMFinder({ rootSelector, selectors });
 
   return (
@@ -22,7 +24,10 @@ const App = () => {
         prevMountPoint={prevMountPoint}
         nextMountPoint={nextMountPoint}
       />
-      <AudioPreview playStatus={playStatus} />
+      <AudioPreview
+        container={generalControls}
+        playStatus={playStatus}
+      />
     </>
   );
 };
