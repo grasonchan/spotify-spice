@@ -18,7 +18,7 @@
               var(--vinyl-l-offset),
             var(--vinyl-shine-l) * var(--vinyl-shine-l-multiple)
           )
-          0 0 / 10%
+          0 0 / 16%
       )
       45deg,
     transparent 90deg 180deg,
@@ -30,7 +30,7 @@
               var(--vinyl-l-offset),
             var(--vinyl-shine-l) * var(--vinyl-shine-l-multiple)
           )
-          0 0 / 10%
+          0 0 / 16%
       )
       225deg,
     transparent 270deg 360deg
