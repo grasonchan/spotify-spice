@@ -1,0 +1,142 @@
+:root {
+  --vinyl-shine-l: 0.85;
+  --vinyl-groove-l: 0.175;
+  --vinyl-base-l-start: 0.17;
+  --vinyl-base-l-end: 0.14;
+  --vinyl-shine-l-multiple: 1.6;
+  --vinyl-groove-l-multiple: 1.28;
+  --vinyl-base-l-multiple: 1.25;
+  --vinyl-l-offset: 0.05;
+  --vinyl-shine: conic-gradient(
+    from 15deg,
+    transparent,
+    oklch(
+        from var(--spice-main)
+          clamp(
+            var(--vinyl-shine-l),
+            l * var(--vinyl-shine-l) * var(--vinyl-shine-l-multiple) +
+              var(--vinyl-l-offset),
+            var(--vinyl-shine-l) * var(--vinyl-shine-l-multiple)
+          )
+          0 0 / 10%
+      )
+      45deg,
+    transparent 90deg 180deg,
+    oklch(
+        from var(--spice-main)
+          clamp(
+            var(--vinyl-shine-l),
+            l * var(--vinyl-shine-l) * var(--vinyl-shine-l-multiple) +
+              var(--vinyl-l-offset),
+            var(--vinyl-shine-l) * var(--vinyl-shine-l-multiple)
+          )
+          0 0 / 10%
+      )
+      225deg,
+    transparent 270deg 360deg
+  );
+  --vinyl-groove: repeating-radial-gradient(
+    transparent 0px 4px,
+    oklch(
+        from var(--spice-main)
+          clamp(
+            var(--vinyl-groove-l),
+            l * var(--vinyl-groove-l) * var(--vinyl-groove-l-multiple) +
+              var(--vinyl-l-offset),
+            var(--vinyl-groove-l) * var(--vinyl-groove-l-multiple)
+          )
+          0 0
+      )
+      4px 5px,
+    transparent 5px 9px,
+    oklch(
+        from var(--spice-main)
+          clamp(
+            var(--vinyl-groove-l),
+            l * var(--vinyl-groove-l) * var(--vinyl-groove-l-multiple) +
+              var(--vinyl-l-offset),
+            var(--vinyl-groove-l) * var(--vinyl-groove-l-multiple)
+          )
+          0 0 / 70%
+      )
+      9px 10px
+  );
+  --vinyl-base: radial-gradient(
+    oklch(
+      from var(--spice-main)
+        clamp(
+          var(--vinyl-base-l-start),
+          l * var(--vinyl-base-l-start) * var(--vinyl-base-l-multiple) +
+            var(--vinyl-l-offset),
+          var(--vinyl-base-l-start) * var(--vinyl-base-l-multiple)
+        )
+        0 0
+    ),
+    oklch(
+      from var(--spice-main)
+        clamp(
+          var(--vinyl-base-l-end),
+          l * var(--vinyl-base-l-end) * var(--vinyl-base-l-multiple) +
+            var(--vinyl-l-offset),
+          var(--vinyl-base-l-end) * var(--vinyl-base-l-multiple)
+        )
+        0 0
+    )
+  );
+  --vinyl-duration: 12s;
+  --turntable-play-state: paused;
+}
+
+[data-testid='track-visual-enhancement'] {
+  .cover-art {
+    margin: calc(17% + 5px);
+    position: relative;
+    border-radius: 50%;
+    animation: rotate-vinyl var(--vinyl-duration) linear infinite
+      var(--turntable-play-state);
+
+    &::before,
+    &::after {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-radius: 50%;
+      content: '';
+    }
+
+    &::before {
+      background:
+        var(--vinyl-shine), var(--vinyl-groove), var(--vinyl-base);
+      box-shadow:
+        0 0 5px #0a0a0a inset,
+        0 0 2px #000;
+      transform: scale(1.5);
+      filter: drop-shadow(0 0 2px #000);
+    }
+
+    &::after {
+      box-shadow: 0 0 10px rgb(3 3 3 / 50%) inset;
+    }
+  }
+
+  .cover-art-icon {
+    display: none !important;
+  }
+
+  .cover-art-image {
+    background-color: #0f0f0f;
+    border-radius: 50% !important;
+  }
+}
+
+@keyframes rotate-vinyl {
+  from {
+    transform: rotate(0);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

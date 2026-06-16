@@ -169,10 +169,6 @@
     box-shadow: 0 6px 10px #fff9;
   }
 
-  [data-testid='track-visual-enhancement'] .cover-art::before {
-    filter: drop-shadow(0 0 2px #000) brightness(1.6);
-  }
-
   .main-nowPlayingView-contextItemInfo::before {
     background: linear-gradient(
       180deg,

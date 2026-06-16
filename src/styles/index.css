@@ -65,7 +65,6 @@
   }
 }
 
-[data-testid='track-visual-enhancement'] .cover-art-image,
 #fad-art,
 #fad-art-image,
 #fad-art-inner {
@@ -75,37 +74,21 @@
 #fad-art {
   width: 268px !important;
   margin: 80px 100px;
-}
-
-[data-testid='track-visual-enhancement'] .cover-art {
-  margin: calc(17% + 5px);
-}
-
-[data-testid='track-visual-enhancement'] .cover-art,
-#fad-art {
   position: relative;
   animation: rotate-turntable var(--turntable-duration) linear infinite
     var(--turntable-play-state);
 }
 
-[data-testid='track-visual-enhancement'] .cover-art::after,
 #fad-art-image {
+  background-color: #0f0f0f;
   box-shadow: 0 0 10px rgb(3 3 3 / 50%) inset;
 }
 
-[data-testid='track-visual-enhancement'] .cover-art-image,
-#fad-art-image {
-  background-color: #0f0f0f;
-}
-
-[data-testid='track-visual-enhancement'] .cover-art-icon,
 #fad-art-overlay,
 #fad-art-inner {
   display: none !important;
 }
 
-[data-testid='track-visual-enhancement'] .cover-art::before,
-[data-testid='track-visual-enhancement'] .cover-art::after,
 #fad-art::before,
 #fad-art::after {
   width: 100%;
@@ -117,7 +100,6 @@
   content: '';
 }
 
-[data-testid='track-visual-enhancement'] .cover-art::before,
 #fad-art::before {
   background:
     var(--turntable-shine), var(--turntable-groove),
