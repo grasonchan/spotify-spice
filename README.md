@@ -18,6 +18,12 @@ Use [Spicetify Marketplace](https://github.com/spicetify/marketplace) to install
 
 ## Extensions
 
+### Vinyl
+
+Transforms the album artwork within the Now Playing View into a spinning vinyl driven by your playback state.
+
+![track-peek](screenshots/vinyl.png)
+
 ### Track Peek
 
 Peek into tracks without switching playback.
