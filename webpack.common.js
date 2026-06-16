@@ -79,6 +79,7 @@ const extensionsCommon = merge(baseConfig, {
   name: 'extensions',
   context: path.resolve(__dirname, 'src/extensions'),
   entry: {
+    vinyl: './vinyl/index.js',
     'track-peek': './track-peek/index.js',
   },
   output: {
