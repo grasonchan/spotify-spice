@@ -1,5 +1,20 @@
 [
   {
+    "name": "Vinyl",
+    "description": "Transforms the album artwork within the Now Playing View into a spinning vinyl driven by your playback state.",
+    "branch": "deploy",
+    "main": "https://raw.githubusercontent.com/grasonchan/spotify-spice/refs/heads/deploy/extensions/vinyl.js",
+    "preview": "https://raw.githubusercontent.com/grasonchan/spotify-spice/refs/heads/master/screenshots/vinyl.png",
+    "readme": "https://raw.githubusercontent.com/grasonchan/spotify-spice/refs/heads/master/README.md",
+    "tags": [
+      "now-playing-view",
+      "NPV",
+      "album-artwork",
+      "cover-art",
+      "playback"
+    ]
+  },
+  {
     "name": "Track Peek",
     "description": "Peek into tracks without switching playback.",
     "branch": "deploy",
