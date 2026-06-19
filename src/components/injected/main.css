@@ -245,6 +245,40 @@
     }
   }
 
+  /* Concert - Header */
+  .RjMyuX869RgGkDWW {
+    background:
+      linear-gradient(#fff0 0%, #ffffff80 100%), var(--background-noise);
+  }
+
+  /* Concert - List */
+  .ChQ06fK6iF4NOWTn:hover {
+    background: #0000001a;
+  }
+
+  /* Concert - Lineup */
+  .i6MJC4jo0YsaX_k0,
+  /* Concert - Similar events */
+  .wEKKZ05wK8E2DnY9 {
+    &::before {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        rgb(200 200 200 / 0%) 0%,
+        rgb(200 200 200 / 50%) 50.52%,
+        rgb(200 200 200 / 70%) 100%
+      );
+      content: '';
+    }
+  }
+
+  /* Concert - Header - Time */
+  .be1yLwJJP7w1CPk5,
+  /* Concert - Similar events - Time */
+  .ewEPBt5N9Ac6DkDD {
+    background: #fff9;
+  }
+
   /* Library */
   .aE_ayHuwU0UG20h2,
   /* Search popup */
