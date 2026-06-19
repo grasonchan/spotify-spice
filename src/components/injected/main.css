@@ -332,6 +332,19 @@
       linear-gradient(#0000 0%, #ffffff80 100%), var(--background-noise);
   }
 
+  /* Artist - On Tour */
+  .jqeC8Fv3eQXI3cmc {
+    .main-nowPlayingView-onTourItemGrid {
+      &:hover {
+        background-color: var(--background-tinted-base);
+      }
+
+      .main-nowPlayingView-onTourTimeCard {
+        background: #0000001a;
+      }
+    }
+  }
+
   /* About */
   .J8g7rZ2MDknxmiYP.GUhu8mqqIMM0sZzG::before {
     position: absolute;
