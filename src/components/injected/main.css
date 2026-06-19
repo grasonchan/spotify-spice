@@ -197,6 +197,18 @@
     }
   }
 
+  /* NPV - On tour */
+  .main-nowPlayingView-artistOnTourItem {
+    &:focus-within,
+    &:hover {
+      background-color: var(--background-tinted-base);
+    }
+
+    .main-nowPlayingView-onTourItemTime {
+      color: var(--text-subdued);
+    }
+  }
+
   /* NPV Expanded */
   .Root__cinema-view {
     .main-trackInfo-name a {
