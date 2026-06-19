@@ -466,7 +466,7 @@
     --text-subdued: unset !important;
   }
 
-  [data-testid='settings-page'] .x-toggle-indicator {
+  .x-toggle-indicator {
     background: var(--spice-highlight-elevated) !important;
   }
 
