@@ -1,1 +1,2 @@
-export const { TooltipWrapper } = Spicetify.ReactComponent;
+export const { TooltipWrapper, Toggle, Slider } =
+  Spicetify.ReactComponent;
