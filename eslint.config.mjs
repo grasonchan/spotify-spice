@@ -56,6 +56,7 @@ export default [
       'no-await-in-loop': 'error',
       'import/extensions': ['error', 'ignorePackages'],
       'import/newline-after-import': ['error'],
+      'react/no-unknown-property': ['error', { ignore: ['closedby'] }],
       'react/prop-types': ['error', { skipUndeclared: true }],
     },
   },

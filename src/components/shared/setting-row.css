@@ -1,0 +1,30 @@
+.gc-setting-row {
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--spice-text);
+}
+
+.gc-setting-row__info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.gc-setting-row__label {
+  font-size: 14px;
+}
+
+.gc-setting-row__description {
+  font-size: 12px;
+  color: var(--spice-subtext);
+  margin-top: 4px;
+}
+
+.gc-setting-row__controls {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}

@@ -1,0 +1,65 @@
+.vinyl-speed-setting {
+  .gc-setting-row__controls {
+    flex: 2;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .vinyl-speed-setting__slider {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .vinyl-speed-setting__rpm {
+    width: 56px;
+    flex-shrink: 0;
+    font-size: 12px;
+    color: var(--spice-subtext);
+    text-align: right;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  .vinyl-speed-setting__presets {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .vinyl-speed-setting__preset {
+    padding: 0 8px;
+    flex: 1;
+    font-size: 12px;
+    color: var(--spice-text);
+    background-color: rgb(var(--spice-rgb-button), 10%);
+    border: 1px solid rgb(var(--spice-rgb-button), 25%);
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(var(--spice-rgb-button), 18%);
+    }
+
+    &.checked {
+      position: relative;
+      background-color: rgb(var(--spice-rgb-button), 25%);
+
+      &&::after {
+        width: 3px;
+        height: 3px;
+        position: absolute;
+        bottom: -8px;
+        left: 50%;
+        background-color: var(--spice-button);
+        border-radius: 50%;
+        transform: translateX(-50%);
+        content: '';
+      }
+    }
+  }
+}

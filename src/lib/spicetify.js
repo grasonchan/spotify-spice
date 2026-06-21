@@ -5,6 +5,7 @@ export const {
   Config: cliConfig,
   Platform,
   Player,
+  Menu: ProfileMenu,
   ContextMenu,
   showNotification,
   SVGIcons,
