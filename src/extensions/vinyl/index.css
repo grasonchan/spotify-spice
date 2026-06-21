@@ -83,7 +83,7 @@
         0 0
     )
   );
-  --vinyl-duration: 12s;
+  --vinyl-duration: 0s;
   --turntable-play-state: paused;
 }
 
