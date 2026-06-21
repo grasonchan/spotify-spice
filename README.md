@@ -20,9 +20,15 @@ Use [Spicetify Marketplace](https://github.com/spicetify/marketplace) to install
 
 ### Vinyl
 
-Transforms the album artwork within the Now Playing View into a spinning vinyl driven by your playback state.
+Transforms the album artwork within the Now Playing View into a spinning, brightness-adaptive vinyl driven by your playback state.
+
+Open the profile menu to access the vinyl settings.
+
+_Tip: Keep vinyl in Now Playing View by turning off `Settings` → `Display` → `Display short, looping visuals on tracks (Canvas)`._
 
 ![track-peek](screenshots/vinyl.png)
+
+![track-peek](screenshots/vinyl-settings.png)
 
 ### Track Peek
 
@@ -37,8 +43,6 @@ Right-click any track to access the audio preview.
 ## Theme
 
 A seamless extension of the native Spotify aesthetic, featuring a native-quality Light Mode alongside an optimized Dark Mode.
-
-_Tip: Keep vinyl records in Now Playing View by turning off `Settings` → `Display` → `Display short, looping visuals on tracks (Canvas)`._
 
 ![main-dark](screenshots/main.png)
 ![full-app-display-dark](screenshots/full-app-display.png)

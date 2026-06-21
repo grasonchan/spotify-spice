@@ -1,7 +1,7 @@
 [
   {
     "name": "Vinyl",
-    "description": "Transforms the album artwork within the Now Playing View into a spinning vinyl driven by your playback state.",
+    "description": "Transforms the album artwork within the Now Playing View into a spinning, brightness-adaptive vinyl driven by your playback state.",
     "branch": "deploy",
     "main": "https://raw.githubusercontent.com/grasonchan/spotify-spice/refs/heads/deploy/extensions/vinyl.js",
     "preview": "https://raw.githubusercontent.com/grasonchan/spotify-spice/refs/heads/master/screenshots/vinyl.png",
