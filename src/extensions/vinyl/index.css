@@ -102,7 +102,6 @@
     oklch(from var(--spice-main) var(--vinyl-base-l-start) 0 0),
     oklch(from var(--spice-main) var(--vinyl-base-l-end) 0 0)
   );
-  --vinyl-duration: 0s;
 }
 
 [data-testid='track-visual-enhancement'] {

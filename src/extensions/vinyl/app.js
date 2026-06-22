@@ -8,6 +8,8 @@ import {
 import { useVinylPlayState } from './use-vinyl-play-state.js';
 import Settings from './settings.js';
 
+const VINYL_DURATION = '--vinyl-duration';
+
 const getInitialSettings = () => {
   try {
     const raw = localStorage.getItem(CONFIG_KEY);
@@ -27,13 +29,14 @@ const App = () => {
   useEffect(() => {
     localStorage.setItem(CONFIG_KEY, JSON.stringify(settings));
 
-    const vinylDuration = settings.rotationEnabled
-      ? (60 / settings.rpm).toFixed(2)
-      : 0;
-    document.documentElement.style.setProperty(
-      '--vinyl-duration',
-      `${vinylDuration}s`
-    );
+    if (settings.rotationEnabled) {
+      document.documentElement.style.setProperty(
+        VINYL_DURATION,
+        `${(60 / settings.rpm).toFixed(2)}s`
+      );
+    } else {
+      document.documentElement.style.removeProperty(VINYL_DURATION);
+    }
   }, [settings]);
 
   useEffect(() => {
