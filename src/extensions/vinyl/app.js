@@ -5,7 +5,7 @@ import {
   DEFAULT_SETTINGS,
   SETTINGS_NAME,
 } from './constants.js';
-import { useTurntablePlayState } from '@/hooks/features/use-turntable-play-state.js';
+import { useTurntablePlayState } from './use-turntable-play-state.js';
 import Settings from './settings.js';
 
 const getInitialSettings = () => {

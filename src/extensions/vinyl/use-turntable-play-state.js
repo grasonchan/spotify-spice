@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { usePlayStatus } from '../host/use-play-status.js';
+import { usePlayStatus } from '@/hooks/host/use-play-status.js';
 
 export const useTurntablePlayState = () => {
   const playStatus = usePlayStatus();
