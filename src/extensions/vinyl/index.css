@@ -103,7 +103,6 @@
     oklch(from var(--spice-main) var(--vinyl-base-l-end) 0 0)
   );
   --vinyl-duration: 0s;
-  --vinyl-play-state: paused;
 }
 
 [data-testid='track-visual-enhancement'] {
