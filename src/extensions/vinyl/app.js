@@ -5,7 +5,7 @@ import {
   DEFAULT_SETTINGS,
   SETTINGS_NAME,
 } from './constants.js';
-import { useTurntablePlayState } from './use-turntable-play-state.js';
+import { useVinylPlayState } from './use-vinyl-play-state.js';
 import Settings from './settings.js';
 
 const getInitialSettings = () => {
@@ -22,7 +22,7 @@ const getInitialSettings = () => {
 const App = () => {
   const [settingsVisible, setSettingsVisible] = useState(false);
   const [settings, setSettings] = useState(getInitialSettings);
-  useTurntablePlayState();
+  useVinylPlayState();
 
   useEffect(() => {
     localStorage.setItem(CONFIG_KEY, JSON.stringify(settings));

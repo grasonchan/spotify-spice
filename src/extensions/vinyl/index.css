@@ -103,7 +103,7 @@
     oklch(from var(--spice-main) var(--vinyl-base-l-end) 0 0)
   );
   --vinyl-duration: 0s;
-  --turntable-play-state: paused;
+  --vinyl-play-state: paused;
 }
 
 [data-testid='track-visual-enhancement'] {
@@ -112,7 +112,7 @@
     position: relative;
     border-radius: 50%;
     animation: rotate-vinyl var(--vinyl-duration) linear infinite
-      var(--turntable-play-state);
+      var(--vinyl-play-state);
 
     &::before,
     &::after {
@@ -162,7 +162,7 @@
     margin: 80px 100px;
     position: relative;
     animation: rotate-vinyl var(--vinyl-duration) linear infinite
-      var(--turntable-play-state);
+      var(--vinyl-play-state);
   }
 
   #fad-art-image {

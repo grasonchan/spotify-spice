@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { usePlayStatus } from '@/hooks/host/use-play-status.js';
 
-export const useTurntablePlayState = () => {
+export const useVinylPlayState = () => {
   const playStatus = usePlayStatus();
 
   useEffect(() => {
     document.documentElement.style.setProperty(
-      '--turntable-play-state',
+      '--vinyl-play-state',
       playStatus ? 'running' : 'paused'
     );
   }, [playStatus]);
