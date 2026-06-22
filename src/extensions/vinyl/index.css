@@ -83,8 +83,25 @@
         0 0
     )
   );
-  --vinyl-duration: 0s;
-  --turntable-play-state: paused;
+  --fad-vinyl-shine: conic-gradient(
+    from 15deg,
+    transparent,
+    oklch(from var(--spice-main) var(--vinyl-shine-l) 0 0 / 16%) 45deg,
+    transparent 90deg 180deg,
+    oklch(from var(--spice-main) var(--vinyl-shine-l) 0 0 / 16%) 225deg,
+    transparent 270deg 360deg
+  );
+  --fad-vinyl-groove: repeating-radial-gradient(
+    transparent 0px 4px,
+    oklch(from var(--spice-main) var(--vinyl-groove-l) 0 0) 4px 5px,
+    transparent 5px 9px,
+    oklch(from var(--spice-main) var(--vinyl-groove-l) 0 0 / 70%) 9px
+      10px
+  );
+  --fad-vinyl-base: radial-gradient(
+    oklch(from var(--spice-main) var(--vinyl-base-l-start) 0 0),
+    oklch(from var(--spice-main) var(--vinyl-base-l-end) 0 0)
+  );
 }
 
 [data-testid='track-visual-enhancement'] {
@@ -93,7 +110,7 @@
     position: relative;
     border-radius: 50%;
     animation: rotate-vinyl var(--vinyl-duration) linear infinite
-      var(--turntable-play-state);
+      var(--vinyl-play-state);
 
     &::before,
     &::after {
@@ -128,6 +145,64 @@
   .cover-art-image {
     background-color: #0f0f0f;
     border-radius: 50% !important;
+  }
+}
+
+#full-app-display {
+  #fad-art,
+  #fad-art-image,
+  #fad-art-inner {
+    border-radius: 50% !important;
+  }
+
+  #fad-art {
+    width: 268px !important;
+    margin: 80px 100px;
+    position: relative;
+    animation: rotate-vinyl var(--vinyl-duration) linear infinite
+      var(--vinyl-play-state);
+  }
+
+  #fad-art-image {
+    background-color: #0f0f0f;
+    box-shadow: 0 0 10px rgb(3 3 3 / 50%) inset;
+  }
+
+  #fad-art-overlay,
+  #fad-art-inner {
+    display: none !important;
+  }
+
+  #fad-art::before,
+  #fad-art::after {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    content: '';
+  }
+
+  #fad-art::before {
+    background:
+      var(--fad-vinyl-shine), var(--fad-vinyl-groove),
+      var(--fad-vinyl-base);
+    box-shadow:
+      0 0 5px #0a0a0a inset,
+      0 0 2px #000;
+    transform: scale(1.5);
+    filter: drop-shadow(0 0 2px #000);
+  }
+
+  #fad-art::after {
+    background-color: rgb(100 100 100 / 10%);
+    border: 1px solid rgb(150 150 150 / 5%);
+    box-shadow:
+      0 0 1px rgb(40 40 40 / 20%) inset,
+      0 0 1px rgb(200 200 200 / 20%);
+    transform: scale(1.65);
+    z-index: -1;
   }
 }
 
