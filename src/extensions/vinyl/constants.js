@@ -31,3 +31,5 @@ export const RPM_PRESET_LIST = [
   { label: 'EP', tooltip: 'Extended Play', value: RPM_PRESET_MAP.EP },
   { label: 'SP', tooltip: 'Standard Play', value: RPM_PRESET_MAP.SP },
 ];
+
+export const MAX_COLOR_CACHE_SIZE = 1000;

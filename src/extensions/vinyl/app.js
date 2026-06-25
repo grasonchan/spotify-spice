@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   GraphQL,
   originPlayer,
@@ -11,6 +11,7 @@ import {
 import {
   CONFIG_KEY,
   DEFAULT_SETTINGS,
+  MAX_COLOR_CACHE_SIZE,
   SETTINGS_NAME,
 } from './constants.js';
 import { useVinylPlayState } from './use-vinyl-play-state.js';
@@ -35,6 +36,7 @@ const App = () => {
   const [settingsVisible, setSettingsVisible] = useState(false);
   const [settings, setSettings] = useState(getInitialSettings);
   useVinylPlayState();
+  const colorCacheMapRef = useRef(null);
 
   useEffect(() => {
     if (settings.rotationEnabled) {
@@ -53,6 +55,9 @@ const App = () => {
     const canvas = new OffscreenCanvas(1, 1);
     const ctx = canvas.getContext('2d');
     let isActive = true;
+    if (!colorCacheMapRef.current) {
+      colorCacheMapRef.current = new Map();
+    }
 
     const resetDOM = () => {
       root.style.removeProperty(COLORED_VINYL_C);
@@ -61,31 +66,46 @@ const App = () => {
     };
 
     const syncColored = async () => {
-      const { uri } = originPlayer.getState().item ?? {};
+      const { uri, album } = originPlayer.getState().item ?? {};
       try {
         if (!(uri && URI.isTrack(uri))) {
           resetDOM();
           return;
         }
 
-        const {
-          data: { trackUnion },
-        } = await GraphQL.Request(
-          GraphQL.Definitions.fetchExtractedColorForTrackEntity,
-          { uri }
-        );
+        if (!colorCacheMapRef.current.has(album.uri)) {
+          const {
+            data: { trackUnion },
+          } = await GraphQL.Request(
+            GraphQL.Definitions.fetchExtractedColorForTrackEntity,
+            { uri }
+          );
+          const colorHex =
+            trackUnion.albumOfTrack.coverArt.extractedColors?.colorDark
+              ?.hex;
+          colorCacheMapRef.current.set(album.uri, colorHex);
+
+          const overflowCount =
+            colorCacheMapRef.current.size - MAX_COLOR_CACHE_SIZE;
+          if (overflowCount > 0) {
+            const iterator = colorCacheMapRef.current.keys();
+            for (let i = 0; i < overflowCount; i++) {
+              colorCacheMapRef.current.delete(iterator.next().value);
+            }
+          }
+        }
+
         if (!(isActive && uri === originPlayer.getState().item?.uri)) {
           return;
         }
-
-        const colors = trackUnion.albumOfTrack.coverArt.extractedColors;
-        if (!colors?.colorDark?.hex) {
+        const colorHex = colorCacheMapRef.current.get(album.uri);
+        if (!colorHex) {
           showNotification('[Vinyl]: No color data available.');
           resetDOM();
           return;
         }
 
-        ctx.fillStyle = `oklch(from ${colors.colorDark.hex} l c h)`;
+        ctx.fillStyle = `oklch(from ${colorHex} l c h)`;
         const oklchValue = ctx.fillStyle;
         const [, c, h] = oklchValue.slice(6, -1).split(' ');
 
