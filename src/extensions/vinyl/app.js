@@ -101,7 +101,6 @@ const App = () => {
         }
         const colorHex = colorCacheMapRef.current.get(album.uri);
         if (!colorHex) {
-          showNotification('[Vinyl]: No color data available.');
           resetDOM();
           return;
         }

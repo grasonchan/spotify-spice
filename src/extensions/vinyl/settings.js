@@ -92,7 +92,7 @@ const Settings = ({
       )}
       <SettingRow
         label="Colored"
-        description="Enable colored vinyl effect in the Now Playing View (local files are not supported)."
+        description="Enable colored vinyl effect in the Now Playing View (exclude some tracks and local files)."
       >
         <Toggle
           value={coloredEnabled}
