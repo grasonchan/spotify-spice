@@ -5,8 +5,8 @@ import {
   RPM_PRESET_LIST,
   RPM_PRECISION,
   SETTINGS_NAME,
-  RPM_PRESET_MAP,
   RPM_RANGE,
+  DEFAULT_SETTINGS,
 } from './constants.js';
 import Modal from '@/components/shared/modal.js';
 import SettingRow from '@/components/shared/setting-row.js';
@@ -15,14 +15,16 @@ import './settings.css';
 const Settings = ({
   title = SETTINGS_NAME,
   visible = false,
-  rotationEnabled = true,
-  rpm = RPM_PRESET_MAP.AMBIENT,
+  rotationEnabled = DEFAULT_SETTINGS.rotationEnabled,
+  rpm = DEFAULT_SETTINGS.rpm,
+  coloredEnabled = DEFAULT_SETTINGS.coloredEnabled,
   rpmPrecision = RPM_PRECISION,
   minRPM = RPM_RANGE.MIN,
   maxRPM = RPM_RANGE.MAX,
   presetRPMs = RPM_PRESET_LIST,
   onRotateEnabledChange = () => {},
   onRPMChange = () => {},
+  onColoredEnabledChange = () => {},
   onClose = () => {},
 }) => {
   const [localRPM, setLocalRPM] = useState(rpm);
@@ -88,6 +90,15 @@ const Settings = ({
           )}
         </SettingRow>
       )}
+      <SettingRow
+        label="Colored"
+        description="Enable colored vinyl effect in the Now Playing View (local files are not supported)."
+      >
+        <Toggle
+          value={coloredEnabled}
+          onSelected={onColoredEnabledChange}
+        />
+      </SettingRow>
     </Modal>
   );
 };
