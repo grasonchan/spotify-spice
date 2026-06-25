@@ -17,7 +17,8 @@ export const RPM_PRESET_MAP = {
 
 export const DEFAULT_SETTINGS = {
   rotationEnabled: true,
-  rpm: 5,
+  rpm: RPM_PRESET_MAP.AMBIENT,
+  coloredEnabled: false,
 };
 
 export const RPM_PRESET_LIST = [
