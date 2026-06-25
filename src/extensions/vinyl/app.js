@@ -74,6 +74,7 @@ const App = () => {
         }
 
         if (!colorCacheMapRef.current.has(album.uri)) {
+          resetDOM();
           const {
             data: { trackUnion },
           } = await GraphQL.Request(
