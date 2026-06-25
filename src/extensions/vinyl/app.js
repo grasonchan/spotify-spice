@@ -1,5 +1,13 @@
 import { useEffect, useState } from 'react';
-import { ProfileMenu, SVGIcons } from '@/lib/spicetify.js';
+import {
+  GraphQL,
+  originPlayer,
+  Player,
+  ProfileMenu,
+  showNotification,
+  SVGIcons,
+  URI,
+} from '@/lib/spicetify.js';
 import {
   CONFIG_KEY,
   DEFAULT_SETTINGS,
@@ -9,6 +17,8 @@ import { useVinylPlayState } from './use-vinyl-play-state.js';
 import Settings from './settings.js';
 
 const VINYL_DURATION = '--vinyl-duration';
+const COLORED_VINYL_C = '--colored-vinyl-c';
+const COLORED_VINYL_H = '--colored-vinyl-h';
 
 const getInitialSettings = () => {
   try {
@@ -27,8 +37,6 @@ const App = () => {
   useVinylPlayState();
 
   useEffect(() => {
-    localStorage.setItem(CONFIG_KEY, JSON.stringify(settings));
-
     if (settings.rotationEnabled) {
       document.documentElement.style.setProperty(
         VINYL_DURATION,
@@ -37,6 +45,75 @@ const App = () => {
     } else {
       document.documentElement.style.removeProperty(VINYL_DURATION);
     }
+  }, [settings.rotationEnabled, settings.rpm]);
+
+  useEffect(() => {
+    if (!settings.coloredEnabled) return;
+    const root = document.documentElement;
+    const canvas = new OffscreenCanvas(1, 1);
+    const ctx = canvas.getContext('2d');
+    let isActive = true;
+
+    const resetDOM = () => {
+      root.style.removeProperty(COLORED_VINYL_C);
+      root.style.removeProperty(COLORED_VINYL_H);
+      delete root.dataset.coloredVinyl;
+    };
+
+    const syncColored = async () => {
+      const { uri } = originPlayer.getState().item ?? {};
+      try {
+        if (!(uri && URI.isTrack(uri))) {
+          resetDOM();
+          return;
+        }
+
+        const {
+          data: { trackUnion },
+        } = await GraphQL.Request(
+          GraphQL.Definitions.fetchExtractedColorForTrackEntity,
+          { uri }
+        );
+        if (!(isActive && uri === originPlayer.getState().item?.uri)) {
+          return;
+        }
+
+        const colors = trackUnion.albumOfTrack.coverArt.extractedColors;
+        if (!colors?.colorDark?.hex) {
+          showNotification('[Vinyl]: No color data available.');
+          resetDOM();
+          return;
+        }
+
+        ctx.fillStyle = `oklch(from ${colors.colorDark.hex} l c h)`;
+        const oklchValue = ctx.fillStyle;
+        const [, c, h] = oklchValue.slice(6, -1).split(' ');
+
+        root.style.setProperty(COLORED_VINYL_C, c);
+        root.style.setProperty(COLORED_VINYL_H, h);
+        root.dataset.coloredVinyl = 'true';
+      } catch (error) {
+        if (!(isActive && uri === originPlayer.getState().item?.uri)) {
+          return;
+        }
+        console.error('[Vinyl]:', error);
+        showNotification('[Vinyl]: Failed to apply vinyl color.', true);
+        resetDOM();
+      }
+    };
+
+    Player.addEventListener('songchange', syncColored);
+    syncColored();
+
+    return () => {
+      isActive = false;
+      Player.removeEventListener('songchange', syncColored);
+      resetDOM();
+    };
+  }, [settings.coloredEnabled]);
+
+  useEffect(() => {
+    localStorage.setItem(CONFIG_KEY, JSON.stringify(settings));
   }, [settings]);
 
   useEffect(() => {
@@ -57,10 +134,14 @@ const App = () => {
         visible={settingsVisible}
         rotationEnabled={settings.rotationEnabled}
         rpm={settings.rpm}
+        coloredEnabled={settings.coloredEnabled}
         onRotateEnabledChange={(rotationEnabled) =>
           setSettings({ ...settings, rotationEnabled })
         }
         onRPMChange={(rpm) => setSettings({ ...settings, rpm })}
+        onColoredEnabledChange={(coloredEnabled) =>
+          setSettings({ ...settings, coloredEnabled })
+        }
         onClose={() => setSettingsVisible(false)}
       />
     )

@@ -1,12 +1,29 @@
 :root {
-  --vinyl-shine-l: 0.85;
-  --vinyl-groove-l: 0.175;
-  --vinyl-base-l-start: 0.17;
-  --vinyl-base-l-end: 0.14;
+  --default-vinyl-shine-l: 0.85;
+  --default-vinyl-groove-l: 0.175;
+  --default-vinyl-base-l-start: 0.17;
+  --default-vinyl-base-l-end: 0.14;
+  --default-vinyl-c: 0;
+  --default-vinyl-h: 0;
+  --vinyl-shine-l: var(--default-vinyl-shine-l);
+  --vinyl-groove-l: var(
+    --colored-vinyl-groove-l,
+    var(--default-vinyl-groove-l)
+  );
+  --vinyl-base-l-start: var(
+    --colored-vinyl-base-l-start,
+    var(--default-vinyl-base-l-start)
+  );
+  --vinyl-base-l-end: var(
+    --colored-vinyl-base-l-end,
+    var(--default-vinyl-base-l-end)
+  );
   --vinyl-shine-l-multiple: 1.6;
   --vinyl-groove-l-multiple: 1.28;
   --vinyl-base-l-multiple: 1.25;
   --vinyl-l-offset: 0.05;
+  --vinyl-c: var(--colored-vinyl-c, var(--default-vinyl-c));
+  --vinyl-h: var(--colored-vinyl-h, var(--default-vinyl-h));
   --vinyl-shine: conic-gradient(
     from 15deg,
     transparent,
@@ -18,7 +35,7 @@
               var(--vinyl-l-offset),
             var(--vinyl-shine-l) * var(--vinyl-shine-l-multiple)
           )
-          0 0 / 16%
+          var(--vinyl-c) var(--vinyl-h) / 16%
       )
       45deg,
     transparent 90deg 180deg,
@@ -30,7 +47,7 @@
               var(--vinyl-l-offset),
             var(--vinyl-shine-l) * var(--vinyl-shine-l-multiple)
           )
-          0 0 / 16%
+          var(--vinyl-c) var(--vinyl-h) / 16%
       )
       225deg,
     transparent 270deg 360deg
@@ -45,7 +62,7 @@
               var(--vinyl-l-offset),
             var(--vinyl-groove-l) * var(--vinyl-groove-l-multiple)
           )
-          0 0
+          var(--vinyl-c) var(--vinyl-h)
       )
       4px 5px,
     transparent 5px 9px,
@@ -57,7 +74,7 @@
               var(--vinyl-l-offset),
             var(--vinyl-groove-l) * var(--vinyl-groove-l-multiple)
           )
-          0 0 / 70%
+          var(--vinyl-c) var(--vinyl-h) / 70%
       )
       9px 10px
   );
@@ -70,7 +87,7 @@
             var(--vinyl-l-offset),
           var(--vinyl-base-l-start) * var(--vinyl-base-l-multiple)
         )
-        0 0
+        var(--vinyl-c) var(--vinyl-h)
     ),
     oklch(
       from var(--spice-main)
@@ -80,28 +97,55 @@
             var(--vinyl-l-offset),
           var(--vinyl-base-l-end) * var(--vinyl-base-l-multiple)
         )
-        0 0
+        var(--vinyl-c) var(--vinyl-h)
     )
   );
   --fad-vinyl-shine: conic-gradient(
     from 15deg,
     transparent,
-    oklch(from var(--spice-main) var(--vinyl-shine-l) 0 0 / 16%) 45deg,
+    oklch(
+        from var(--spice-main) var(--default-vinyl-shine-l)
+          var(--default-vinyl-c) var(--default-vinyl-h) / 16%
+      )
+      45deg,
     transparent 90deg 180deg,
-    oklch(from var(--spice-main) var(--vinyl-shine-l) 0 0 / 16%) 225deg,
+    oklch(
+        from var(--spice-main) var(--default-vinyl-shine-l)
+          var(--default-vinyl-c) var(--default-vinyl-h) / 16%
+      )
+      225deg,
     transparent 270deg 360deg
   );
   --fad-vinyl-groove: repeating-radial-gradient(
     transparent 0px 4px,
-    oklch(from var(--spice-main) var(--vinyl-groove-l) 0 0) 4px 5px,
+    oklch(
+        from var(--spice-main) var(--default-vinyl-groove-l)
+          var(--default-vinyl-c) var(--default-vinyl-h)
+      )
+      4px 5px,
     transparent 5px 9px,
-    oklch(from var(--spice-main) var(--vinyl-groove-l) 0 0 / 70%) 9px
-      10px
+    oklch(
+        from var(--spice-main) var(--default-vinyl-groove-l)
+          var(--default-vinyl-c) var(--default-vinyl-h) / 70%
+      )
+      9px 10px
   );
   --fad-vinyl-base: radial-gradient(
-    oklch(from var(--spice-main) var(--vinyl-base-l-start) 0 0),
-    oklch(from var(--spice-main) var(--vinyl-base-l-end) 0 0)
+    oklch(
+      from var(--spice-main) var(--default-vinyl-base-l-start)
+        var(--default-vinyl-c) var(--default-vinyl-h)
+    ),
+    oklch(
+      from var(--spice-main) var(--default-vinyl-base-l-end)
+        var(--default-vinyl-c) var(--default-vinyl-h)
+    )
   );
+}
+
+:root[data-colored-vinyl='true'] {
+  --colored-vinyl-groove-l: 0.275;
+  --colored-vinyl-base-l-start: 0.28;
+  --colored-vinyl-base-l-end: 0.24;
 }
 
 [data-testid='track-visual-enhancement'] {
