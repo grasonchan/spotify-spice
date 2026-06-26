@@ -5,6 +5,7 @@
   --default-vinyl-base-l-end: 0.14;
   --default-vinyl-c: 0;
   --default-vinyl-h: 0;
+  --safe-colored-vinyl-c: min(var(--colored-vinyl-c), 0.0725);
   --vinyl-shine-l: var(--default-vinyl-shine-l);
   --vinyl-groove-l: var(
     --colored-vinyl-groove-l,
@@ -22,7 +23,7 @@
   --vinyl-groove-l-multiple: 1.28;
   --vinyl-base-l-multiple: 1.25;
   --vinyl-l-offset: 0.05;
-  --vinyl-c: var(--colored-vinyl-c, var(--default-vinyl-c));
+  --vinyl-c: var(--safe-colored-vinyl-c, var(--default-vinyl-c));
   --vinyl-h: var(--colored-vinyl-h, var(--default-vinyl-h));
   --vinyl-shine: conic-gradient(
     from 15deg,
