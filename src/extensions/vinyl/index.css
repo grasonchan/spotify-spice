@@ -106,6 +106,11 @@
         var(--vinyl-c) var(--vinyl-h)
     )
   );
+  --vinyl-shadow-inset: var(--colored-vinyl-shadow-inset, #0a0a0a);
+  --vinyl-inner-shadow-inset: var(
+    --colored-vinyl-inner-shadow-inset,
+    rgb(3 3 3 / 50%)
+  );
   --fad-vinyl-shine: conic-gradient(
     from 15deg,
     transparent,
@@ -154,6 +159,11 @@
   --colored-vinyl-base-l-end: 0.24;
   --colored-vinyl-groove-l-multiple: 1.865;
   --colored-vinyl-base-l-multiple: 1.92;
+  --colored-vinyl-shadow-inset: oklch(
+    from var(--spice-main) calc(8% * l * 5.25) var(--vinyl-c)
+      var(--vinyl-h)
+  );
+  --colored-vinyl-inner-shadow-inset: var(--colored-vinyl-shadow-inset);
 }
 
 [data-testid='track-visual-enhancement'] {
@@ -179,14 +189,14 @@
       background:
         var(--vinyl-shine), var(--vinyl-groove), var(--vinyl-base);
       box-shadow:
-        0 0 5px #0a0a0a inset,
+        0 0 5px var(--vinyl-shadow-inset) inset,
         0 0 2px #000;
       transform: scale(1.5);
       filter: drop-shadow(0 0 2px #000);
     }
 
     &::after {
-      box-shadow: 0 0 10px rgb(3 3 3 / 50%) inset;
+      box-shadow: 0 0 10px var(--vinyl-inner-shadow-inset) inset;
     }
   }
 
