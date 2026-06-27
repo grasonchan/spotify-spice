@@ -20,7 +20,7 @@ Use [Spicetify Marketplace](https://github.com/spicetify/marketplace) to install
 
 ### Vinyl
 
-Transforms the album artwork into a spinning, brightness-adaptive vinyl driven by your playback state.
+Transforms the album artwork into a spinning, lightness-adaptive vinyl driven by your playback state.
 
 Supports both the **Now Playing View** and [**Full App Display**](#optional).
 
