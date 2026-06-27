@@ -17,7 +17,8 @@ export const RPM_PRESET_MAP = {
 
 export const DEFAULT_SETTINGS = {
   rotationEnabled: true,
-  rpm: 5,
+  rpm: RPM_PRESET_MAP.AMBIENT,
+  coloredEnabled: false,
 };
 
 export const RPM_PRESET_LIST = [
@@ -30,3 +31,5 @@ export const RPM_PRESET_LIST = [
   { label: 'EP', tooltip: 'Extended Play', value: RPM_PRESET_MAP.EP },
   { label: 'SP', tooltip: 'Standard Play', value: RPM_PRESET_MAP.SP },
 ];
+
+export const MAX_COLOR_CACHE_SIZE = 1000;
