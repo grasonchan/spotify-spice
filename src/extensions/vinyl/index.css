@@ -68,7 +68,7 @@
               var(--vinyl-l-offset),
             var(--vinyl-groove-l) * var(--vinyl-groove-l-multiple)
           )
-          var(--vinyl-c) var(--vinyl-h)
+          var(--vinyl-c) var(--vinyl-h) / 100%
       )
       4px 5px,
     transparent 5px 9px,
@@ -93,7 +93,7 @@
             var(--vinyl-l-offset),
           var(--vinyl-base-l-start) * var(--vinyl-base-l-multiple)
         )
-        var(--vinyl-c) var(--vinyl-h)
+        var(--vinyl-c) var(--vinyl-h) / 100%
     ),
     oklch(
       from var(--spice-main)
@@ -103,7 +103,7 @@
             var(--vinyl-l-offset),
           var(--vinyl-base-l-end) * var(--vinyl-base-l-multiple)
         )
-        var(--vinyl-c) var(--vinyl-h)
+        var(--vinyl-c) var(--vinyl-h) / 100%
     )
   );
   --vinyl-shadow-inset: var(--colored-vinyl-shadow-inset, #0a0a0a);
@@ -131,7 +131,7 @@
     transparent 0px 4px,
     oklch(
         from var(--spice-main) var(--default-vinyl-groove-l)
-          var(--default-vinyl-c) var(--default-vinyl-h)
+          var(--default-vinyl-c) var(--default-vinyl-h) / 100%
       )
       4px 5px,
     transparent 5px 9px,
@@ -144,11 +144,11 @@
   --fad-vinyl-base: radial-gradient(
     oklch(
       from var(--spice-main) var(--default-vinyl-base-l-start)
-        var(--default-vinyl-c) var(--default-vinyl-h)
+        var(--default-vinyl-c) var(--default-vinyl-h) / 100%
     ),
     oklch(
       from var(--spice-main) var(--default-vinyl-base-l-end)
-        var(--default-vinyl-c) var(--default-vinyl-h)
+        var(--default-vinyl-c) var(--default-vinyl-h) / 100%
     )
   );
 }
@@ -161,7 +161,7 @@
   --colored-vinyl-base-l-multiple: 1.92;
   --colored-vinyl-shadow-inset: oklch(
     from var(--spice-main) calc(8% * l * 5.25) var(--vinyl-c)
-      var(--vinyl-h)
+      var(--vinyl-h) / 100%
   );
   --colored-vinyl-inner-shadow-inset: var(--colored-vinyl-shadow-inset);
 }
