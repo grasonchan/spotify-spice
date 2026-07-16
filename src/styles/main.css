@@ -1,0 +1,53 @@
+:has(> [aria-describedby~='connect-message-nudge']) {
+  anchor-name: --connect-device;
+}
+
+.main-connectBar-connectBar {
+  --text-base: var(--spice-subtext);
+  --essential-base: var(--spice-subtext);
+  --encore-text-size-smaller: 10px;
+  --encore-graphic-size-decorative-smaller: 12px;
+  --bubble-bg: color-mix(
+    in srgb,
+    var(--spice-button) 25%,
+    var(--spice-sidebar)
+  );
+  --bubble-arraw-size: 4px;
+  --bubble-arraw-offset: calc(sqrt(pow(4, 2) * 2) / 2 * 1px);
+
+  height: 18px;
+  padding: 0 4px !important;
+  position: absolute;
+  position-anchor: --connect-device;
+  left: calc(
+    anchor(center) - (4px + var(--encore-text-size-smaller) + 4px / 2)
+  );
+  top: calc(anchor(bottom) + var(--bubble-arraw-size));
+  background-color: var(--bubble-bg) !important;
+  border-radius: 12px;
+
+  &::before {
+    width: var(--bubble-arraw-size);
+    height: var(--bubble-arraw-size);
+    position: absolute;
+    top: calc(0px - var(--bubble-arraw-offset));
+    left: calc(4px + var(--encore-text-size-smaller) + 4px / 2);
+    background: linear-gradient(
+      135deg,
+      var(--bubble-bg),
+      50%,
+      transparent 50%
+    );
+    transform-origin: top left;
+    transform: rotate(45deg);
+    content: '';
+  }
+
+  .main-connectBar-icon {
+    margin-inline-end: unset;
+  }
+
+  .main-connectBar-textButton {
+    padding: 0 4px;
+  }
+}
