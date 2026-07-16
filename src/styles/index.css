@@ -1,4 +1,5 @@
 @import './animations.css';
+@import './main.css';
 
 :root {
   --custom-progress-bar-height: 2px;
