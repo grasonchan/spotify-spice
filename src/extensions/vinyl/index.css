@@ -9,6 +9,7 @@
     min(var(--colored-vinyl-c), 0.0725) + l * 0.0175
   );
   --vinyl-shine-l: var(--default-vinyl-shine-l);
+  --vinyl-shine-alpha: 0.0865;
   --vinyl-groove-l: var(
     --colored-vinyl-groove-l,
     var(--default-vinyl-groove-l)
@@ -22,6 +23,7 @@
     var(--default-vinyl-base-l-end)
   );
   --vinyl-shine-l-multiple: 1.6;
+  --vinyl-shine-alpha-multiple: 0.0755;
   --vinyl-groove-l-multiple: var(
     --colored-vinyl-groove-l-multiple,
     1.28
@@ -41,7 +43,11 @@
               var(--vinyl-l-offset),
             var(--vinyl-shine-l) * var(--vinyl-shine-l-multiple)
           )
-          var(--vinyl-c) var(--vinyl-h) / 16%
+          var(--vinyl-c) var(--vinyl-h) /
+          calc(
+            var(--vinyl-shine-alpha) + l *
+              var(--vinyl-shine-alpha-multiple)
+          )
       )
       45deg,
     transparent 90deg 180deg,
@@ -53,7 +59,11 @@
               var(--vinyl-l-offset),
             var(--vinyl-shine-l) * var(--vinyl-shine-l-multiple)
           )
-          var(--vinyl-c) var(--vinyl-h) / 16%
+          var(--vinyl-c) var(--vinyl-h) /
+          calc(
+            var(--vinyl-shine-alpha) + l *
+              var(--vinyl-shine-alpha-multiple)
+          )
       )
       225deg,
     transparent 270deg 360deg
@@ -116,13 +126,13 @@
     transparent,
     oklch(
         from var(--spice-main) var(--default-vinyl-shine-l)
-          var(--default-vinyl-c) var(--default-vinyl-h) / 16%
+          var(--default-vinyl-c) var(--default-vinyl-h) / 12%
       )
       45deg,
     transparent 90deg 180deg,
     oklch(
         from var(--spice-main) var(--default-vinyl-shine-l)
-          var(--default-vinyl-c) var(--default-vinyl-h) / 16%
+          var(--default-vinyl-c) var(--default-vinyl-h) / 12%
       )
       225deg,
     transparent 270deg 360deg
