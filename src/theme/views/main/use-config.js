@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
-import ThemeSwitcher from '@/components/shared/theme-switcher.js';
+import ThemeSwitcher from '../../components/theme-switcher.js';
 
 let buddyFeedClassName = '';
 
-export const useMainConfig = () => {
+export const useConfig = () => {
   const portalsConfig = useMemo(
     () =>
       new Map([

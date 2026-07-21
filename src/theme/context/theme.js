@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { THEMES } from '@/config/constants.js';
+import { THEMES } from '../config/constants.js';
 
 const ThemeContext = createContext(THEMES.DARK);
 

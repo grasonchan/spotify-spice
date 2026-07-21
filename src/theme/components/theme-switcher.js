@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import { SVGIcons } from '@/lib/spicetify.js';
-import { THEMES } from '@/config/constants.js';
-import ThemeContext from '@/context/theme.js';
-import SVGButton from './svg-button.js';
+import { THEMES } from '../config/constants.js';
+import ThemeContext from '../context/theme.js';
+import SVGButton from '@/components/shared/svg-button.js';
 
 const THEME_LABELS = {
   [THEMES.LIGHT]: 'Light',

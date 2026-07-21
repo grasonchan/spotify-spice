@@ -1,13 +1,13 @@
 import { useContext, useMemo } from 'react';
 import { createPortal } from 'react-dom';
-import { THEMES } from '@/config/constants.js';
-import ThemeContext from '@/context/theme.js';
-import { useFADSideEffect } from '@/hooks/features/use-fad-side-effect.js';
-import TrackHeart from '../host-aware/track-heart.js';
+import { THEMES } from '../../config/constants.js';
+import ThemeContext from '../../context/theme.js';
+import { useSideEffect } from './use-side-effect.js';
+import TrackHeart from '@/components/host-aware/track-heart.js';
 
-const FADView = () => {
+const View = () => {
   const { theme } = useContext(ThemeContext);
-  useFADSideEffect();
+  useSideEffect();
 
   const containers = useMemo(() => {
     const fad = document.querySelector('#full-app-display');
@@ -31,4 +31,4 @@ const FADView = () => {
   );
 };
 
-export default FADView;
+export default View;
