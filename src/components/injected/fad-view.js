@@ -4,7 +4,6 @@ import { THEMES } from '@/config/constants.js';
 import ThemeContext from '@/context/theme.js';
 import { useFADSideEffect } from '@/hooks/features/use-fad-side-effect.js';
 import TrackHeart from '../host-aware/track-heart.js';
-import SongPreview from '../host-aware/song-preview.js';
 
 const FADView = () => {
   const { theme } = useContext(ThemeContext);
@@ -21,10 +20,7 @@ const FADView = () => {
   return (
     <>
       {createPortal(
-        <>
-          <SongPreview containerClassName="fad-song-preview" />
-          {theme === THEMES.DARK && <div id="fad-mask" />}
-        </>,
+        theme === THEMES.DARK && <div id="fad-mask" />,
         containers.fad
       )}
       {createPortal(

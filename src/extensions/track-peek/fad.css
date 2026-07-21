@@ -1,0 +1,12 @@
+.fad-song-preview {
+  position: absolute;
+  bottom: 20px;
+
+  .song-preview-item {
+    color: #ccc;
+
+    &:hover {
+      color: #fff !important;
+    }
+  }
+}

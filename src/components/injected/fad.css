@@ -2,14 +2,6 @@
   .fad-track-heart {
     color: #ccc;
   }
-
-  .fad-song-preview button {
-    color: #ccc;
-
-    &:hover {
-      color: #fff;
-    }
-  }
 }
 
 #full-app-display {
@@ -128,12 +120,6 @@
       ) /
       2
   ) !important;
-}
-
-.fad-song-preview {
-  width: 100%;
-  position: absolute;
-  bottom: 20px;
 }
 
 #fad-lyrics-plus-container,
