@@ -1,8 +1,8 @@
 import { forwardRef, memo } from 'react';
 import { classnames, originPlayer } from '@/lib/spicetify.js';
 import { useQueue } from '@/hooks/host/use-queue.js';
-import { useSongPreviewConfig } from '@/hooks/config/use-song-preview.js';
-import SVGButton from '../shared/svg-button.js';
+import { useSongPreviewConfig } from './use-song-preview.js';
+import SVGButton from '@/components/shared/svg-button.js';
 import './song-preview.css';
 
 const SongPreview = memo(

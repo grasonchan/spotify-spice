@@ -1,6 +1,6 @@
 import { createPortal } from 'react-dom';
 import { useFADStatus } from '@/hooks/host/use-fad-status.js';
-import SongPreview from '@/components/host-aware/song-preview.js';
+import SongPreview from './song-preview.js';
 import './fad.css';
 
 const FAD = () => {
