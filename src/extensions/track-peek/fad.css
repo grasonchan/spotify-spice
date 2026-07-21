@@ -1,0 +1,12 @@
+.fad-adjacent-tracks-peek {
+  position: absolute;
+  bottom: 20px;
+
+  .adjacent-tracks-peek-standalone__item {
+    color: #ccc;
+
+    &:hover {
+      color: #fff !important;
+    }
+  }
+}
