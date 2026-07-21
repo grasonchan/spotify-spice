@@ -8,7 +8,7 @@ const FAD = () => {
 
   if (!status) return null;
   return createPortal(
-    <AdjacentTracksPeekStandalone containerClassName="fad-adjacent-tracks-peek" />,
+    <AdjacentTracksPeekStandalone className="fad-adjacent-tracks-peek" />,
     document.querySelector('#full-app-display')
   );
 };
