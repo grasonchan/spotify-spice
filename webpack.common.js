@@ -51,7 +51,8 @@ const baseConfig = {
 
 const themeCommon = merge(baseConfig, {
   name: 'theme',
-  entry: './src/index.js',
+  context: path.resolve(__dirname, 'src/theme'),
+  entry: './index.js',
   output: {
     filename: 'theme.js',
     path: path.resolve(__dirname, 'dist', THEME_NAME),
@@ -67,7 +68,7 @@ const themeCommon = merge(baseConfig, {
   },
   plugins: [
     new CopyPlugin({
-      patterns: ['src/color.ini'],
+      patterns: ['color.ini'],
     }),
     new MiniCssExtractPlugin({
       filename: 'user.css',
