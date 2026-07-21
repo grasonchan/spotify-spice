@@ -207,9 +207,9 @@ const AudioPreview = ({ container, playStatus }) => {
 
   useEffect(() => {
     const removeSubscribe = volumeUpdate((event) => {
-      const currentVolume = event.data.volume;
-      if (!audioRef.current) return;
-      audioRef.current.volume = currentVolume;
+      const { isLocal, volume } = event.data;
+      if (!(audioRef.current && isLocal)) return;
+      audioRef.current.volume = Math.min(Math.max(volume, 0), 1);
     });
     return removeSubscribe;
   }, []);
