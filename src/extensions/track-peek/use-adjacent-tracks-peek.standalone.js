@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { classnames, Player, SVGIcons } from '@/lib/spicetify.js';
 import { getAdjacentTracks } from '@/utils/track.js';
 
-export const useSongPreviewConfig = ({
+export const useAdjacentTracksPeekStandalone = ({
   initialConfig = {},
   queue = {},
   restrictions: { canSkipPrevious = true, canSkipNext = true } = {},
@@ -15,7 +15,10 @@ export const useSongPreviewConfig = ({
     } = initialConfig;
 
     const combinedCommonConfig = {
-      className: classnames('song-preview-item', className),
+      className: classnames(
+        'adjacent-tracks-peek-standalone__item',
+        className
+      ),
       ...restCommonConfig,
     };
 

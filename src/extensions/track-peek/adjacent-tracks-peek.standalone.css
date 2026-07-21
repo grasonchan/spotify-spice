@@ -1,4 +1,4 @@
-.song-preview {
+.adjacent-tracks-peek-standalone {
   width: 100%;
   padding: 0 32px;
   display: flex;
@@ -6,7 +6,7 @@
   align-items: center;
   gap: 38px;
 
-  .song-preview-item {
+  .adjacent-tracks-peek-standalone__item {
     font-size: 12px;
   }
 }

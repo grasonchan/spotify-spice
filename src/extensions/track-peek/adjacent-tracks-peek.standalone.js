@@ -1,14 +1,14 @@
 import { forwardRef, memo } from 'react';
 import { classnames, originPlayer } from '@/lib/spicetify.js';
 import { useQueue } from '@/hooks/host/use-queue.js';
-import { useSongPreviewConfig } from './use-song-preview.js';
+import { useAdjacentTracksPeekStandalone } from './use-adjacent-tracks-peek.standalone.js';
 import SVGButton from '@/components/shared/svg-button.js';
-import './song-preview.css';
+import './adjacent-tracks-peek.standalone.css';
 
-const SongPreview = memo(
+const AdjacentTracksPeekStandalone = memo(
   forwardRef(({ initialConfig, containerClassName }, ref) => {
     const queue = useQueue();
-    const config = useSongPreviewConfig({
+    const config = useAdjacentTracksPeekStandalone({
       initialConfig,
       queue,
       restrictions: originPlayer._state.restrictions,
@@ -17,7 +17,10 @@ const SongPreview = memo(
     return (
       <div
         ref={ref}
-        className={classnames('song-preview', containerClassName)}
+        className={classnames(
+          'adjacent-tracks-peek-standalone',
+          containerClassName
+        )}
       >
         {config.map(({ key, ...restProps }) => (
           <SVGButton key={key} {...restProps} />
@@ -27,4 +30,4 @@ const SongPreview = memo(
   })
 );
 
-export default SongPreview;
+export default AdjacentTracksPeekStandalone;
