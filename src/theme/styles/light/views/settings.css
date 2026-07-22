@@ -1,0 +1,17 @@
+:root[data-theme='light'] {
+  .x-settings-equalizerSection {
+    background-color: var(--spice-sidebar);
+  }
+
+  .x-settings-equalizerPanelCanvas {
+    z-index: 100;
+  }
+
+  .x-settings-equalizerPanelFilters::before {
+    border-bottom: 1px solid #5555551a;
+  }
+
+  .x-settings-equalizerPanelFilter::after {
+    border-right: 1px solid #5555551a;
+  }
+}

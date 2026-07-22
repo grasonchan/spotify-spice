@@ -2,7 +2,6 @@ import { useRef, useCallback, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useDOMFinder } from '@/hooks/utils/use-dom-finder.js';
 import { useConfig } from './use-config.js';
-import './index.css';
 
 const Main = () => {
   const portalsMapRef = useRef(null);

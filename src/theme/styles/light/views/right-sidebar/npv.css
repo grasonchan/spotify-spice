@@ -1,0 +1,58 @@
+:root[data-theme='light'] {
+  .main-nowPlayingView-mainWrapper {
+    --text-subdued: #000000b3;
+  }
+
+  .BEeVmHj340c0PYHe {
+    box-shadow: 0 6px 10px #fff9;
+  }
+
+  .main-nowPlayingView-contextItemInfo::before {
+    background: linear-gradient(
+      180deg,
+      hsl(0deg 0% 93% / 0%),
+      hsl(0deg 0% 93% / 45%) 18%,
+      var(--spice-main) 89%,
+      var(--spice-main) 96%
+    );
+  }
+
+  .main-nowPlayingView-queueItem,
+  .main-nowPlayingView-credits {
+    [data-encore-id='listRow'] {
+      --box-hover-background-color: var(
+        --background-tinted-base
+      ) !important;
+    }
+  }
+
+  /* About the artist */
+  .B3B0XuueQy4Swpyw.ppsr9k1cXo055Z3t.P1a_MNB6ZEIu50sz {
+    &::before {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        rgb(255 255 255 / 50%) 0%,
+        rgb(255 255 255 / 0%) 35%
+      );
+      content: '';
+      aspect-ratio: 3 / 2;
+    }
+
+    .oyoU3RD4WIkhZoGS {
+      position: relative;
+    }
+  }
+
+  /* Expanded */
+  .Root__cinema-view {
+    .main-trackInfo-name a {
+      color: var(--text-base);
+    }
+
+    /* About the artist */
+    .JO5DuTPjVVoBxIKN {
+      background-color: #ffffff80;
+    }
+  }
+}

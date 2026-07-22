@@ -1,0 +1,23 @@
+:root[data-theme='light'] {
+  /* Playlist */
+  .f0DRpgeIxygEki9e {
+    background-color: #0000001a;
+  }
+
+  .main-trackList-trackListRow {
+    &:hover,
+    &:focus-within {
+      background-color: var(--background-tinted-base);
+    }
+
+    &.q8suB2R_XkoUyIeZ,
+    &.q8suB2R_XkoUyIeZ:hover {
+      background-color: var(--background-tinted-highlight);
+    }
+  }
+
+  /* Recommended - list image */
+  .jI_IBNN4ddM_GyKh .T3i51foJdn0tRIOO {
+    background: #fff9;
+  }
+}

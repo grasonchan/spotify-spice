@@ -1,0 +1,26 @@
+:root[data-theme='light'] {
+  .main-editImageButton-overlay,
+  .tch9DldVF8oyie2D {
+    background-color: #ffffffb3;
+  }
+
+  .profile-userEditDetails-container {
+    --user-edit-input-bg: #0000001a;
+    --user-edit-input-focus-bg: var(--spice-highlight-elevated);
+    --user-edit-close-color: #000000b3;
+    --user-edit-close-hover: #0000001a;
+  }
+
+  .main-entityHeader-metaData {
+    --text-subdued: unset !important;
+  }
+
+  .main-entityHeader-metaDataText {
+    color: unset;
+  }
+
+  .main-entityHeader-headerText
+    > div:has(.playlist-playlist-playlistDescription) {
+    --text-subdued: unset !important;
+  }
+}

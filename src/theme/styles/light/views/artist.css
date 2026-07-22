@@ -1,0 +1,22 @@
+:root[data-theme='light'] {
+  /* Banner */
+  .bHqdRdxo4vtOizQq {
+    background:
+      linear-gradient(#0000 0%, #ffffff80 100%), var(--background-noise);
+  }
+
+  /* About */
+  .J8g7rZ2MDknxmiYP.GUhu8mqqIMM0sZzG::before {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      rgb(255 255 255 / 0%) 25%,
+      rgb(255 255 255 / 50%) 100%
+    );
+    content: '';
+  }
+
+  .artist-artistDiscography-topBarScrolled {
+    box-shadow: 0 6px 10px #fff9;
+  }
+}

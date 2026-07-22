@@ -1,0 +1,112 @@
+#full-app-display {
+  background-color: #2c2c2c;
+}
+
+#fad-body {
+  height: calc(100vh - 120px) !important;
+  margin: 60px 0;
+}
+
+#fad-details {
+  max-width: 520px !important;
+}
+
+#fad-details #fad-title {
+  font-size: 30px;
+}
+
+#fad-details #fad-artist {
+  margin-top: 4px;
+  font-size: 18px;
+}
+
+#fad-details #fad-album,
+#fad-details #fad-release-date {
+  margin: 6px 16px 0 0;
+  display: inline-block;
+  color: #ccc;
+}
+
+#fad-details #fad-album {
+  font-size: 13px;
+}
+
+#fad-details #fad-release-date {
+  font-size: 11px;
+}
+
+#fad-details #fad-artist > *,
+#fad-details #fad-album > *,
+#fad-details #fad-release-date > *,
+#fad-details #fad-status > #fad-controls > * > svg {
+  vertical-align: middle;
+}
+
+#fad-details #fad-artist > svg {
+  width: 20px;
+  height: 20px;
+}
+
+#fad-details #fad-album > svg {
+  width: 15px;
+  height: 15px;
+  margin-left: 4px;
+  margin-right: 6px;
+}
+
+#fad-details #fad-release-date > svg {
+  width: 13px;
+  height: 13px;
+  margin-left: 4px;
+  margin-right: 6px;
+}
+
+#fad-play > svg {
+  width: 24px;
+  height: 24px;
+}
+
+#fad-controls > button > svg {
+  fill: #ccc;
+}
+
+#fad-controls > button:hover > svg {
+  fill: #fff;
+}
+
+#fad-progress-container {
+  font-size: 12px;
+}
+
+#fad-elapsed,
+#fad-duration {
+  min-width: 32px !important;
+}
+
+#fad-progress {
+  height: var(--custom-progress-bar-height) !important;
+  background-color: rgb(200 200 200 / 30%) !important;
+}
+
+#fad-progress-inner {
+  background-color: var(--spice-button) !important;
+  box-shadow: unset !important;
+}
+
+#fad-thumb {
+  width: var(--custom-progress-bar-slider-size) !important;
+  height: var(--custom-progress-bar-slider-size) !important;
+  top: calc(
+    0px -
+      (
+        var(--custom-progress-bar-slider-size) -
+          var(--custom-progress-bar-height)
+      ) /
+      2
+  ) !important;
+}
+
+#fad-lyrics-plus-container,
+.lyrics-lyricsContainer-LyricsContainer.fad-enabled {
+  height: inherit !important;
+}

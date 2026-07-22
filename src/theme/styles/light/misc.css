@@ -1,0 +1,11 @@
+:root[data-theme='light'] {
+  /* NPB */
+  .main-genericButton-button:not(.main-genericButton-buttonActive) {
+    color: var(--text-subdued);
+  }
+
+  /* Friend Activity */
+  .RfzQ68DFkXY5DQ0f .aLhQGd90DoUBzfNW {
+    color: var(--spice-text);
+  }
+}

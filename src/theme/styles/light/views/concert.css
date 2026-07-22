@@ -1,0 +1,60 @@
+:root[data-theme='light'] {
+  /* NPV - On tour */
+  .main-nowPlayingView-artistOnTourItem {
+    &:focus-within,
+    &:hover {
+      background-color: var(--background-tinted-base);
+    }
+
+    .main-nowPlayingView-onTourItemTime {
+      color: var(--text-subdued);
+    }
+  }
+
+  /* Artist - On Tour */
+  .jqeC8Fv3eQXI3cmc {
+    .main-nowPlayingView-onTourItemGrid {
+      &:hover {
+        background-color: var(--background-tinted-base);
+      }
+
+      .main-nowPlayingView-onTourTimeCard {
+        background: #0000001a;
+      }
+    }
+  }
+
+  /* Header */
+  .RjMyuX869RgGkDWW {
+    background:
+      linear-gradient(#fff0 0%, #ffffff80 100%), var(--background-noise);
+  }
+
+  /* List */
+  .ChQ06fK6iF4NOWTn:hover {
+    background: #0000001a;
+  }
+
+  /* Lineup */
+  .i6MJC4jo0YsaX_k0,
+  /* Similar events */
+  .wEKKZ05wK8E2DnY9 {
+    &::before {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        rgb(200 200 200 / 0%) 0%,
+        rgb(200 200 200 / 50%) 50.52%,
+        rgb(200 200 200 / 70%) 100%
+      );
+      content: '';
+    }
+  }
+
+  /* Header - Time */
+  .be1yLwJJP7w1CPk5,
+  /* Similar events - Time */
+  .ewEPBt5N9Ac6DkDD {
+    background: #fff9;
+  }
+}

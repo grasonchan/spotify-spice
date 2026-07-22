@@ -1,0 +1,18 @@
+.main-entityHeader-backgroundColor,
+.main-actionBarBackground-background,
+.main-topBar-overlay,
+.playlist-playlist-actionBarBackground-background {
+  background: unset !important;
+}
+
+.main-actionBarBackground-background {
+  background-image: unset;
+}
+
+.main-entityHeader-shadow {
+  box-shadow: unset;
+}
+
+.main-topBar-background {
+  background-color: var(--spice-main);
+}
