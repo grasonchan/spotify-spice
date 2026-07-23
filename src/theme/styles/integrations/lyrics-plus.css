@@ -1,0 +1,14 @@
+.lyrics-lyricsContainer-LyricsLine {
+  font-weight: 600 !important;
+}
+
+.lyrics-config-button-container {
+  bottom: 10px;
+}
+
+.lyrics-config-button {
+  border-radius: 50% !important;
+  background-color: rgb(6 6 6 / 20%) !important;
+  outline: 1px solid rgb(150 150 150 / 10%);
+  box-shadow: 0 0 20px rgb(150 150 150 / 20%);
+}

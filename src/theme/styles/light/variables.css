@@ -1,18 +1,3 @@
-@import './animations.css';
-@import './main.css';
-
-:root {
-  --custom-progress-bar-height: 2px;
-  --custom-progress-bar-slider-size: 8px;
-  --progress-bar-center-offset: calc(
-    (
-        var(--custom-progress-bar-slider-size) -
-          var(--custom-progress-bar-height)
-      ) /
-      2
-  );
-}
-
 :root[data-theme='light'] {
   --spice-main: #fafafa;
   --spice-sidebar: #f0f0f0;
@@ -43,23 +28,12 @@
     --decorative-subdued: var(--spice-subtext);
   }
 
-  .main-trackCreditsModal-closeBtn path {
-    fill: currentcolor;
+  [data-testid='progress-bar'] {
+    --bg-color: #0000004d;
+    --mg-color: #000000b3;
   }
-}
 
-/* Lyrics Plus */
-.lyrics-lyricsContainer-LyricsLine {
-  font-weight: 600 !important;
-}
-
-.lyrics-config-button-container {
-  bottom: 10px;
-}
-
-.lyrics-config-button {
-  border-radius: 50% !important;
-  background-color: rgb(6 6 6 / 20%) !important;
-  outline: 1px solid rgb(150 150 150 / 10%);
-  box-shadow: 0 0 20px rgb(150 150 150 / 20%);
+  [data-encore-id='verifiedBadge'] {
+    --encore-verified-badge-background: #5c9d62;
+  }
 }

@@ -1,0 +1,95 @@
+:root[data-theme='light'] {
+  .main-home-content {
+    --carousel-start-chevron-gradient: #fafafab3;
+    --carousel-end-chevron-gradient: #fafafab3;
+  }
+
+  .view-homeShortcutsGrid-shortcut {
+    &:hover,
+    &:focus-within,
+    &[data-context-menu-open='true'] {
+      background: var(--background-tinted-highlight);
+    }
+  }
+
+  /* Shelf */
+  .qDV6iOY788QciaIM {
+    background: linear-gradient(
+      #fff9 46.75%,
+      #fff6 63.5%,
+      #ffffff1a 83.72%,
+      #fff0 97.91%
+    );
+  }
+
+  .im1AS_NJEoP8AhOc {
+    background: linear-gradient(
+      #fff0 2.09%,
+      #ffffff1a 16.28%,
+      #fff6 36.5%,
+      #fff9 53.25%
+    );
+  }
+
+  /* Preview button */
+  .fa_L1qIbh7QDDd_h {
+    background: #ffffff8a;
+  }
+
+  /* Podcasts */
+  :has(> [data-uri^='spotify:episode:']) {
+    --lightness-expression: l + 0.15;
+
+    .JoGWpig38pszZzLf {
+      background-color: oklch(
+        from var(--background-color) calc(var(--lightness-expression)) c
+          h
+      );
+    }
+
+    .XxkIgnusUQw8ZRBk {
+      --color-from: oklch(
+        from var(--background-base-high-contrast)
+          calc(var(--lightness-expression)) c h
+      );
+    }
+
+    header a {
+      color: var(--text-base);
+
+      span {
+        color: unset;
+      }
+    }
+
+    .OV8dls1JOKM7Do3h {
+      background: var(--background-color, #ffffff4d);
+      box-shadow: 0 8px 24px #ffffff80;
+
+      &.FhMdQeQusAQ1KR4A::after {
+        background: #ffffff80;
+      }
+    }
+
+    /* Subtitles */
+    .VnkR524M39AkiN9o {
+      background: #ffffffb3;
+
+      .GYR_5jfbxRMCH9i2 {
+        color: #0000004d;
+      }
+    }
+
+    /* Preview episode */
+    .fa_L1qIbh7QDDd_h {
+      background: #0000008a;
+    }
+
+    .main-playButton-PlayButton {
+      .e-10451-button-primary__inner {
+        color: #000;
+        background-color: #fff;
+      }
+    }
+  }
+}

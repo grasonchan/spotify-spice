@@ -1,12 +1,13 @@
 import { useFADStatus } from '@/hooks/host/use-fad-status.js';
-import FADView from './fad-view.js';
-import './fad.css';
+import View from './view.js';
+import '../../styles/integrations/fad.css';
+import './index.css';
 
 const FAD = () => {
   const status = useFADStatus();
 
   if (!status) return null;
-  return <FADView />;
+  return <View />;
 };
 
 export default FAD;

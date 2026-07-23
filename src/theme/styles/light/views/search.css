@@ -1,0 +1,28 @@
+:root[data-theme='light'] {
+  /* popup */
+  .gQsOCrC4O3kYXib2,
+  /* All */
+  .WRAJX50Owww6lGws::before {
+    background: #fff9;
+  }
+
+  /* popup */
+  .HqUgEQOPyVcDu2NW {
+    &:hover::after {
+      background-color: var(--background-tinted-base);
+    }
+  }
+
+  /* All */
+  .TguLwQ522LIEgpK_.IxVxBUbV5M5tGaEx {
+    &::after {
+      inset: 0;
+    }
+
+    &:hover,
+    &:hover::after,
+    &:focus-within {
+      background-color: #eee;
+    }
+  }
+}

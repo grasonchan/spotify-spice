@@ -87,7 +87,7 @@ export default [
   },
   {
     files: [
-      'src/index.js',
+      'src/theme/index.js',
       'src/extensions/*/index.js',
       'src/utils/index.js',
     ],
@@ -98,7 +98,7 @@ export default [
   {
     files: ['**/*.{js,mjs,jsx}'],
     ignores: [
-      'src/index.js',
+      'src/theme/index.js',
       'src/extensions/*/index.js',
       'src/utils/index.js',
       'src/lib/**/*.{js,mjs}',

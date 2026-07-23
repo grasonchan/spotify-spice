@@ -1,4 +1,4 @@
-import { waitHostReady } from './utils/index.js';
+import { waitHostReady } from '@/utils/index.js';
 import './styles/index.css';
 
 await waitHostReady();

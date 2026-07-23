@@ -1,0 +1,6 @@
+/* Remove Upgrade Button, AD */
+.main-topBar-UpgradeButton,
+[data-testid='test-ref-div'],
+[data-testid='billboard-minimized'] {
+  display: none;
+}

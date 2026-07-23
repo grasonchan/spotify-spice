@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-export const useFADSideEffect = () => {
+export const useSideEffect = () => {
   useEffect(() => {
     const removeBillboard = () => {
       const billboard = document.querySelector('#view-billboard-ad');

@@ -1,8 +1,7 @@
 import { useRef, useCallback, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { useDOMFinder } from '@/hooks/utils/use-dom-finder.js';
-import { useMainConfig } from '@/hooks/config/use-main.js';
-import './main.css';
+import { useConfig } from './use-config.js';
 
 const Main = () => {
   const portalsMapRef = useRef(null);
@@ -43,7 +42,7 @@ const Main = () => {
     });
   }, []);
 
-  const { portalsConfig, rootSelector, selectors } = useMainConfig();
+  const { portalsConfig, rootSelector, selectors } = useConfig();
   const containers = useDOMFinder({
     rootSelector,
     selectors,

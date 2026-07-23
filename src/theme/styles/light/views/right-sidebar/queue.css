@@ -1,0 +1,9 @@
+:root[data-theme='light'] {
+  /* close button */
+  .yMgvi79CxA6kU0bR {
+    &:hover,
+    &:focus {
+      background-color: #0000001a;
+    }
+  }
+}

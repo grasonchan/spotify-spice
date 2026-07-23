@@ -1,0 +1,12 @@
+:root {
+  --custom-progress-bar-height: 2px;
+  --custom-progress-bar-slider-size: 8px;
+  --progress-bar-center-offset: calc(
+    (
+        var(--custom-progress-bar-slider-size) -
+          var(--custom-progress-bar-height)
+      ) /
+      2
+  );
+  --playback-time-height: 24px;
+}

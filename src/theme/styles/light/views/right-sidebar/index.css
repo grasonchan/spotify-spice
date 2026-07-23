@@ -1,0 +1,24 @@
+@import './npv.css';
+@import './queue.css';
+
+:root[data-theme='light'] {
+  .YZ3y8n8ToUt_xDKt,
+  .cRZ07x9PDlEsxMNl {
+    [data-encore-id='listRow'] {
+      --box-hover-background-color: var(
+        --background-tinted-base
+      ) !important;
+    }
+  }
+
+  /* --List image-- */
+
+  /* Next in queue */
+  .znTd53DrNIcJnJvv,
+  /* Recents */
+  .VpUQM5JUYIIbAaSL,
+  /* Add to playlist Panel */
+  .yAqWz24y2vgpEYX8 {
+    background: #fff9;
+  }
+}

@@ -1,21 +1,5 @@
-:root[data-theme='light'] {
-  .fad-track-heart {
-    color: #ccc;
-  }
-}
-
 #full-app-display {
   background-color: #2c2c2c;
-}
-
-#fad-mask {
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background-color: rgb(9 9 9 / 50%);
-  z-index: -2;
 }
 
 #fad-body {

@@ -1,0 +1,12 @@
+.main-home-homeHeader {
+  background: unset !important;
+}
+
+.main-home-filterChipsSection {
+  background-color: var(--spice-main);
+  box-shadow: 0 6px 10px rgb(var(--spice-rgb-shadow), 60%);
+
+  &::after {
+    background-color: unset !important;
+  }
+}

@@ -1,0 +1,31 @@
+:root[data-theme='light'] {
+  /* Header */
+  .HFowbNOgNPgtZSE4 {
+    box-shadow: 0 6px 10px #aaaaaa26;
+  }
+
+  /* List */
+  .aE_ayHuwU0UG20h2 {
+    &:hover::after {
+      background-color: var(--background-tinted-base);
+    }
+  }
+
+  /* List image */
+  .cS2oX60hERkVbAKR {
+    background: #fff9;
+  }
+
+  /* Create */
+  .ZeXdFwqzGVcDIHWQ {
+    background: #0000001a;
+  }
+
+  .NJh1B8rnlSUlK7sY .main-contextMenu-menuItemButton:not(:hover) {
+    .gujKEfaZCcsENUBD,
+    .u3QdVwmOcAtlNUqR,
+    .cwoKLAkR_rAsTRWM {
+      fill: currentcolor;
+    }
+  }
+}

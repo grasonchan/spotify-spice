@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { CONFIG_KEY, THEMES } from './config/constants.js';
-import { concernedCLIConfig } from './config/cli.js';
+import { concernedCLIConfig } from '@/config/cli.js';
 import ThemeContext from './context/theme.js';
-import { useLegacyCleaner } from './hooks/utils/use-legacy-cleaner.js';
-import Main from './components/injected/main.js';
-import FAD from './components/injected/fad.js';
+import { useLegacyCleaner } from './hooks/use-legacy-cleaner.js';
+import Main from './views/main/index.js';
+import FAD from './views/fad/index.js';
 
 const App = () => {
   const { exts } = concernedCLIConfig;
