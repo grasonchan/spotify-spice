@@ -1,6 +1,7 @@
 :root[data-theme='light'] {
   /* NPV - On tour */
-  .main-nowPlayingView-artistOnTourItem {
+  .main-nowPlayingView-artistOnTourItem,
+  .h0PQ8sOpdOAqPvpi {
     &:focus-within,
     &:hover {
       background-color: var(--background-tinted-base);
