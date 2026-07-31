@@ -9,7 +9,7 @@
   --encore-graphic-size-decorative-smaller: 12px;
   --bubble-bg: color-mix(
     in srgb,
-    var(--spice-button) 25%,
+    var(--spice-button) 6%,
     var(--spice-sidebar)
   );
   --bubble-arraw-size: 4px;
@@ -25,6 +25,7 @@
   top: calc(anchor(bottom) + var(--bubble-arraw-size));
   background-color: var(--bubble-bg) !important;
   border-radius: 12px;
+  filter: drop-shadow(0 0 1px var(--spice-button));
 
   &::before {
     width: var(--bubble-arraw-size);
