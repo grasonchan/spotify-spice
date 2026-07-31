@@ -1,3 +1,4 @@
 @import './base/index.css';
 @import './light/index.css';
+@import './integrations/marketplace.css';
 @import './integrations/lyrics-plus.css';

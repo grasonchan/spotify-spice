@@ -1,0 +1,20 @@
+#marketplace-config-container {
+  [class*='toggle-module__toggle-indicator-wrapper___'] {
+    background-color: var(--spice-button-disabled);
+  }
+
+  [class*='toggle-module__toggle-input___'] {
+    &:hover ~ [class*='toggle-module__toggle-indicator-wrapper___'] {
+      background-color: var(--spice-subtext);
+      filter: unset;
+    }
+
+    &:checked ~ [class*='toggle-module__toggle-indicator-wrapper___'] {
+      background-color: var(--spice-button);
+    }
+  }
+
+  [class*='toggle-module__toggle-indicator___'] {
+    background: #f9f9f9 !important;
+  }
+}
