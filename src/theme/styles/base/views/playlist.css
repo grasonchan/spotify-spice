@@ -16,3 +16,7 @@
 .main-topBar-background {
   background-color: var(--spice-main);
 }
+
+.main-trackList-trackListHeaderRow {
+  border: unset;
+}

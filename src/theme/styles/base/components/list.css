@@ -1,15 +1,33 @@
-.main-rootlist-wrapper
-  [role='row']:is(
-    [aria-rowindex$='0'],
-    [aria-rowindex$='2'],
-    [aria-rowindex$='4'],
-    [aria-rowindex$='6'],
-    [aria-rowindex$='8']
-  ) {
-  background: linear-gradient(
-    to right,
-    transparent,
-    rgb(120 120 120 / 5%),
-    transparent
-  );
+.main-rootlist-wrapper :not(.main-rootlist-topSentinel) [role='row'] {
+  position: relative;
+
+  &:first-child::before,
+  &::after {
+    height: 1px;
+    position: absolute;
+    inset: auto 0;
+    background: linear-gradient(
+        to right,
+        transparent,
+        rgb(120 120 120 / 6%) 12% 88%,
+        transparent
+      )
+      no-repeat bottom / 100% 1px;
+    content: '';
+  }
+
+  &:is(
+      [aria-rowindex$='0'],
+      [aria-rowindex$='2'],
+      [aria-rowindex$='4'],
+      [aria-rowindex$='6'],
+      [aria-rowindex$='8']
+    ) {
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgb(120 120 120 / 1%) 12% 88%,
+      transparent
+    );
+  }
 }
