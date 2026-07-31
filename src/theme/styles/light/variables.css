@@ -1,6 +1,6 @@
 :root[data-theme='light'] {
-  --spice-main: #fafafa;
-  --spice-sidebar: #f0f0f0;
+  --spice-main: #f5f5f5;
+  --spice-sidebar: #ececec;
   --spice-main-elevated: #fff;
   --spice-highlight-elevated: #f9f9f9;
   --spice-card: #fff;
