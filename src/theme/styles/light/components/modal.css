@@ -42,4 +42,18 @@
   .main-trackCreditsModal-closeBtn path {
     fill: currentcolor;
   }
+
+  [data-testid='search-modal-results'] {
+    /* List */
+    .CHck6AHg4spGkl6W:hover:not([disabled]),
+    .CHck6AHg4spGkl6W:focus-within,
+    .CHck6AHg4spGkl6W._NQoK6igV0j8Bcum {
+      background-color: var(--background-tinted-base);
+    }
+
+    /* Tag */
+    .F3WpS8JNeYr5qfjY {
+      background-color: var(--background-tinted-highlight);
+    }
+  }
 }
