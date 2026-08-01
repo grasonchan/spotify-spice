@@ -20,6 +20,15 @@
     }
   }
 
+  /* See more */
+  .sL0wneoReggMaCXb {
+    color: #000000b3;
+
+    &:hover {
+      color: var(--spice-text);
+    }
+  }
+
   /* Recommended - list image */
   .jI_IBNN4ddM_GyKh .T3i51foJdn0tRIOO {
     background: #fff9;
