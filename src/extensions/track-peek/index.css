@@ -1,5 +1,3 @@
-@import '../../styles/animations.css';
-
 .main-nowPlayingBar-center {
   [data-testid='general-controls'] {
     container: general-controls / inline-size;
@@ -101,5 +99,18 @@
 
   [data-testid='playback-progressbar'] [data-testid='progress-label'] {
     z-index: 2;
+  }
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 0 rgb(var(--spice-rgb-button), 0));
+  }
+
+  50% {
+    filter: drop-shadow(
+      var(--glow-offset-x) 0 6px rgb(var(--spice-rgb-button), 50%)
+    );
   }
 }
