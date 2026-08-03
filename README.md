@@ -1,8 +1,8 @@
 # Spotify Spice
 
-![Discord](https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/67ece93be2524af5cf14dc1c_Logo-black-bg.svg)
+[![Discord](https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/67ece93be2524af5cf14dc1c_Logo-black-bg.svg)](https://discord.gg/UK84KCbNf6)
 
-Join [Discord](https://discord.gg/UK84KCbNf6) for discussions and support.
+Join [Discord](https://discord.gg/UK84KCbNf6) for discussions, support, changelogs, and announcements.
 
 For bugs or improvements, please open an issue or PR. ❤️
 
@@ -21,8 +21,6 @@ Use [Spicetify Marketplace](https://github.com/spicetify/marketplace) to install
 ### Vinyl
 
 Transforms the album artwork into a spinning, lightness-adaptive vinyl driven by your playback state.
-
-Supports both the **Now Playing View** and [**Full App Display**](#optional).
 
 Open the profile menu to access the vinyl settings.
 
