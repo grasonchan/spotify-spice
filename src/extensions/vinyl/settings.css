@@ -1,6 +1,6 @@
 .vinyl-speed-setting {
   .gc-setting-row__controls {
-    flex: 2;
+    flex: 2.4;
     flex-direction: column;
     gap: 8px;
   }
@@ -14,14 +14,9 @@
   }
 
   .vinyl-speed-setting__rpm {
-    width: 56px;
     flex-shrink: 0;
     font-size: 12px;
     color: var(--spice-subtext);
-    text-align: right;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
   }
 
   .vinyl-speed-setting__presets {

@@ -1,6 +1,10 @@
 import { useState } from 'react';
-import { classnames } from '@/lib/spicetify.js';
-import { Slider, Toggle } from '@/lib/host-components.js';
+import { classnames, Platform } from '@/lib/spicetify.js';
+import {
+  ButtonPrimary,
+  Slider,
+  Toggle,
+} from '@/lib/host-components.js';
 import {
   RPM_PRESET_LIST,
   RPM_PRECISION,
@@ -98,6 +102,21 @@ const Settings = ({
           value={coloredEnabled}
           onSelected={onColoredEnabledChange}
         />
+      </SettingRow>
+      <SettingRow
+        label="Keep in Now Playing View"
+        description="Go to Settings > Display, and turn off 'Display short, looping visuals on tracks (Canvas)'."
+      >
+        <ButtonPrimary
+          size="small"
+          colorSet="invertedLight"
+          onClick={() => {
+            onClose();
+            Platform.History.push({ pathname: '/preferences' });
+          }}
+        >
+          Settings
+        </ButtonPrimary>
       </SettingRow>
     </Modal>
   );
