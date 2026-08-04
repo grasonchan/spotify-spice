@@ -24,8 +24,6 @@ Transforms the album artwork into a spinning, lightness-adaptive vinyl driven by
 
 Open the profile menu to access the vinyl settings.
 
-_Tip: Keep vinyl in Now Playing View by turning off `Settings` → `Display` → `Display short, looping visuals on tracks (Canvas)`._
-
 ![vinyl](screenshots/vinyl.png)
 
 ![vinyl-settings](screenshots/vinyl-settings.png)
