@@ -8,8 +8,3 @@ export const playerUpdate = (cb) =>
 
 export const queueUpdate = (cb) =>
   originPlayer._events.addListener('queue_update', cb);
-
-export const fadRequest = (cb) => {
-  window.addEventListener('fad-request', cb);
-  return () => window.removeEventListener('fad-request', cb);
-};

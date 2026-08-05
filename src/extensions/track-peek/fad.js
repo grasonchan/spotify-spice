@@ -1,5 +1,5 @@
 import { createPortal } from 'react-dom';
-import { useFADStatus } from '@/hooks/host/use-fad-status.js';
+import { useFADStatus } from '@/hooks/integrations/use-fad-status.js';
 import AdjacentTracksPeekStandalone from './adjacent-tracks-peek.standalone.js';
 import './fad.css';
 

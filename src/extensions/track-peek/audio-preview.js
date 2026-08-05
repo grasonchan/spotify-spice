@@ -16,7 +16,7 @@ import {
 } from '@/lib/spicetify.js';
 import { TooltipWrapper } from '@/lib/host-components.js';
 import { AUDIO_PREVIEW_STATUS } from '@/config/constants.js';
-import { volumeUpdate } from '@/subscribe/host.js';
+import { volumeUpdate } from '@/subscribers/index.js';
 import SVGButton from '@/components/shared/svg-button.js';
 import './audio-preview.css';
 
