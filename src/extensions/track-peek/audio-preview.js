@@ -15,7 +15,7 @@ import {
   URI,
 } from '@/lib/spicetify.js';
 import { TooltipWrapper } from '@/lib/host-components.js';
-import { AUDIO_PREVIEW_STATUS } from '@/config/constants.js';
+import { MEDIA_STATUS } from '@/config/constants.js';
 import { volumeUpdate } from '@/subscribers/index.js';
 import SVGButton from '@/components/shared/svg-button.js';
 import './audio-preview.css';
@@ -24,7 +24,7 @@ const activeClassName = 'tp-audio-preview-active';
 const inClassName = 'tp-audio-preview-in';
 
 const AudioPreview = ({ container, playStatus }) => {
-  const [status, setStatus] = useState(AUDIO_PREVIEW_STATUS.IDLE);
+  const [status, setStatus] = useState(MEDIA_STATUS.IDLE);
   const [isRendered, setIsRendered] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(null);
   const audioRef = useRef(null);
@@ -34,7 +34,7 @@ const AudioPreview = ({ container, playStatus }) => {
 
   const cleanAudio = useCallback(() => {
     isAudioActiveRef.current = false;
-    setStatus(AUDIO_PREVIEW_STATUS.IDLE);
+    setStatus(MEDIA_STATUS.IDLE);
     setCurrentTrack(null);
     const audio = audioRef.current;
     if (!audio) return;
@@ -65,7 +65,7 @@ const AudioPreview = ({ container, playStatus }) => {
   );
 
   useLayoutEffect(() => {
-    if (!container || status === AUDIO_PREVIEW_STATUS.IDLE) return;
+    if (!container || status === MEDIA_STATUS.IDLE) return;
     container.classList.add(activeClassName);
     const rafId = requestAnimationFrame(() =>
       container.classList.add(inClassName)
@@ -92,7 +92,7 @@ const AudioPreview = ({ container, playStatus }) => {
       }
       cleanAudio();
       isAudioActiveRef.current = true;
-      setStatus(AUDIO_PREVIEW_STATUS.LOADING);
+      setStatus(MEDIA_STATUS.LOADING);
       setIsRendered(true);
 
       try {
@@ -167,7 +167,7 @@ const AudioPreview = ({ container, playStatus }) => {
           autoResumePlay();
           return;
         }
-        setStatus(AUDIO_PREVIEW_STATUS.PLAYING);
+        setStatus(MEDIA_STATUS.PLAYING);
         setCurrentTrack({ trackUri, name, artists, coverUrl });
         audioRef.current.src = previewUrl;
         audioRef.current.onended = () => {
@@ -233,7 +233,7 @@ const AudioPreview = ({ container, playStatus }) => {
     };
   }, [cleanAudio]);
 
-  const disabled = status !== AUDIO_PREVIEW_STATUS.PLAYING;
+  const disabled = status !== MEDIA_STATUS.PLAYING;
 
   const controlsData = [
     {
