@@ -1,25 +1,31 @@
 import { URI } from '@/lib/spicetify.js';
 import { requestGraphQL } from '@/lib/graphql.js';
 
-const validator = ({ trackUnion }) => {
+const assertTrackURI = (uri) => {
+  if (!URI.isTrack(uri)) {
+    throw new TypeError(`Expected a track URI, but received: "${uri}"`);
+  }
+};
+
+const validateTrackUnion = ({ trackUnion }) => {
   const typeName = trackUnion.__typename;
-  if (typeName !== 'Track') {
+  if (typeName && typeName !== 'Track') {
     return {
       name: typeName,
       message: trackUnion.message,
     };
   }
+  if (!trackUnion.albumOfTrack) {
+    return { message: 'Response is missing expected data' };
+  }
 };
 
 export const getTrack = async (uri) => {
-  if (!URI.isTrack(uri)) {
-    throw new TypeError(`Expected a track URI, but received: "${uri}"`);
-  }
-
+  assertTrackURI(uri);
   const { trackUnion } = await requestGraphQL(
     'getTrack',
     { uri },
-    validator
+    validateTrackUnion
   );
 
   const rawAlbum = trackUnion.albumOfTrack;
@@ -56,4 +62,16 @@ export const getTrack = async (uri) => {
       date: rawAlbum.date?.isoString,
     },
   };
+};
+
+export const getTrackColors = async (uri) => {
+  assertTrackURI(uri);
+  const { trackUnion } = await requestGraphQL(
+    'fetchExtractedColorForTrackEntity',
+    { uri },
+    validateTrackUnion
+  );
+
+  const rawColors = trackUnion.albumOfTrack.coverArt?.extractedColors;
+  return { dark: rawColors?.colorDark };
 };
