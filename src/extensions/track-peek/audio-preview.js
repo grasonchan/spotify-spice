@@ -8,15 +8,15 @@ import {
 import { createPortal } from 'react-dom';
 import {
   ContextMenu,
-  GraphQL,
   originPlayer,
   showNotification,
   SVGIcons,
   URI,
 } from '@/lib/spicetify.js';
 import { TooltipWrapper } from '@/lib/host-components.js';
-import { AUDIO_PREVIEW_STATUS } from '@/config/constants.js';
+import { MEDIA_STATUS } from '@/config/constants.js';
 import { volumeUpdate } from '@/subscribers/index.js';
+import { getTrack, getAlbumFeed } from '@/services/index.js';
 import SVGButton from '@/components/shared/svg-button.js';
 import './audio-preview.css';
 
@@ -24,7 +24,7 @@ const activeClassName = 'tp-audio-preview-active';
 const inClassName = 'tp-audio-preview-in';
 
 const AudioPreview = ({ container, playStatus }) => {
-  const [status, setStatus] = useState(AUDIO_PREVIEW_STATUS.IDLE);
+  const [status, setStatus] = useState(MEDIA_STATUS.IDLE);
   const [isRendered, setIsRendered] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(null);
   const audioRef = useRef(null);
@@ -34,7 +34,7 @@ const AudioPreview = ({ container, playStatus }) => {
 
   const cleanAudio = useCallback(() => {
     isAudioActiveRef.current = false;
-    setStatus(AUDIO_PREVIEW_STATUS.IDLE);
+    setStatus(MEDIA_STATUS.IDLE);
     setCurrentTrack(null);
     const audio = audioRef.current;
     if (!audio) return;
@@ -65,7 +65,7 @@ const AudioPreview = ({ container, playStatus }) => {
   );
 
   useLayoutEffect(() => {
-    if (!container || status === AUDIO_PREVIEW_STATUS.IDLE) return;
+    if (!container || status === MEDIA_STATUS.IDLE) return;
     container.classList.add(activeClassName);
     const rafId = requestAnimationFrame(() =>
       container.classList.add(inClassName)
@@ -92,51 +92,32 @@ const AudioPreview = ({ container, playStatus }) => {
       }
       cleanAudio();
       isAudioActiveRef.current = true;
-      setStatus(AUDIO_PREVIEW_STATUS.LOADING);
+      setStatus(MEDIA_STATUS.LOADING);
       setIsRendered(true);
 
       try {
         if (!cacheMapRef.current.has(trackUri)) {
-          const {
-            data: { trackUnion },
-          } = await GraphQL.Request(GraphQL.Definitions.getTrack, {
-            uri: trackUri,
-          });
+          const { album } = await getTrack(trackUri);
+          const { tracks: feedTracks, album: feedAlbum } =
+            await getAlbumFeed(album.uri, album.tracksCount);
 
-          const {
-            data: { getWatchFeedForEntity },
-          } = await GraphQL.Request(
-            GraphQL.Definitions.watchFeedEntity,
-            {
-              watchFeedUri: `spotify:watch-feed:album:${trackUnion.albumOfTrack.id}`,
-              limit: trackUnion.albumOfTrack.tracks?.totalCount,
-              offset: 0,
-            }
-          );
-
-          const albumTracks =
-            trackUnion.albumOfTrack.tracks.items ?? [];
-          const feedItems = getWatchFeedForEntity.items ?? [];
           let previewOffset = 0;
-          for (let i = 0; i < albumTracks.length; i++) {
-            const { track } = albumTracks[i];
-            const feedData = feedItems[previewOffset]?.data;
+          for (let i = 0; i < album.tracks.length; i++) {
+            const { track } = album.tracks[i];
+            const feedTrack = feedTracks[previewOffset];
             let name = '';
             let artists = [];
             let coverUrl = '';
             let previewUrl = '';
             if (
-              previewOffset < feedItems.length &&
-              feedData?.uri === track.uri
+              previewOffset < feedTracks.length &&
+              feedTrack.uri === track.uri
             ) {
               previewOffset++;
-              name = feedData.name;
-              artists = feedData.artists.items.map(
-                ({ profile }) => profile.name
-              );
-              coverUrl = feedData.albumOfTrack.coverArt.sources[0].url;
-              const url =
-                feedData?.previews?.audioPreviews?.items?.[0]?.url;
+              name = feedTrack.name;
+              artists = feedTrack.artists.map(({ name }) => name);
+              coverUrl = feedAlbum.coverArt[0]?.url;
+              const url = feedTrack.audioPreview.url;
               if (url) previewUrl = url;
             }
             cacheMapRef.current.set(track.uri, {
@@ -167,7 +148,7 @@ const AudioPreview = ({ container, playStatus }) => {
           autoResumePlay();
           return;
         }
-        setStatus(AUDIO_PREVIEW_STATUS.PLAYING);
+        setStatus(MEDIA_STATUS.PLAYING);
         setCurrentTrack({ trackUri, name, artists, coverUrl });
         audioRef.current.src = previewUrl;
         audioRef.current.onended = () => {
@@ -233,7 +214,7 @@ const AudioPreview = ({ container, playStatus }) => {
     };
   }, [cleanAudio]);
 
-  const disabled = status !== AUDIO_PREVIEW_STATUS.PLAYING;
+  const disabled = status !== MEDIA_STATUS.PLAYING;
 
   const controlsData = [
     {

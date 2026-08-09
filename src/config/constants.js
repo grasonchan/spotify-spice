@@ -7,7 +7,7 @@ export const HEART_STATUS = {
   DISABLED: 2,
 };
 
-export const AUDIO_PREVIEW_STATUS = {
+export const MEDIA_STATUS = {
   IDLE: 'IDLE',
   LOADING: 'LOADING',
   PLAYING: 'PLAYING',

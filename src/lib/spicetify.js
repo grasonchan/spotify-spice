@@ -1,7 +1,6 @@
 export const {
   classnames,
   URI,
-  GraphQL,
   Config: cliConfig,
   Platform,
   Player,
