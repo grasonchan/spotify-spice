@@ -1,6 +1,4 @@
-import { GraphQL } from './spicetify.js';
-
-const { Request, Definitions } = GraphQL;
+const { Request, Definitions } = Spicetify.GraphQL;
 
 export const GRAPHQL_QUERIES = {
   GET_TRACK: 'getTrack',
