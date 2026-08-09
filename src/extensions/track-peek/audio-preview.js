@@ -8,7 +8,6 @@ import {
 import { createPortal } from 'react-dom';
 import {
   ContextMenu,
-  GraphQL,
   originPlayer,
   showNotification,
   SVGIcons,
@@ -17,6 +16,7 @@ import {
 import { TooltipWrapper } from '@/lib/host-components.js';
 import { MEDIA_STATUS } from '@/config/constants.js';
 import { volumeUpdate } from '@/subscribers/index.js';
+import { getTrack, getAlbumFeed } from '@/services/index.js';
 import SVGButton from '@/components/shared/svg-button.js';
 import './audio-preview.css';
 
@@ -97,46 +97,27 @@ const AudioPreview = ({ container, playStatus }) => {
 
       try {
         if (!cacheMapRef.current.has(trackUri)) {
-          const {
-            data: { trackUnion },
-          } = await GraphQL.Request(GraphQL.Definitions.getTrack, {
-            uri: trackUri,
-          });
+          const { album } = await getTrack(trackUri);
+          const { tracks: feedTracks, album: feedAlbum } =
+            await getAlbumFeed(album.uri, album.tracksCount);
 
-          const {
-            data: { getWatchFeedForEntity },
-          } = await GraphQL.Request(
-            GraphQL.Definitions.watchFeedEntity,
-            {
-              watchFeedUri: `spotify:watch-feed:album:${trackUnion.albumOfTrack.id}`,
-              limit: trackUnion.albumOfTrack.tracks?.totalCount,
-              offset: 0,
-            }
-          );
-
-          const albumTracks =
-            trackUnion.albumOfTrack.tracks.items ?? [];
-          const feedItems = getWatchFeedForEntity.items ?? [];
           let previewOffset = 0;
-          for (let i = 0; i < albumTracks.length; i++) {
-            const { track } = albumTracks[i];
-            const feedData = feedItems[previewOffset]?.data;
+          for (let i = 0; i < album.tracks.length; i++) {
+            const { track } = album.tracks[i];
+            const feedTrack = feedTracks[previewOffset];
             let name = '';
             let artists = [];
             let coverUrl = '';
             let previewUrl = '';
             if (
-              previewOffset < feedItems.length &&
-              feedData?.uri === track.uri
+              previewOffset < feedTracks.length &&
+              feedTrack.uri === track.uri
             ) {
               previewOffset++;
-              name = feedData.name;
-              artists = feedData.artists.items.map(
-                ({ profile }) => profile.name
-              );
-              coverUrl = feedData.albumOfTrack.coverArt.sources[0].url;
-              const url =
-                feedData?.previews?.audioPreviews?.items?.[0]?.url;
+              name = feedTrack.name;
+              artists = feedTrack.artists.map(({ name }) => name);
+              coverUrl = feedAlbum.coverArt[0]?.url;
+              const url = feedTrack.audioPreview.url;
               if (url) previewUrl = url;
             }
             cacheMapRef.current.set(track.uri, {
