@@ -29,6 +29,7 @@ export const getTrack = async (uri) => {
   );
 
   const rawAlbum = trackUnion.albumOfTrack;
+  const rawCoverArt = rawAlbum.coverArt;
   const rawTracks = rawAlbum.tracks;
 
   const artists = [
@@ -56,7 +57,10 @@ export const getTrack = async (uri) => {
       uri: rawAlbum.uri,
       name: rawAlbum.name,
       type: rawAlbum.type,
-      coverArt: rawAlbum.coverArt,
+      coverArt: rawCoverArt?.sources ?? [],
+      colors: {
+        raw: rawCoverArt?.extractedColors?.colorRaw,
+      },
       tracks: rawTracks.items ?? [],
       tracksCount: rawTracks.totalCount,
       date: rawAlbum.date?.isoString,
