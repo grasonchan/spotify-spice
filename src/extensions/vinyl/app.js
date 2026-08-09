@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import {
-  GraphQL,
   originPlayer,
   Player,
   ProfileMenu,
@@ -14,6 +13,7 @@ import {
   MAX_COLOR_CACHE_SIZE,
   SETTINGS_NAME,
 } from './constants.js';
+import { getTrackColors } from '@/services/index.js';
 import { useVinylPlayState } from './use-vinyl-play-state.js';
 import Settings from './settings.js';
 
@@ -68,22 +68,15 @@ const App = () => {
     const syncColored = async () => {
       const { uri, album } = originPlayer.getState().item ?? {};
       try {
-        if (!(uri && URI.isTrack(uri))) {
+        if (!URI.isTrack(uri)) {
           resetDOM();
           return;
         }
 
         if (!colorCacheMapRef.current.has(album.uri)) {
           resetDOM();
-          const {
-            data: { trackUnion },
-          } = await GraphQL.Request(
-            GraphQL.Definitions.fetchExtractedColorForTrackEntity,
-            { uri }
-          );
-          const colorHex =
-            trackUnion.albumOfTrack.coverArt.extractedColors?.colorDark
-              ?.hex;
+          const { dark } = await getTrackColors(uri);
+          const colorHex = dark?.hex;
           colorCacheMapRef.current.set(album.uri, colorHex);
 
           const overflowCount =
