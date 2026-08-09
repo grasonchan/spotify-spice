@@ -1,5 +1,5 @@
 import { URI } from '@/lib/spicetify.js';
-import { requestGraphQL } from '@/lib/graphql.js';
+import { GRAPHQL_QUERIES, requestGraphQL } from '@/lib/graphql.js';
 
 const assertAlbumURI = (uri) => {
   if (!URI.isAlbum(uri)) {
@@ -13,7 +13,7 @@ export const getAlbumFeed = async (uri, limit, offset = 0) => {
   assertAlbumURI(uri);
   const { id } = URI.fromString(uri);
   const { getWatchFeedForEntity: rawData } = await requestGraphQL(
-    'watchFeedEntity',
+    GRAPHQL_QUERIES.GET_ALBUM_FEED,
     {
       watchFeedUri: `spotify:watch-feed:album:${id}`,
       limit,

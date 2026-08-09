@@ -2,6 +2,12 @@ import { GraphQL } from './spicetify.js';
 
 const { Request, Definitions } = GraphQL;
 
+export const GRAPHQL_QUERIES = {
+  GET_TRACK: 'getTrack',
+  GET_TRACK_COLORS: 'fetchExtractedColorForTrackEntity',
+  GET_ALBUM_FEED: 'watchFeedEntity',
+};
+
 export const requestGraphQL = async (
   definition,
   variables,

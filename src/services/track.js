@@ -1,5 +1,5 @@
 import { URI } from '@/lib/spicetify.js';
-import { requestGraphQL } from '@/lib/graphql.js';
+import { GRAPHQL_QUERIES, requestGraphQL } from '@/lib/graphql.js';
 
 const assertTrackURI = (uri) => {
   if (!URI.isTrack(uri)) {
@@ -23,7 +23,7 @@ const validateTrackUnion = ({ trackUnion }) => {
 export const getTrack = async (uri) => {
   assertTrackURI(uri);
   const { trackUnion } = await requestGraphQL(
-    'getTrack',
+    GRAPHQL_QUERIES.GET_TRACK,
     { uri },
     validateTrackUnion
   );
@@ -71,7 +71,7 @@ export const getTrack = async (uri) => {
 export const getTrackColors = async (uri) => {
   assertTrackURI(uri);
   const { trackUnion } = await requestGraphQL(
-    'fetchExtractedColorForTrackEntity',
+    GRAPHQL_QUERIES.GET_TRACK_COLORS,
     { uri },
     validateTrackUnion
   );
