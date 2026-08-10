@@ -1,10 +1,4 @@
-import {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import {
   ContextMenu,
@@ -15,8 +9,8 @@ import {
 } from '@/lib/spicetify.js';
 import { TooltipWrapper } from '@/lib/host-components.js';
 import { MEDIA_STATUS } from '@/config/constants.js';
-import { volumeUpdate } from '@/subscribers/index.js';
 import { getTrack, getAlbumFeed } from '@/services/index.js';
+import { useVolumeSync } from '@/hooks/host/use-volume-sync.js';
 import SVGButton from '@/components/shared/svg-button.js';
 import './audio-preview.css';
 
@@ -29,10 +23,16 @@ const AudioPreview = ({ container, playStatus }) => {
   const [currentTrack, setCurrentTrack] = useState(null);
   const audioRef = useRef(null);
   const isAudioActiveRef = useRef(false);
-  const shouldResumePlayRef = useRef(false);
+  const snapshotRef = useRef(null);
   const cacheMapRef = useRef(null);
 
-  const cleanAudio = useCallback(() => {
+  useVolumeSync((volume) => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.volume = volume;
+  });
+
+  const cleanAudio = () => {
     isAudioActiveRef.current = false;
     setStatus(MEDIA_STATUS.IDLE);
     setCurrentTrack(null);
@@ -41,28 +41,51 @@ const AudioPreview = ({ container, playStatus }) => {
     audio.pause();
     audio.src = '';
     audio.onended = null;
-  }, []);
+  };
 
-  const autoResumePlay = useCallback(() => {
-    if (!shouldResumePlayRef.current) return;
-    shouldResumePlayRef.current = false;
-    originPlayer.resume();
-  }, []);
+  const interruptPlayback = () => {
+    if (snapshotRef.current) return;
+    const mainPlaybackStatus = !originPlayer.getState().isPaused;
+    if (mainPlaybackStatus) {
+      originPlayer.pause();
+    }
+    const playingMedia = new Set();
+    const mediaElements = document.querySelectorAll('video, audio');
+    for (const element of mediaElements) {
+      if (element.paused || element.ended) continue;
+      playingMedia.add(element);
+      element.pause();
+    }
+    snapshotRef.current = {
+      mainPlaybackStatus,
+      playingMedia,
+    };
+  };
 
-  const handleTransitionEnd = useCallback(
-    (event) => {
-      if (
-        event.target !== event.currentTarget ||
-        event.propertyName !== 'opacity' ||
-        container.classList.contains(inClassName)
-      ) {
-        return;
-      }
-      setIsRendered(false);
-      container.classList.remove(activeClassName);
-    },
-    [container]
-  );
+  const resumePlayback = () => {
+    const snapshot = snapshotRef.current;
+    if (!snapshot) return;
+    if (snapshot.mainPlaybackStatus) {
+      originPlayer.resume();
+    }
+    for (const element of snapshot.playingMedia) {
+      if (!element.isConnected) continue;
+      element.play().catch(console.warn);
+    }
+    snapshotRef.current = null;
+  };
+
+  const handleTransitionEnd = (event) => {
+    if (
+      event.target !== event.currentTarget ||
+      event.propertyName !== 'opacity' ||
+      container.classList.contains(inClassName)
+    ) {
+      return;
+    }
+    setIsRendered(false);
+    container.classList.remove(activeClassName);
+  };
 
   useLayoutEffect(() => {
     if (!container || status === MEDIA_STATUS.IDLE) return;
@@ -86,10 +109,7 @@ const AudioPreview = ({ container, playStatus }) => {
 
     const onMenuItemClick = async ([trackUri]) => {
       const currentClickId = ++clickId;
-      if (!isAudioActiveRef.current && !originPlayer._state.isPaused) {
-        shouldResumePlayRef.current = true;
-        originPlayer.pause();
-      }
+      interruptPlayback();
       cleanAudio();
       isAudioActiveRef.current = true;
       setStatus(MEDIA_STATUS.LOADING);
@@ -145,7 +165,7 @@ const AudioPreview = ({ container, playStatus }) => {
         if (!previewUrl) {
           showNotification('[Track Peek]: No audio preview available.');
           cleanAudio();
-          autoResumePlay();
+          resumePlayback();
           return;
         }
         setStatus(MEDIA_STATUS.PLAYING);
@@ -153,7 +173,7 @@ const AudioPreview = ({ container, playStatus }) => {
         audioRef.current.src = previewUrl;
         audioRef.current.onended = () => {
           cleanAudio();
-          autoResumePlay();
+          resumePlayback();
         };
         await audioRef.current.play();
       } catch (error) {
@@ -165,7 +185,7 @@ const AudioPreview = ({ container, playStatus }) => {
           true
         );
         cleanAudio();
-        autoResumePlay();
+        resumePlayback();
       }
     };
 
@@ -182,29 +202,20 @@ const AudioPreview = ({ container, playStatus }) => {
     return () => {
       menuItem.deregister();
       cleanAudio();
-      autoResumePlay();
+      resumePlayback();
     };
-  }, [autoResumePlay, cleanAudio]);
-
-  useEffect(() => {
-    const removeSubscribe = volumeUpdate((event) => {
-      const { isLocal, volume } = event.data;
-      if (!(audioRef.current && isLocal)) return;
-      audioRef.current.volume = Math.min(Math.max(volume, 0), 1);
-    });
-    return removeSubscribe;
   }, []);
 
   useEffect(() => {
     if (!playStatus) return;
-    shouldResumePlayRef.current = false;
+    snapshotRef.current = null;
     cleanAudio();
-  }, [playStatus, cleanAudio]);
+  }, [playStatus]);
 
   useEffect(() => {
     const handleMediaPlay = (event) => {
       if (event.target === audioRef.current) return;
-      shouldResumePlayRef.current = false;
+      snapshotRef.current = null;
       cleanAudio();
     };
 
@@ -212,7 +223,7 @@ const AudioPreview = ({ container, playStatus }) => {
     return () => {
       document.removeEventListener('play', handleMediaPlay, true);
     };
-  }, [cleanAudio]);
+  }, []);
 
   const disabled = status !== MEDIA_STATUS.PLAYING;
 
@@ -223,7 +234,7 @@ const AudioPreview = ({ container, playStatus }) => {
       onClick: async () => {
         await originPlayer.addToQueue([{ uri: currentTrack.trackUri }]);
         cleanAudio();
-        autoResumePlay();
+        resumePlayback();
       },
       disabled,
     },
@@ -242,7 +253,7 @@ const AudioPreview = ({ container, playStatus }) => {
       label: 'Stop',
       onClick: () => {
         cleanAudio();
-        autoResumePlay();
+        resumePlayback();
       },
     },
   ];
