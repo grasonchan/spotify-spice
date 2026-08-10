@@ -9,8 +9,8 @@ import {
 } from '@/lib/spicetify.js';
 import { TooltipWrapper } from '@/lib/host-components.js';
 import { MEDIA_STATUS } from '@/config/constants.js';
-import { volumeUpdate } from '@/subscribers/index.js';
 import { getTrack, getAlbumFeed } from '@/services/index.js';
+import { useVolumeSync } from '@/hooks/host/use-volume-sync.js';
 import SVGButton from '@/components/shared/svg-button.js';
 import './audio-preview.css';
 
@@ -25,6 +25,12 @@ const AudioPreview = ({ container, playStatus }) => {
   const isAudioActiveRef = useRef(false);
   const snapshotRef = useRef(null);
   const cacheMapRef = useRef(null);
+
+  useVolumeSync((volume) => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.volume = volume;
+  });
 
   const cleanAudio = () => {
     isAudioActiveRef.current = false;
@@ -198,15 +204,6 @@ const AudioPreview = ({ container, playStatus }) => {
       cleanAudio();
       resumePlayback();
     };
-  }, []);
-
-  useEffect(() => {
-    const removeSubscribe = volumeUpdate((event) => {
-      const { isLocal, volume } = event.data;
-      if (!(audioRef.current && isLocal)) return;
-      audioRef.current.volume = Math.min(Math.max(volume, 0), 1);
-    });
-    return removeSubscribe;
   }, []);
 
   useEffect(() => {
