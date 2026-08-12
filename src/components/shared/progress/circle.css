@@ -1,0 +1,19 @@
+.progress-circle {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.progress-circle-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: rotate(-90deg);
+  transform-origin: center;
+  pointer-events: none;
+}
+
+.progress-circle-bar {
+  transition: stroke-dashoffset 0.1s linear;
+}

@@ -54,6 +54,8 @@
 
   .tp-audio-preview-controls {
     display: inline-flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 
