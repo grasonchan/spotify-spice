@@ -34,7 +34,6 @@ export const useAudioPreview = ({ playStatus, onStart, onEnd }) => {
   const cleanAudio = () => {
     isAudioActiveRef.current = false;
     setStatus(MEDIA_STATUS.IDLE);
-    setTrack(null);
     const audio = audioRef.current;
     if (audio) {
       audio.pause();
@@ -100,6 +99,7 @@ export const useAudioPreview = ({ playStatus, onStart, onEnd }) => {
       cleanAudio();
       isAudioActiveRef.current = true;
       setStatus(MEDIA_STATUS.LOADING);
+      setTrack(null);
       onStartRef.current?.();
 
       try {
