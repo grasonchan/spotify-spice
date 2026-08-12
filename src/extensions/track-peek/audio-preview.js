@@ -11,7 +11,9 @@ import { TooltipWrapper } from '@/lib/host-components.js';
 import { MEDIA_STATUS } from '@/config/constants.js';
 import { getTrack, getAlbumFeed } from '@/services/index.js';
 import { useVolumeSync } from '@/hooks/host/use-volume-sync.js';
+import { useMediaProgress } from '../../hooks/utils/use-media-progress.js';
 import SVGButton from '@/components/shared/svg-button.js';
+import { ProgressCircle } from '@/components/shared/progress/index.js';
 import './audio-preview.css';
 
 const activeClassName = 'tp-audio-preview-active';
@@ -25,6 +27,8 @@ const AudioPreview = ({ container, playStatus }) => {
   const isAudioActiveRef = useRef(false);
   const snapshotRef = useRef(null);
   const cacheMapRef = useRef(null);
+
+  const progress = useMediaProgress(audioRef.current);
 
   useVolumeSync((volume) => {
     const audio = audioRef.current;
@@ -227,7 +231,7 @@ const AudioPreview = ({ container, playStatus }) => {
 
   const disabled = status !== MEDIA_STATUS.PLAYING;
 
-  const controlsData = [
+  const generalControls = [
     {
       icon: 'addToQueue',
       label: 'Add to queue',
@@ -247,14 +251,6 @@ const AudioPreview = ({ container, playStatus }) => {
         ]);
       },
       disabled,
-    },
-    {
-      icon: 'pause',
-      label: 'Stop',
-      onClick: () => {
-        cleanAudio();
-        resumePlayback();
-      },
     },
   ];
 
@@ -300,17 +296,28 @@ const AudioPreview = ({ container, playStatus }) => {
           </div>
         </TooltipWrapper>
         <div className="tp-audio-preview-controls">
-          {controlsData.map(
+          {generalControls.map(
             ({ icon, label, onClick, disabled = false }) => (
               <SVGButton
                 key={label}
                 icon={SVGIcons[icon]}
-                onClick={onClick}
                 tooltipProps={{ label }}
                 disabled={disabled}
+                onClick={onClick}
               />
             )
           )}
+          <ProgressCircle size={26} progress={progress}>
+            <SVGButton
+              icon={SVGIcons.pause}
+              svgProps={{ width: 12, height: 12 }}
+              tooltipProps={{ label: 'Stop' }}
+              onClick={() => {
+                cleanAudio();
+                resumePlayback();
+              }}
+            />
+          </ProgressCircle>
         </div>
       </div>,
       container
