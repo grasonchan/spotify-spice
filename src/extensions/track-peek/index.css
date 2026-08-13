@@ -1,23 +1,24 @@
 .main-nowPlayingBar-center {
   [data-testid='general-controls'] {
     container: general-controls / inline-size;
-    position: relative;
+    anchor-name: --general-controls;
     justify-content: center;
     align-items: center;
   }
 
   .player-controls__left,
   .player-controls__right {
-    width: 50%;
+    width: calc(anchor-size(width) / 2);
     position: absolute;
+    position-anchor: --general-controls;
   }
 
   .player-controls__left {
-    right: calc(50% - 8px);
+    right: calc(anchor(center) - 8px);
   }
 
   .player-controls__right {
-    left: calc(50% - 8px);
+    left: calc(anchor(center) - 8px);
   }
 
   [data-testid='control-button-playpause'] {
