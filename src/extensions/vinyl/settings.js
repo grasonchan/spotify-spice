@@ -105,7 +105,7 @@ const Settings = ({
       </SettingRow>
       <SettingRow
         label="Keep in Now Playing View"
-        description="Go to Settings > Display, and turn off 'Display short, looping visuals on tracks (Canvas)'."
+        description="Go to Settings > Videos and Canvas, and turn off Canvas."
       >
         <ButtonPrimary
           size="small"
