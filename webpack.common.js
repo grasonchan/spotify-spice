@@ -15,6 +15,7 @@ const baseConfig = {
   },
   externals: {
     react: 'Spicetify.React',
+    // Spotify only provides production React runtime and Spicetify does not expose `react/jsx-dev-runtime`.
     'react/jsx-runtime': 'Spicetify.ReactJSX',
     'react-dom': 'Spicetify.ReactDOM',
     'react-dom/client': 'Spicetify.ReactDOM',
@@ -39,7 +40,14 @@ const baseConfig = {
             loader: 'babel-loader',
             options: {
               presets: [
-                ['@babel/preset-react', { runtime: 'automatic' }],
+                [
+                  '@babel/preset-react',
+                  {
+                    // Must be explicitly set to false, Spotify only provides production React runtime.
+                    development: false,
+                    runtime: 'automatic',
+                  },
+                ],
               ],
             },
           },
