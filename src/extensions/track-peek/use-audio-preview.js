@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   ContextMenu,
+  Platform,
   SVGIcons,
   URI,
   originPlayer,
@@ -174,7 +175,9 @@ export const useAudioPreview = ({ playStatus, onStart, onEnd }) => {
     const menuItem = new ContextMenu.Item(
       MENU_ITEM_NAME,
       onMenuItemClick,
-      ([uri]) => URI.isTrack(uri),
+      ([uri]) =>
+        URI.isTrack(uri) &&
+        !Platform.History.location.state?.watchFeed?.isOpen,
       SVGIcons.nowPlaying
     );
     menuItem.register();
