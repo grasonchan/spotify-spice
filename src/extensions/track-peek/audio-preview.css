@@ -1,14 +1,13 @@
 .tp-audio-preview {
   width: 280px;
-  height: anchor-size(height);
+  height: 100%;
   padding: 2px 3px;
-  position-anchor: --general-controls;
-  position-area: center;
+  position: absolute;
+  left: 50%;
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: nowrap;
-  color: unset;
   background-color: color-mix(
     in srgb,
     var(--spice-button) 8%,
@@ -16,7 +15,7 @@
   );
   border: 1px solid rgb(var(--spice-rgb-button), 25%);
   border-radius: 20px;
-  transform: scale(0.95);
+  transform: translateX(-50%) scale(0.95);
   transition:
     opacity 0.34s ease-out,
     transform 0.34s ease-out;
@@ -61,7 +60,7 @@
 }
 
 .tp-audio-preview-in .tp-audio-preview {
-  transform: unset;
+  transform: translateX(-50%);
   opacity: unset;
   pointer-events: unset;
 }

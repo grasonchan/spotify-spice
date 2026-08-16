@@ -174,7 +174,9 @@ export const useAudioPreview = ({ playStatus, onStart, onEnd }) => {
     const menuItem = new ContextMenu.Item(
       MENU_ITEM_NAME,
       onMenuItemClick,
-      ([uri]) => URI.isTrack(uri),
+      ([uri]) =>
+        URI.isTrack(uri) &&
+        !document.querySelector('[data-testid="watch-feed-view"]'),
       SVGIcons.nowPlaying
     );
     menuItem.register();

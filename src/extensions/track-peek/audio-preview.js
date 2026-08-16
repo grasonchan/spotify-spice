@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { originPlayer, SVGIcons } from '@/lib/spicetify.js';
 import { TooltipWrapper } from '@/lib/host-components.js';
@@ -13,7 +13,6 @@ const inClassName = 'tp-audio-preview-in';
 
 const AudioPreview = ({ container, playStatus }) => {
   const [isRendered, setIsRendered] = useState(false);
-  const domRef = useRef(null);
 
   const { status, track, progress, exit } = useAudioPreview({
     playStatus,
@@ -34,7 +33,6 @@ const AudioPreview = ({ container, playStatus }) => {
 
   useLayoutEffect(() => {
     if (!container || status === MEDIA_STATUS.IDLE) return;
-    domRef.current.showPopover();
     container.classList.add(activeClassName);
     const rafId = requestAnimationFrame(() =>
       container.classList.add(inClassName)
@@ -73,8 +71,6 @@ const AudioPreview = ({ container, playStatus }) => {
     createPortal(
       <div
         className="tp-audio-preview"
-        popover="manual"
-        ref={domRef}
         onTransitionEnd={handleTransitionEnd}
       >
         <TooltipWrapper
