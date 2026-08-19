@@ -1,12 +1,49 @@
-.fad-adjacent-tracks-peek {
-  position: absolute;
-  bottom: 20px;
+.fad-activated [data-testid='general-controls']:popover-open {
+  --mix-bg: color-mix(in srgb, var(--spice-button) 8%, #121212);
 
-  .adjacent-tracks-peek-standalone__item {
-    color: #ccc;
+  width: 40%;
+  margin: 0 auto;
+  position: fixed;
+  top: unset;
+  bottom: 24px;
+  color: unset;
+  background: unset;
 
-    &:hover {
-      color: #fff !important;
+  .player-controls__left
+    > button:not([data-testid='control-button-skip-back']),
+  .player-controls__right
+    > button:not([data-testid='control-button-skip-forward']) {
+    width: 32px;
+    height: 32px;
+    background-color: var(--mix-bg);
+    border-radius: 50%;
+    border: 1px solid rgb(150 150 150 / 10%);
+    transform: unset;
+
+    &:not(.encore-internal-color-text-bright-accent) {
+      color: #ccc;
     }
+
+    svg {
+      width: 12px;
+      height: 12px;
+    }
+
+    &::before,
+    &::after {
+      width: 3px !important;
+      height: 3px;
+      bottom: 4px;
+    }
+  }
+
+  :has(> .track-peek) {
+    background-color: var(--mix-bg);
+    color: #fff;
+  }
+
+  [data-testid='control-button-playpause'] > span {
+    background-color: #fff;
+    color: #000;
   }
 }

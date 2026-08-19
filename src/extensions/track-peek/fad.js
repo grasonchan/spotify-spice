@@ -1,16 +1,18 @@
-import { createPortal } from 'react-dom';
+import { useEffect } from 'react';
 import { useFADStatus } from '@/hooks/integrations/use-fad-status.js';
-import AdjacentTracksPeekStandalone from './adjacent-tracks-peek.standalone.js';
 import './fad.css';
 
-const FAD = () => {
+const FAD = ({ playerControls }) => {
   const status = useFADStatus();
 
-  if (!status) return null;
-  return createPortal(
-    <AdjacentTracksPeekStandalone className="fad-adjacent-tracks-peek" />,
-    document.querySelector('#full-app-display')
-  );
+  useEffect(() => {
+    if (!(status && playerControls)) return;
+    playerControls.setAttribute('popover', 'manual');
+    playerControls.showPopover();
+    return () => playerControls.removeAttribute('popover');
+  }, [status, playerControls]);
+
+  return null;
 };
 
 export default FAD;
