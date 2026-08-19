@@ -10,16 +10,16 @@ const { exts } = concernedCLIConfig;
 const rootSelector = '.Root__now-playing-bar';
 const prevSelector = "[data-testid='control-button-skip-back']";
 const nextSelector = "[data-testid='control-button-skip-forward']";
-const generalControlsSelector = '[data-testid="general-controls"]';
+const playerControlsSelector = '[data-testid="general-controls"]';
 
-const selectors = [prevSelector, nextSelector, generalControlsSelector];
+const selectors = [prevSelector, nextSelector, playerControlsSelector];
 
 const App = () => {
   const playStatus = usePlayStatus({ includeBuffering: false });
   const {
     [prevSelector]: prevMountPoint,
     [nextSelector]: nextMountPoint,
-    [generalControlsSelector]: generalControls,
+    [playerControlsSelector]: playerControls,
   } = useDOMFinder({ rootSelector, selectors });
 
   return (
@@ -29,10 +29,10 @@ const App = () => {
         nextMountPoint={nextMountPoint}
       />
       <AudioPreview
-        container={generalControls}
+        container={playerControls}
         playStatus={playStatus}
       />
-      {exts.fullAppDisplay && <FAD />}
+      {exts.fullAppDisplay && <FAD playerControls={playerControls} />}
     </>
   );
 };
