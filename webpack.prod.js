@@ -1,5 +1,5 @@
 import { merge } from 'webpack-merge';
-import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
+import MinimizerPlugin from 'minimizer-webpack-plugin';
 import common from './webpack.common.js';
 
 const [themeCommon, extensionsCommon] = common;
@@ -12,7 +12,13 @@ const baseConfig = {
 export default [
   merge(themeCommon, baseConfig, {
     optimization: {
-      minimizer: ['...', new CssMinimizerPlugin()],
+      minimizer: [
+        '...',
+        new MinimizerPlugin({
+          test: /\.css(\?.*)?$/i,
+          minify: MinimizerPlugin.cssnanoMinify,
+        }),
+      ],
     },
   }),
   merge(extensionsCommon, baseConfig),
