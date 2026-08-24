@@ -1,0 +1,18 @@
+language: 'en-US'
+reviews:
+  auto_apply_labels: true
+  in_progress_fortune: false
+  path_instructions:
+    - path: 'src/**/*'
+      instructions: |
+        Spicetify project, running within the Spotify Desktop Client (CEF, SPA).
+
+        Project architecture:
+        - Entry points: extensions entry is in `src/extensions/`, themes entry in `src/theme/`
+        - Anti-corruption layer: Spicetify provided runtime dependencies, APIs, etc. are encapsulated and exposed via `src/lib/` (Notice that React is the production build)
+        - Module boundaries: the global `Spicetify` API object must ONLY be accessed inside `src/lib/` and `src/utils/index.{js,ts}`
+
+        Review focus:
+        - Network safety: flag any external URL requests that might leak user auth tokens, account info, or Spotify session contexts
+        - Memory leaks: ensure any side effect cleans up perfectly if a component, extension or theme unmounts
+        - Logic errors, performance, and runtime edge cases
