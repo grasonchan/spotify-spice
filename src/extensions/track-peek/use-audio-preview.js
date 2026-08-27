@@ -90,7 +90,7 @@ export const useAudioPreview = ({ playStatus, onStart, onEnd }) => {
   });
 
   useEffect(() => {
-    const MENU_ITEM_NAME = 'Track peek';
+    const MENU_ITEM_NAME = 'Preview audio';
     const MAX_CACHE_SIZE = 1000;
     let clickId = 0;
 
