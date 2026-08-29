@@ -1,5 +1,7 @@
-import { waitHostReady } from '@/utils/index.js';
+import { createRoot } from 'react-dom/client';
+import App from './app.js';
 import './styles/index.css';
 
-await waitHostReady();
-import('./root.js');
+const fragment = document.createDocumentFragment();
+const root = createRoot(fragment);
+root.render(<App />);

@@ -86,23 +86,8 @@ export default [
     },
   },
   {
-    files: [
-      'src/theme/index.js',
-      'src/extensions/*/index.js',
-      'src/utils/index.js',
-    ],
-    rules: {
-      'no-restricted-imports': ['error', { patterns: ['**/lib/**/*'] }],
-    },
-  },
-  {
     files: ['**/*.{js,mjs,jsx}'],
-    ignores: [
-      'src/theme/index.js',
-      'src/extensions/*/index.js',
-      'src/utils/index.js',
-      'src/lib/**/*.{js,mjs}',
-    ],
+    ignores: ['src/lib/**/*.{js,mjs}'],
     rules: {
       'no-restricted-globals': ['error', 'Spicetify'],
     },

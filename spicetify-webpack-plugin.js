@@ -1,7 +1,11 @@
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { copyFileSync, cpSync, readdirSync, rmSync } from 'node:fs';
 import { rename, writeFile } from 'node:fs/promises';
 import { spawn, execSync } from 'node:child_process';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const spicetify = {
   getPath(...params) {
@@ -33,7 +37,7 @@ const spicetify = {
   },
 };
 
-class SpicetifyDeployPlugin {
+class SpicetifyPlugin {
   constructor(options = {}) {
     const supportedModes = Object.values(this.#MODES);
     if (!supportedModes.includes(options.mode)) {
@@ -47,6 +51,11 @@ class SpicetifyDeployPlugin {
     }
     this.options = options;
   }
+
+  static loader = path.resolve(
+    __dirname,
+    'spicetify-bootstrap-loader.js'
+  );
 
   #MODES = {
     THEME: 'theme',
@@ -143,7 +152,7 @@ class SpicetifyDeployPlugin {
   apply(compiler) {
     const strategy = this.#strategies[this.options.mode]();
 
-    const pluginName = SpicetifyDeployPlugin.name;
+    const pluginName = SpicetifyPlugin.name;
     this.#srcDir = compiler.options.output.path;
     this.#targetDir = strategy.getTargetDir();
 
@@ -184,4 +193,4 @@ class SpicetifyDeployPlugin {
   }
 }
 
-export default SpicetifyDeployPlugin;
+export default SpicetifyPlugin;
