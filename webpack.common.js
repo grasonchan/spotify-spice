@@ -3,6 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import CopyPlugin from 'copy-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import SpicetifyPlugin from './spicetify-webpack-plugin.js';
 
 export const THEME_NAME = 'SpotifySpice';
 
@@ -52,6 +53,13 @@ const baseConfig = {
             },
           },
         ],
+      },
+      {
+        test: /\.(?:js|mjs|jsx)$/,
+        exclude: /node_modules/,
+        issuer: (path) => !path,
+        enforce: 'pre',
+        use: [SpicetifyPlugin.loader],
       },
     ],
   },
