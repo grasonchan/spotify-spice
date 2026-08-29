@@ -33,7 +33,7 @@ const spicetify = {
   },
 };
 
-class SpicetifyDeployPlugin {
+class SpicetifyPlugin {
   constructor(options = {}) {
     const supportedModes = Object.values(this.#MODES);
     if (!supportedModes.includes(options.mode)) {
@@ -143,7 +143,7 @@ class SpicetifyDeployPlugin {
   apply(compiler) {
     const strategy = this.#strategies[this.options.mode]();
 
-    const pluginName = SpicetifyDeployPlugin.name;
+    const pluginName = SpicetifyPlugin.name;
     this.#srcDir = compiler.options.output.path;
     this.#targetDir = strategy.getTargetDir();
 
@@ -184,4 +184,4 @@ class SpicetifyDeployPlugin {
   }
 }
 
-export default SpicetifyDeployPlugin;
+export default SpicetifyPlugin;
