@@ -10,7 +10,7 @@ reviews:
         Project architecture:
         - Entry points: extensions entry is in `src/extensions/`, themes entry in `src/theme/`
         - Anti-corruption layer: Spicetify provided runtime dependencies, APIs, etc. are encapsulated and exposed via `src/lib/` (Notice that React is the production build)
-        - Module boundaries: the global `Spicetify` API object must ONLY be accessed inside `src/lib/` and `src/utils/index.{js,ts}`
+        - Module boundaries: the global `Spicetify` API object must ONLY be accessed inside `src/lib/``
 
         Review focus:
         - Network safety: flag any external URL requests that might leak user auth tokens, account info, or Spotify session contexts
