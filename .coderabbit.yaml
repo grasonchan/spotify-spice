@@ -1,6 +1,9 @@
 language: 'en-US'
 reviews:
   auto_apply_labels: true
+  pre_merge_checks:
+    docstrings:
+      threshold: 0
   in_progress_fortune: false
   path_instructions:
     - path: 'src/**/*'
