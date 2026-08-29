@@ -13,7 +13,7 @@ await new Promise((res) => {
 });`;
 
 function spicetifyBootstrapLoader() {
-  return `${BOOTSTRAP}\nimport('${this.resource}')`;
+  return `${BOOTSTRAP}\nimport(${JSON.stringify(this.resource)})`;
 }
 
 export default spicetifyBootstrapLoader;
