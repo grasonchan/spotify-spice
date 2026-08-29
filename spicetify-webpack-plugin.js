@@ -1,7 +1,11 @@
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { copyFileSync, cpSync, readdirSync, rmSync } from 'node:fs';
 import { rename, writeFile } from 'node:fs/promises';
 import { spawn, execSync } from 'node:child_process';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const spicetify = {
   getPath(...params) {
@@ -47,6 +51,11 @@ class SpicetifyPlugin {
     }
     this.options = options;
   }
+
+  static loader = path.resolve(
+    __dirname,
+    'spicetify-bootstrap-loader.js'
+  );
 
   #MODES = {
     THEME: 'theme',
