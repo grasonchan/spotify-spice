@@ -2,7 +2,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { copyFileSync, cpSync, readdirSync, rmSync } from 'node:fs';
 import { rename, writeFile } from 'node:fs/promises';
-import { spawn, execSync } from 'node:child_process';
+import { spawn, execFileSync, execSync } from 'node:child_process';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -19,9 +19,10 @@ const spicetify = {
   },
 
   set(...params) {
-    const cmd = `spicetify config ${params.map((p) => JSON.stringify(p)).join(' ')}`;
-    console.log('>', cmd);
-    execSync(cmd, { stdio: 'inherit' });
+    console.log('>', 'spicetify', 'config', ...params);
+    execFileSync('spicetify', ['config', ...params], {
+      stdio: 'inherit',
+    });
   },
 
   apply() {
