@@ -19,7 +19,7 @@ const spicetify = {
   },
 
   set(...params) {
-    const cmd = `spicetify config ${params.join(' ')}`;
+    const cmd = `spicetify config ${params.map((p) => JSON.stringify(p)).join(' ')}`;
     console.log('>', cmd);
     execSync(cmd, { stdio: 'inherit' });
   },
