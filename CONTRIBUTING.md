@@ -2,7 +2,8 @@
 
 ## Requirements
 
-- **Node.js**: `>= v22.22.0`
+- **Node.js**: `>= v22.23.2`
+- **npm**: `>= v10.9.8`
 - **editor extensions**: Prettier, ESLint, Stylelint
 
 ## Development
