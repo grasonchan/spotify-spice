@@ -1,7 +1,6 @@
 import { merge } from 'webpack-merge';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import CopyPlugin from 'copy-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import SpicetifyPlugin from './spicetify-webpack-plugin.js';
 
@@ -72,6 +71,7 @@ const themeCommon = merge(baseConfig, {
   output: {
     filename: 'theme.js',
     path: path.resolve(__dirname, 'dist', THEME_NAME),
+    copy: 'color.ini',
     clean: true,
   },
   module: {
@@ -83,9 +83,6 @@ const themeCommon = merge(baseConfig, {
     ],
   },
   plugins: [
-    new CopyPlugin({
-      patterns: ['color.ini'],
-    }),
     new MiniCssExtractPlugin({
       filename: 'user.css',
     }),
