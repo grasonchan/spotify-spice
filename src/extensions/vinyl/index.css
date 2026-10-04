@@ -176,7 +176,12 @@
   --colored-vinyl-inner-shadow-inset: var(--colored-vinyl-shadow-inset);
 }
 
-[data-testid='track-visual-enhancement'] {
+#main [data-testid='track-visual-enhancement'] {
+  :has(.cover-art) {
+    opacity: 1 !important;
+    box-shadow: none !important;
+  }
+
   .cover-art {
     margin: calc(17% + 5px);
     position: relative;
@@ -188,6 +193,7 @@
     &::after {
       width: 100%;
       height: 100%;
+      display: unset !important;
       position: absolute;
       top: 0;
       left: 0;
