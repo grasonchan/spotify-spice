@@ -18,11 +18,11 @@ Use [Spicetify Marketplace](https://github.com/spicetify/marketplace) to install
 
 ## Extensions
 
+**Tip:** Open the profile menu to access settings.
+
 ### Vinyl
 
 Transforms the album artwork into a spinning, lightness-adaptive vinyl driven by your playback state.
-
-Open the profile menu to access the vinyl settings.
 
 ![vinyl](screenshots/vinyl.png)
 

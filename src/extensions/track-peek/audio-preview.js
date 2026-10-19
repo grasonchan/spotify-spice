@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { originPlayer, SVGIcons } from '@/lib/spicetify.js';
 import { TooltipWrapper } from '@/lib/host-components.js';
@@ -11,12 +11,21 @@ import './audio-preview.css';
 const activeClassName = 'tp-audio-preview-active';
 const inClassName = 'tp-audio-preview-in';
 
-const AudioPreview = ({ container, playStatus }) => {
+const AudioPreview = ({
+  container,
+  playStatus,
+  onPreviewStart,
+  onPreviewEnd,
+}) => {
   const [isRendered, setIsRendered] = useState(false);
 
   const { status, track, progress, exit } = useAudioPreview({
     playStatus,
-    onStart: () => setIsRendered(true),
+    onStart: () => {
+      setIsRendered(true);
+      onPreviewStart?.();
+    },
+    onEnd: onPreviewEnd,
   });
 
   const handleTransitionEnd = (event) => {
@@ -42,6 +51,12 @@ const AudioPreview = ({ container, playStatus }) => {
       container.classList.remove(inClassName);
     };
   }, [container, status]);
+
+  useEffect(
+    () => () =>
+      container?.classList.remove(activeClassName, inClassName),
+    [container]
+  );
 
   const disabled = status !== MEDIA_STATUS.PLAYING;
 
