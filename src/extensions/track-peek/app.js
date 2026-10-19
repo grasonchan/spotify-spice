@@ -1,7 +1,7 @@
 import { concernedCLIConfig } from '@/config/cli.js';
 import { useDOMFinder } from '@/hooks/utils/use-dom-finder.js';
 import { usePlayStatus } from '@/hooks/host/use-play-status.js';
-import AdjacentTracksPeek from './adjacent-tracks-peek.js';
+import AdjacentTracksPeekNPB from './adjacent-tracks-peek-npb.js';
 import AudioPreview from './audio-preview.js';
 import FAD from './fad.js';
 
@@ -24,7 +24,7 @@ const App = () => {
 
   return (
     <>
-      <AdjacentTracksPeek
+      <AdjacentTracksPeekNPB
         prevMountPoint={prevMountPoint}
         nextMountPoint={nextMountPoint}
       />
