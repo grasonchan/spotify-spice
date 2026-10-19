@@ -59,6 +59,7 @@ const selectors = [prevSelector, nextSelector, playerControlsSelector];
 const App = () => {
   const [settingsVisible, setSettingsVisible] = useState(false);
   const [settings, setSettings] = useState(getInitialSettings);
+  const [audioPreviewActive, setAudioPreviewActive] = useState(false);
   const playStatus = usePlayStatus({ includeBuffering: false });
   const {
     [prevSelector]: prevMountPoint,
@@ -99,9 +100,16 @@ const App = () => {
         <AudioPreview
           container={playerControls}
           playStatus={playStatus}
+          onPreviewStart={() => setAudioPreviewActive(true)}
+          onPreviewEnd={() => setAudioPreviewActive(false)}
         />
       )}
-      {exts.fullAppDisplay && <FAD playerControls={playerControls} />}
+      {exts.fullAppDisplay && (
+        <FAD
+          playerControls={playerControls}
+          enabled={settings.adjacentTracksEnabled || audioPreviewActive}
+        />
+      )}
       {settingsVisible && (
         <Settings
           visible={settingsVisible}

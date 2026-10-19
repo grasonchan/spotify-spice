@@ -11,12 +11,21 @@ import './audio-preview.css';
 const activeClassName = 'tp-audio-preview-active';
 const inClassName = 'tp-audio-preview-in';
 
-const AudioPreview = ({ container, playStatus }) => {
+const AudioPreview = ({
+  container,
+  playStatus,
+  onPreviewStart,
+  onPreviewEnd,
+}) => {
   const [isRendered, setIsRendered] = useState(false);
 
   const { status, track, progress, exit } = useAudioPreview({
     playStatus,
-    onStart: () => setIsRendered(true),
+    onStart: () => {
+      setIsRendered(true);
+      onPreviewStart?.();
+    },
+    onEnd: onPreviewEnd,
   });
 
   const handleTransitionEnd = (event) => {
