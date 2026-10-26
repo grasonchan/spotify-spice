@@ -2,7 +2,7 @@
   anchor-name: --connect-device;
 }
 
-.main-connectBar-connectBar {
+.EgAo7_ZXuNWqXBv5I4ag {
   --text-base: var(--spice-subtext);
   --essential-base: var(--spice-subtext);
   --encore-text-size-smaller: 10px;
@@ -44,11 +44,11 @@
     content: '';
   }
 
-  .main-connectBar-icon {
+  > svg {
     margin-inline-end: unset;
   }
 
-  .main-connectBar-textButton {
+  > button {
     padding: 0 4px;
   }
 }
