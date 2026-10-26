@@ -1,4 +1,4 @@
-.main-rootlist-wrapper :not(.main-rootlist-topSentinel) [role='row'] {
+.nskH6mPQg5wuHSNoevTt :not(.LR1Xx5P2Fd7HVnnB_SFA) [role='row'] {
   position: relative;
 
   &:first-child::before,
@@ -17,12 +17,12 @@
   }
 
   &:is(
-      [aria-rowindex$='0'],
-      [aria-rowindex$='2'],
-      [aria-rowindex$='4'],
-      [aria-rowindex$='6'],
-      [aria-rowindex$='8']
-    ) {
+    [aria-rowindex$='0'],
+    [aria-rowindex$='2'],
+    [aria-rowindex$='4'],
+    [aria-rowindex$='6'],
+    [aria-rowindex$='8']
+  ) {
     background: linear-gradient(
       to right,
       transparent,
