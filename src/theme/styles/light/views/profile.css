@@ -10,17 +10,4 @@
     --user-edit-close-color: #000000b3;
     --user-edit-close-hover: #0000001a;
   }
-
-  .main-entityHeader-metaData {
-    --text-subdued: unset !important;
-  }
-
-  .main-entityHeader-metaDataText {
-    color: unset;
-  }
-
-  .main-entityHeader-headerText
-    > div:has(.playlist-playlist-playlistDescription) {
-    --text-subdued: unset !important;
-  }
 }
