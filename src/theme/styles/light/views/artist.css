@@ -1,12 +1,12 @@
 :root[data-theme='light'] {
   /* Banner */
-  .bHqdRdxo4vtOizQq {
+  .JAqFwQzhVsvnypqQ62UZ {
     background:
       linear-gradient(#0000 0%, #ffffff80 100%), var(--background-noise);
   }
 
   /* About */
-  .J8g7rZ2MDknxmiYP.GUhu8mqqIMM0sZzG::before {
+  .MlkW0fv77Gj2GiBCK8Yo.JDFYAJGVGfRp85yk6cfk::before {
     position: absolute;
     inset: 0;
     background: linear-gradient(
@@ -16,7 +16,8 @@
     content: '';
   }
 
-  .artist-artistDiscography-topBarScrolled {
-    box-shadow: 0 6px 10px #fff9;
+  /* Discography - top bar */
+  .hSRNeGZLrNvceg6eQQyQ.cpXIHirTYFnapjg6LvR3 {
+    box-shadow: 0 6px 10px #ddd9;
   }
 }
