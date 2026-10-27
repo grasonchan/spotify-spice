@@ -1,12 +1,14 @@
-.main-entityHeader-backgroundColor,
-.main-actionBarBackground-background,
-.main-topBar-overlay,
-.playlist-playlist-actionBarBackground-background {
+/* Liked Songs & Local Files */
+.N6W22Ky7W6I93tr3vrqE,
+.T2XRKvkWneSSMSOCEo40,
+/* Playlist */
+.playlist-playlist-mixingBackground,
+.rRzDzkFoPB1jsHaUjsDT,
+/* Album */
+.A0hGajCN2_Y1J_AjxSJh,
+/* Global */
+.main-topBar-overlay {
   background: unset !important;
-}
-
-.main-actionBarBackground-background {
-  background-image: unset;
 }
 
 .main-entityHeader-shadow {
