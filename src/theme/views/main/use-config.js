@@ -8,7 +8,7 @@ export const useConfig = () => {
     () =>
       new Map([
         [
-          '#global-nav-bar .main-actionButtons',
+          '#global-nav-bar .zCtF8mVXUNCbStNrzrkU',
           [
             {
               id: 'theme-switcher',
@@ -18,7 +18,7 @@ export const useConfig = () => {
                 get className() {
                   if (!buddyFeedClassName) {
                     const buddyFeed = document.querySelector(
-                      '.main-topBar-buddyFeed'
+                      '[data-restore-focus-key="buddy_feed"]'
                     );
                     buddyFeedClassName =
                       buddyFeed?.className ?? buddyFeedClassName;
