@@ -1,20 +1,23 @@
 :root[data-theme='light'] {
   /* popup */
-  .gQsOCrC4O3kYXib2,
+  .Czy8vPjpgy9nPFDXizjI,
   /* All */
-  .WRAJX50Owww6lGws::before {
+  .pt7mae_WPybPd17meaxA::before {
+    /* image */
     background: #fff9;
   }
 
   /* popup */
-  .HqUgEQOPyVcDu2NW {
+  .dGwD4pXsECZILh7e45zQ,
+  /* All - top result */
+  .oCd5KSKfqoo85mkR33PJ {
     &:hover::after {
       background-color: var(--background-tinted-base);
     }
   }
 
   /* All */
-  .TguLwQ522LIEgpK_.IxVxBUbV5M5tGaEx {
+  .I36PxxxLLlnAWQRuft9k.Zl6AQBCziW_JqTT4rN7I {
     &::after {
       inset: 0;
     }
