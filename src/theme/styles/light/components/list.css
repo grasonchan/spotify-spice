@@ -1,36 +1,19 @@
 :root[data-theme='light'] {
   /* Playlist */
-  .f0DRpgeIxygEki9e {
-    background-color: #0000001a;
-  }
-
-  .Ltz8hFoxXpck1XAk.main-trackList-trackListHeader {
-    border-color: #0000001a;
-  }
-
   .main-trackList-trackListRow {
     &:hover,
     &:focus-within {
       background-color: var(--background-tinted-base);
     }
 
-    &.q8suB2R_XkoUyIeZ,
-    &.q8suB2R_XkoUyIeZ:hover {
+    &.TqTm7pjhN6tgNyT4c7pi,
+    &.TqTm7pjhN6tgNyT4c7pi:hover {
       background-color: var(--background-tinted-highlight);
     }
   }
 
-  /* See more */
-  .sL0wneoReggMaCXb {
-    color: #000000b3;
-
-    &:hover {
-      color: var(--spice-text);
-    }
-  }
-
   /* Recommended - list image */
-  .jI_IBNN4ddM_GyKh .T3i51foJdn0tRIOO {
+  .XvjB_p1L5tA_Y5iNH591 .VuYU6p9xUkUCjZsHLf3T {
     background: #fff9;
   }
 }
