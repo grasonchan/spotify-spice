@@ -1,59 +1,23 @@
 :root[data-theme='light'] {
-  .main-playlistEditDetailsModal-closeBtn {
-    color: #000000b3;
-
-    &:hover,
-    &:focus {
-      background-color: #0000001a;
-    }
-  }
-
-  .main-playlistEditDetailsModal-textElement {
-    background-color: #0000001a;
-
+  /* Playlist - Edit details - input */
+  .ZG2g5QUp_rGSkck71vun,
+  .kVy8V5Rjj3E7Mb7y74LM {
     &:focus {
       background-color: var(--spice-highlight-elevated);
     }
   }
 
   /* Artist - close button */
-  .EU1ylDKh7s2oMU0g:not(:hover) {
+  .XbVk4lknigmOU29LmMCy:not(:hover) {
     color: #000000b3;
     background-color: #ffffffb3;
   }
 
-  .main-trackCreditsModalV2-container {
+  dialog[aria-label='Credits'] {
     [data-encore-id='listRow'] {
       --box-hover-background-color: var(
         --background-tinted-base
       ) !important;
-    }
-  }
-
-  .main-trackCreditsModal-header,
-  .main-trackCreditsModalV2-header {
-    border-bottom-color: #0000001a;
-  }
-
-  .main-trackCreditsModalV2-closeBtn:hover {
-    background-color: #0000001a;
-  }
-
-  .main-trackCreditsModal-closeBtn path {
-    fill: currentcolor;
-  }
-
-  [data-testid='search-modal-results'] {
-    /* List */
-    .CHck6AHg4spGkl6W:hover:not([disabled]),
-    .CHck6AHg4spGkl6W:focus-within,
-    .CHck6AHg4spGkl6W._NQoK6igV0j8Bcum {
-      background-color: var(--background-tinted-base);
-    }
-
-    /* Tag */
-    .F3WpS8JNeYr5qfjY {
-      background-color: var(--background-tinted-highlight);
     }
   }
 }
