@@ -1,19 +1,19 @@
-.main-nowPlayingBar-center:has(.track-peek) {
+:has(> [data-testid='player-controls'] .track-peek) {
   [data-testid='general-controls'] {
     container: general-controls / inline-size;
   }
 
-  .player-controls__left,
-  .player-controls__right {
+  :has(> [data-testid='control-button-skip-back']),
+  :has(> [data-testid='control-button-skip-forward']) {
     width: 50%;
     position: absolute;
   }
 
-  .player-controls__left {
+  :has(> [data-testid='control-button-skip-back']) {
     right: calc(50% - 8px);
   }
 
-  .player-controls__right {
+  :has(> [data-testid='control-button-skip-forward']) {
     left: calc(50% - 8px);
   }
 

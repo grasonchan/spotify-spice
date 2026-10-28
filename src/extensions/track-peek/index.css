@@ -1,4 +1,4 @@
-.main-nowPlayingBar-center [data-testid='general-controls'] {
+[data-testid='general-controls'] {
   position: relative;
   justify-content: center;
   align-items: center;

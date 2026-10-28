@@ -9,9 +9,9 @@
   color: unset;
   background: unset;
 
-  .player-controls__left
+  :has(> [data-testid='control-button-skip-back'])
     > button:not([data-testid='control-button-skip-back']),
-  .player-controls__right
+  :has(> [data-testid='control-button-skip-forward'])
     > button:not([data-testid='control-button-skip-forward']) {
     width: 32px;
     height: 32px;

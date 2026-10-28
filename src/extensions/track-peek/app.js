@@ -49,9 +49,9 @@ const getInitialSettings = () => {
   }
 };
 
-const rootSelector = '.Root__now-playing-bar';
-const prevSelector = "[data-testid='control-button-skip-back']";
-const nextSelector = "[data-testid='control-button-skip-forward']";
+const rootSelector = '.G0r21Xb5HbCgpzJwqiev';
+const prevSelector = '[data-testid="control-button-skip-back"]';
+const nextSelector = '[data-testid="control-button-skip-forward"]';
 const playerControlsSelector = '[data-testid="general-controls"]';
 
 const selectors = [prevSelector, nextSelector, playerControlsSelector];
