@@ -1,8 +1,12 @@
 @import './npv.css';
 
 :root[data-theme='light'] {
-  .YZ3y8n8ToUt_xDKt,
-  .cRZ07x9PDlEsxMNl {
+  /* Credits */
+  .vRL9yCtngaw9oV3ultVY,
+  /* Next in queue */
+  .mwYXezHbftwPHuDMwczs,
+  /* Expanded - Credits & Next in queue */
+  .nL2a9KOrkvOlg4iyuRDL {
     [data-encore-id='listRow'] {
       --box-hover-background-color: var(
         --background-tinted-base
@@ -13,11 +17,11 @@
   /* --List image-- */
 
   /* Next in queue */
-  .znTd53DrNIcJnJvv,
-  /* Recents */
-  .VpUQM5JUYIIbAaSL,
+  .OTp45c6uPQSJAt5WCUhZ,
+  /* Queue */
+  .WXGKpNicI_DwC22wsEwc,
   /* Add to playlist Panel */
-  .yAqWz24y2vgpEYX8 {
+  .vRbMQQ_XW1RWhOWlJR2w {
     background: #fff9;
   }
 }
