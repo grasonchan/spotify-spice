@@ -3,10 +3,6 @@
     background-color: var(--spice-sidebar);
   }
 
-  canvas[aria-label='Equalizer'] {
-    z-index: 100;
-  }
-
   .oEWQN109VAVedHfT4mrV::before {
     border-bottom: 1px solid #5555551a;
   }

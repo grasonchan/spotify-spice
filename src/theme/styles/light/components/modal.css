@@ -7,8 +7,12 @@
     }
   }
 
-  /* Artist - close button */
-  .XbVk4lknigmOU29LmMCy:not(:hover) {
+  /* -- Artist -- */
+
+  /* close button */
+  .XbVk4lknigmOU29LmMCy:not(:hover),
+  /* prev & next button */
+  .addQkgT7_QinqElmi3i_ {
     color: #000000b3;
     background-color: #ffffffb3;
   }

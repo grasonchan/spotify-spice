@@ -12,8 +12,11 @@
     }
   }
 
-  /* Recommended - list image */
-  .XvjB_p1L5tA_Y5iNH591 .VuYU6p9xUkUCjZsHLf3T {
+  /* Recommended */
+  .XvjB_p1L5tA_Y5iNH591 .VuYU6p9xUkUCjZsHLf3T,
+  /* Recents */
+  .NVPgjZXRMQNILjTKUE6r {
+    /* list image */
     background: #fff9;
   }
 }
