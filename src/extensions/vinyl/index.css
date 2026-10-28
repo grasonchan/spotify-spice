@@ -1,6 +1,6 @@
 :root {
   --default-vinyl-shine-l: 0.85;
-  --default-vinyl-groove-l: 0.175;
+  --default-vinyl-groove-l: 0.1668;
   --default-vinyl-base-l-start: 0.17;
   --default-vinyl-base-l-end: 0.14;
   --default-vinyl-c: 0;
@@ -26,7 +26,7 @@
   --vinyl-shine-alpha-multiple: 0.0755;
   --vinyl-groove-l-multiple: var(
     --colored-vinyl-groove-l-multiple,
-    1.28
+    1.272
   );
   --vinyl-base-l-multiple: var(--colored-vinyl-base-l-multiple, 1.25);
   --vinyl-l-offset: 0.05;
@@ -69,7 +69,7 @@
     transparent 270deg 360deg
   );
   --vinyl-groove: repeating-radial-gradient(
-    transparent 0px 4px,
+    transparent 0px 5.5px,
     oklch(
         from var(--spice-main)
           clamp(
@@ -80,8 +80,8 @@
           )
           var(--vinyl-c) var(--vinyl-h) / 100%
       )
-      4px 5px,
-    transparent 5px 9px,
+      5.5px 7.5px,
+    transparent 7.5px 13px,
     oklch(
         from var(--spice-main)
           clamp(
@@ -92,7 +92,7 @@
           )
           var(--vinyl-c) var(--vinyl-h) / 70%
       )
-      9px 10px
+      13px 15px
   );
   --vinyl-base: radial-gradient(
     oklch(
@@ -121,6 +121,7 @@
     --colored-vinyl-inner-shadow-inset,
     rgb(3 3 3 / 50%)
   );
+  --fad-default-vinyl-groove-l: 0.175;
   --fad-vinyl-shine: conic-gradient(
     from 15deg,
     transparent,
@@ -140,13 +141,13 @@
   --fad-vinyl-groove: repeating-radial-gradient(
     transparent 0px 4px,
     oklch(
-        from var(--spice-main) var(--default-vinyl-groove-l)
+        from var(--spice-main) var(--fad-default-vinyl-groove-l)
           var(--default-vinyl-c) var(--default-vinyl-h) / 100%
       )
       4px 5px,
     transparent 5px 9px,
     oklch(
-        from var(--spice-main) var(--default-vinyl-groove-l)
+        from var(--spice-main) var(--fad-default-vinyl-groove-l)
           var(--default-vinyl-c) var(--default-vinyl-h) / 70%
       )
       9px 10px
@@ -164,10 +165,10 @@
 }
 
 :root[data-colored-vinyl='true'] {
-  --colored-vinyl-groove-l: 0.275;
+  --colored-vinyl-groove-l: 0.269;
   --colored-vinyl-base-l-start: 0.28;
   --colored-vinyl-base-l-end: 0.24;
-  --colored-vinyl-groove-l-multiple: 1.865;
+  --colored-vinyl-groove-l-multiple: 1.882;
   --colored-vinyl-base-l-multiple: 1.92;
   --colored-vinyl-shadow-inset: oklch(
     from var(--spice-main) calc(8% * l * 5.25) var(--vinyl-c)
@@ -176,53 +177,59 @@
   --colored-vinyl-inner-shadow-inset: var(--colored-vinyl-shadow-inset);
 }
 
-#main [data-testid='track-visual-enhancement'] {
-  :has(.cover-art) {
+#main [data-testid='cover-art-slot'] {
+  --cover-art-size: calc(100% / 1.5 - 12px);
+  --vinyl-size: calc(100% - 18px);
+
+  :has(img) {
     opacity: 1 !important;
     box-shadow: none !important;
   }
 
-  .cover-art {
-    margin: calc(17% + 5px);
+  [data-testid='cover-drop-target'] :has(> img) {
+    aspect-ratio: 1;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 50%;
     animation: rotate-vinyl var(--vinyl-duration) linear infinite
       var(--vinyl-play-state);
 
     &::before,
     &::after {
-      width: 100%;
-      height: 100%;
       display: unset !important;
       position: absolute;
-      top: 0;
-      left: 0;
       border-radius: 50%;
       content: '';
     }
 
     &::before {
+      width: var(--vinyl-size) !important;
+      height: unset !important;
+      aspect-ratio: 1;
       background:
         var(--vinyl-shine), var(--vinyl-groove), var(--vinyl-base);
       box-shadow:
-        0 0 5px var(--vinyl-shadow-inset) inset,
-        0 0 2px #000;
-      transform: scale(1.5);
-      filter: drop-shadow(0 0 2px #000);
+        0 0 7.5px var(--vinyl-shadow-inset) inset,
+        0 0 3px #000;
+      filter: drop-shadow(0 0 3px #000);
+      z-index: -1;
     }
 
     &::after {
+      width: var(--cover-art-size) !important;
+      height: unset !important;
+      aspect-ratio: 1;
       box-shadow: 0 0 10px var(--vinyl-inner-shadow-inset) inset;
     }
-  }
 
-  .cover-art-icon {
-    display: none !important;
-  }
-
-  .cover-art-image {
-    background-color: #0f0f0f;
-    border-radius: 50% !important;
+    img {
+      width: var(--cover-art-size) !important;
+      height: unset !important;
+      aspect-ratio: 1;
+      border-radius: 50%;
+    }
   }
 }
 
