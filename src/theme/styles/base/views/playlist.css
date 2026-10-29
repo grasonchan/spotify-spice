@@ -22,3 +22,8 @@
 .main-trackList-trackListHeaderRow {
   border: unset;
 }
+
+/* metadata */
+.gVnBhXqYYmv_ZqSKLEwS {
+  --text-subdued: unset !important;
+}
