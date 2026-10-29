@@ -1,17 +1,13 @@
 :root[data-theme='light'] {
-  .x-settings-equalizerSection {
+  .vg8j7Mn84_Wf5305Mi7g {
     background-color: var(--spice-sidebar);
   }
 
-  .x-settings-equalizerPanelCanvas {
-    z-index: 100;
-  }
-
-  .x-settings-equalizerPanelFilters::before {
+  .oEWQN109VAVedHfT4mrV::before {
     border-bottom: 1px solid #5555551a;
   }
 
-  .x-settings-equalizerPanelFilter::after {
+  .TBZDopVqkzO4WTg3Gr6f::after {
     border-right: 1px solid #5555551a;
   }
 }

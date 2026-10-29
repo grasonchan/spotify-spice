@@ -1,17 +1,13 @@
 :root[data-theme='light'] {
-  .main-actionBar-exploreButtonPlayIconWrapper {
+  [data-testid='watch-feed-entity-button'] .DHp5ZkYZOYXiNcykkySI {
     background: #fff9;
   }
 
-  .mmNSzQV3h4gmUtIQ {
+  .o7mpnOJPt490tJTjJ1Ri {
     filter: invert(1);
   }
 
-  .JdrFm8jUtU8gciOD {
-    background-color: #0000004d;
-  }
-
-  .BtW0PlrNzwZi7l9w .boFkCF4QGEeMQzn5 {
+  .DQrSFfJbrbaDrBhO4oEC .a_isc8oaXM0zRtm98xRU {
     color: var(--text-subdued);
   }
 }

@@ -1,33 +1,21 @@
 :root[data-theme='light'] {
-  .main-nowPlayingView-mainWrapper {
-    --text-subdued: #000000b3;
+  /* top bar */
+  .FrzNGNchJMrcjyiyhO1S {
+    animation-name: custom-npv-top-bar;
   }
 
-  .BEeVmHj340c0PYHe {
-    box-shadow: 0 6px 10px #fff9;
+  /* Queue - top bar */
+  .HPlSLSUXsn_u97TzPzWy {
+    box-shadow: 0 6px 10px #ddd9 !important;
   }
 
-  .main-nowPlayingView-contextItemInfo::before {
-    background: linear-gradient(
-      180deg,
-      hsl(0deg 0% 93% / 0%),
-      hsl(0deg 0% 93% / 45%) 18%,
-      var(--spice-main) 89%,
-      var(--spice-main) 96%
-    );
-  }
-
-  .main-nowPlayingView-queueItem,
-  .main-nowPlayingView-credits {
-    [data-encore-id='listRow'] {
-      --box-hover-background-color: var(
-        --background-tinted-base
-      ) !important;
-    }
+  /* Canvas */
+  .QrIQmjDGqq0j82OA7h84 {
+    filter: invert(1);
   }
 
   /* About the artist */
-  .B3B0XuueQy4Swpyw.ppsr9k1cXo055Z3t.P1a_MNB6ZEIu50sz {
+  .qsFToDeoZ2xZr3KtGcpx.sO9oPkRFlVA0QqGL2Pf7.Ag6gk1eGEs7RpwnWCF43 {
     &::before {
       position: absolute;
       inset: 0;
@@ -38,21 +26,31 @@
       content: '';
       aspect-ratio: 3 / 2;
     }
-
-    .oyoU3RD4WIkhZoGS {
-      position: relative;
-    }
   }
 
   /* Expanded */
-  .Root__cinema-view {
-    .main-trackInfo-name a {
+  .BKBhMtk7_HSsKiFLJtC_.XPcjknPx9Iz154ZPbxvD {
+    .IctkihH_4AYPLcglXqog a {
       color: var(--text-base);
     }
 
     /* About the artist */
-    .JO5DuTPjVVoBxIKN {
+    .PTYE2EUE0UTy_nQ7Sk5t {
       background-color: #ffffff80;
     }
   }
 }
+
+/* stylelint-disable plugin/no-low-performance-animation-properties */
+@keyframes custom-npv-top-bar {
+  0% {
+    box-shadow: none;
+    background-color: #0000;
+  }
+
+  100% {
+    background-color: var(--background-base);
+    box-shadow: 0 6px 10px #ddd9;
+  }
+}
+/* stylelint-enable plugin/no-low-performance-animation-properties */

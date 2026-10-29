@@ -1,44 +1,45 @@
-.Root__now-playing-bar {
+:has(> [data-testid='now-playing-bar']) {
   position: relative;
 }
 
-.main-nowPlayingBar-nowPlayingBar {
-  height: 66px;
-}
+[data-testid='now-playing-bar'] {
+  > div:has([data-testid='player-controls']) {
+    height: 66px;
+  }
 
-/* Cover Image */
-.main-coverSlotCollapsed-container {
-  box-shadow: 0 0 16px rgb(var(--spice-rgb-subtext), 40%);
-}
+  :has(> [data-testid='playback-position']) {
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    z-index: 100;
 
-.main-nowPlayingBar-center {
-  margin-top: 28px;
-}
-
-.Root__now-playing-bar .playback-bar {
-  width: 100vw;
-  position: absolute;
-  top: 0;
-  z-index: 100;
-}
-
-.playback-progressbar {
-  height: var(--custom-progress-bar-slider-size);
-  display: flex;
-  align-items: center;
-}
-
-[data-testid='playback-progressbar']:focus-within {
-  .x-progressBar-fillColor::after {
-    display: block;
+    .x-progressBar-fillColor {
+      transition: transform var(--progress-bar-duration) linear;
+    }
   }
 }
 
-.playback-bar .x-progressBar-fillColor {
-  transition: transform var(--progress-bar-duration) linear;
+[data-testid='cover-art-container'] {
+  box-shadow: 0 0 16px rgb(var(--spice-rgb-subtext), 40%);
 }
 
-.playback-bar__progress-time-elapsed,
+:has(> [data-testid='player-controls']) {
+  margin-top: 28px;
+}
+
+[data-testid='playback-progressbar'] {
+  height: var(--custom-progress-bar-slider-size);
+  display: flex;
+  align-items: center;
+
+  &:focus-within {
+    .x-progressBar-fillColor::after {
+      display: block;
+    }
+  }
+}
+
+[data-testid='playback-position'],
 [data-testid='playback-duration'] {
   height: var(--playback-time-height);
   position: absolute;
@@ -50,17 +51,17 @@
   line-height: var(--playback-time-height);
 }
 
-.playback-bar__progress-time-elapsed {
+[data-testid='playback-position'] {
   transform: translateX(calc(-100% - 10px));
-}
 
-.playback-bar__progress-time-elapsed::after {
-  position: absolute;
-  left: calc(100% + 10px);
-  font-weight: bold;
-  color: rgb(var(--spice-rgb-button), 50%);
-  content: '/';
-  transform: translateX(-50%);
+  &::after {
+    position: absolute;
+    left: calc(100% + 10px);
+    font-weight: bold;
+    color: rgb(var(--spice-rgb-button), 50%);
+    content: '/';
+    transform: translateX(-50%);
+  }
 }
 
 [data-testid='playback-duration'] {

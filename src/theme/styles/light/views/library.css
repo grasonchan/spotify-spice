@@ -1,30 +1,26 @@
 :root[data-theme='light'] {
   /* Header */
-  .HFowbNOgNPgtZSE4 {
+  .qdBsKrqtlUFVKYdSs4yQ {
     box-shadow: 0 6px 10px #aaaaaa26;
   }
 
   /* List */
-  .aE_ayHuwU0UG20h2 {
+  .Szn3f5G6p9CdB0eINkZa {
     &:hover::after {
       background-color: var(--background-tinted-base);
     }
   }
 
   /* List image */
-  .cS2oX60hERkVbAKR {
+  .osIZ3rYytfARQLm2EKvh {
     background: #fff9;
   }
 
   /* Create */
-  .ZeXdFwqzGVcDIHWQ {
-    background: #0000001a;
-  }
-
-  .NJh1B8rnlSUlK7sY .main-contextMenu-menuItemButton:not(:hover) {
-    .gujKEfaZCcsENUBD,
-    .u3QdVwmOcAtlNUqR,
-    .cwoKLAkR_rAsTRWM {
+  .jYQzVuYZ4w0AC4otKEQ5 .w_RvrkMNKGvRNrgEDoV8:not(:hover) {
+    .AREe2BL6TPiAnGirwIrB,
+    .qKOTm0scfY_d4zXTOX5W,
+    .ZdqNIwOSrlz_EkjK7kns {
       fill: currentcolor;
     }
   }
