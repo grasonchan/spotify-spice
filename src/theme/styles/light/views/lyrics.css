@@ -1,0 +1,23 @@
+:root[data-theme='light'] {
+  /* NPV */
+  .DR40wFCkq02MAMDVavbQ.MVSP1_LOd8odRVo7IYgY,
+  /* Cinema */
+  .OaXGHrbiWJI_moHj0__w {
+    background-color: oklch(
+      from var(--lyrics-color-background) calc(l * 1.88) calc(c * 1.5) h
+    );
+  }
+
+  /* NPV */
+  .DR40wFCkq02MAMDVavbQ {
+    .vDXWQIibjMo4Hce5XRip {
+      h2 {
+        color: #e5e5e5;
+      }
+
+      .L2WMUqsueEShXs4_JgKK > button {
+        color: #cfcfcf;
+      }
+    }
+  }
+}
