@@ -1,11 +1,12 @@
 @import './npv.css';
+@import './cinema.css';
 
 :root[data-theme='light'] {
   /* Credits */
   .vRL9yCtngaw9oV3ultVY,
   /* Next in queue */
   .mwYXezHbftwPHuDMwczs,
-  /* Expanded - Credits & Next in queue */
+  /* Cinema - Credits & Next in queue */
   .nL2a9KOrkvOlg4iyuRDL {
     [data-encore-id='listRow'] {
       --box-hover-background-color: var(

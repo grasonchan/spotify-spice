@@ -1,0 +1,73 @@
+:root[data-theme='light'] {
+  .BKBhMtk7_HSsKiFLJtC_ {
+    outline-color: var(--spice-sidebar);
+
+    /* -- Header -- */
+    .SGMGUMQ0WeIvRLsm4Ei0:not(._N20NVoSvkl709CWsnh6) {
+      --text-base: #fff;
+      --header-buttons-hover-bg: var(--spice-text) !important;
+
+      a {
+        color: #fff;
+      }
+    }
+
+    ._N20NVoSvkl709CWsnh6 {
+      --text-base: var(--spice-text) !important;
+      --header-text-color: #000 !important;
+      --header-buttons-hover-bg: var(--spice-main) !important;
+
+      &::before {
+        filter: invert(1);
+      }
+    }
+
+    /* Artwork & Canvas & Artist image */
+    .KWWXuxNH4iqU5uEf2xJA {
+      --cinema-bg-lch: calc(l * 1.68) calc(c * 1.25) h;
+      --cinema-bg-lch-highlight: calc(l * 1.88) calc(c * 1.65) h;
+      --background-base: #ffffff8a;
+      --color-from: oklch(
+        from var(--cinema-mode-bg-color-from) var(--cinema-bg-lch)
+      );
+      --color-to: oklch(
+        from var(--cinema-mode-bg-color-to)
+          var(--cinema-bg-lch-highlight)
+      );
+
+      background-color: oklch(
+        from var(--background-base) var(--cinema-bg-lch)
+      );
+    }
+
+    .main-trackInfo-name a {
+      color: #fff;
+    }
+
+    .main-trackInfo-artists a {
+      color: #f5f5f5;
+    }
+
+    /* Artist image */
+    .ibw5iBr_9rfIbUq535zM {
+      background-image:
+        linear-gradient(180deg, #0000 0%, #fff9 100%),
+        var(--cinema-mode-bg-image);
+    }
+
+    .jOpGP2zaEvWKF4CSuSey {
+      .main-trackInfo-name a {
+        color: #000;
+      }
+
+      .main-trackInfo-artists a {
+        color: #0f0f0f;
+      }
+    }
+
+    /* About the artist */
+    .PTYE2EUE0UTy_nQ7Sk5t {
+      background-color: #ffffff80;
+    }
+  }
+}
