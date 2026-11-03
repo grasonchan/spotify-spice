@@ -1,23 +1,28 @@
 import { createPortal } from 'react-dom';
 import { useDOMFinder } from '@/hooks/utils/use-dom-finder.js';
-import { useConfig } from './use-config.js';
+import ThemeSwitcher from '../../components/theme-switcher.js';
+
+const rootSelector = '#global-nav-bar';
+const actionBtnsSelector = '.zCtF8mVXUNCbStNrzrkU';
+const selectors = [actionBtnsSelector];
 
 const Main = () => {
-  const { portalsConfig, rootSelector, selectors } = useConfig();
   const containers = useDOMFinder({ rootSelector, selectors });
+  const actionBtns = containers[actionBtnsSelector];
 
   return (
-    <>
-      {selectors.map((selector) => {
-        const container = containers[selector];
-        if (!container) return null;
-        return portalsConfig
-          .get(selector)
-          .map(({ id, Component, props = {} }) =>
-            createPortal(<Component {...props} />, container, id)
-          );
-      })}
-    </>
+    actionBtns &&
+    createPortal(
+      <ThemeSwitcher
+        plain
+        className={
+          document.querySelector(
+            '[data-restore-focus-key="buddy_feed"]'
+          )?.className
+        }
+      />,
+      actionBtns
+    )
   );
 };
 
