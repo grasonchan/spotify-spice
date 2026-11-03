@@ -6,12 +6,7 @@ import {
   useEffect,
 } from 'react';
 
-export const useDOMFinder = ({
-  rootSelector,
-  selectors,
-  findEnhancer,
-  onFindEnhancerHit,
-}) => {
+export const useDOMFinder = ({ rootSelector, selectors }) => {
   const [elements, setElements] = useState({});
   const elementsRef = useRef(elements);
   const finderRef = useRef(null);
@@ -26,34 +21,20 @@ export const useDOMFinder = ({
     return target;
   }, [rootSelector]);
 
-  const handleMutation = useCallback(
-    (records) => {
-      const delta = {};
-      const enhancerResults = [];
-      selectors.forEach((selector) => {
-        const element = root.querySelector(selector);
-        if (elementsRef.current[selector] !== element) {
-          delta[selector] = element;
-          return;
-        }
-        if (!element) return;
-        const enhancerResult = findEnhancer?.({
-          selector,
-          element,
-          records,
-        });
-        if (!enhancerResult) return;
-        enhancerResults.push(enhancerResult);
-      });
-      if (enhancerResults.length) onFindEnhancerHit?.(enhancerResults);
-      if (!Object.keys(delta).length) return;
-      setElements({
-        ...elementsRef.current,
-        ...delta,
-      });
-    },
-    [root, selectors, findEnhancer, onFindEnhancerHit]
-  );
+  const handleMutation = useCallback(() => {
+    const delta = {};
+    selectors.forEach((selector) => {
+      const element = root.querySelector(selector);
+      if (elementsRef.current[selector] !== element) {
+        delta[selector] = element;
+      }
+    });
+    if (!Object.keys(delta).length) return;
+    setElements({
+      ...elementsRef.current,
+      ...delta,
+    });
+  }, [root, selectors]);
 
   useEffect(() => {
     elementsRef.current = elements;
