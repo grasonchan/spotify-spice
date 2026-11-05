@@ -177,7 +177,11 @@
   --colored-vinyl-inner-shadow-inset: var(--colored-vinyl-shadow-inset);
 }
 
-#main [data-testid='cover-art-slot'] {
+#main
+  :is(
+    [data-testid='cover-art-slot'],
+    .main-nowPlayingView-coverArtContainer
+  ) {
   --cover-art-size: calc(100% / 1.5 - 12px);
   --vinyl-size: calc(100% - 18px);
 
@@ -186,7 +190,10 @@
     box-shadow: none !important;
   }
 
-  [data-testid='cover-drop-target'] :has(> img) {
+  :is(
+    [data-testid='cover-drop-target'] :has(> img),
+    .cover-art:has(> img)
+  ) {
     aspect-ratio: 1;
     position: relative;
     display: flex;
@@ -200,7 +207,9 @@
     &::after {
       display: unset !important;
       position: absolute;
+      inset: 50% auto auto 50%;
       border-radius: 50%;
+      transform: translate(-50%, -50%);
       content: '';
     }
 
@@ -224,11 +233,20 @@
       box-shadow: 0 0 10px var(--vinyl-inner-shadow-inset) inset;
     }
 
-    img {
+    > .cover-art-icon:has(~ img[data-image-status='loaded']) {
+      display: none !important;
+    }
+
+    > img {
+      position: relative !important;
+      inset: auto !important;
+      flex: 0 0 auto;
+      object-fit: cover;
       width: var(--cover-art-size) !important;
       height: unset !important;
       aspect-ratio: 1;
-      border-radius: 50%;
+      border-radius: 50% !important;
+      clip-path: circle(50% at 50% 50%) !important;
     }
   }
 }
