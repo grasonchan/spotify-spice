@@ -186,7 +186,7 @@
     box-shadow: none !important;
   }
 
-  [data-testid='cover-drop-target'] :has(> img) {
+  :has(> img) {
     aspect-ratio: 1;
     position: relative;
     display: flex;
