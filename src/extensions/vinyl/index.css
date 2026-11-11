@@ -6,7 +6,8 @@
   --default-vinyl-c: 0;
   --default-vinyl-h: 0;
   --safe-colored-vinyl-c: calc(
-    min(var(--colored-vinyl-c), 0.0725) + l * 0.0175
+    min(var(--colored-vinyl-c), 0.0725 + max(0, l - 0.55) * 0.06) + l *
+      0.0225 * clamp(0, var(--colored-vinyl-c) / 0.02, 1)
   );
   --vinyl-shine-l: var(--default-vinyl-shine-l);
   --vinyl-shine-alpha: 0.0865;
