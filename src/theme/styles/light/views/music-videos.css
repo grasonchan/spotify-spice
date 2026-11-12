@@ -1,0 +1,33 @@
+:root[data-theme='light'] {
+  /* Card */
+  .rYW0GFPsZLSF5tQ02oeJ:hover {
+    &::after {
+      background-color: var(--background-tinted-base);
+    }
+
+    .WOF4cqStevo36HJXMvpr {
+      background-color: #ffffff1a;
+    }
+  }
+
+  /* Video - NPV */
+  .usYLunwsz1YLTPaWkRf9 {
+    background: linear-gradient(
+      #ffffff8a 54%,
+      var(--spice-sidebar) 100%
+    );
+  }
+
+  .lbH2exp5acVa9gKJvTWU:is(:hover, [data-context-menu-open='true']),
+  .EJFjgEojtBIhBKlyXdtf:hover {
+    background-color: #ffffff8a;
+  }
+
+  /* Video - Cinema */
+  .BKBhMtk7_HSsKiFLJtC_ {
+    .bACQ5CGzkD6M89v5vRMS,
+    .bACQ5CGzkD6M89v5vRMS:hover {
+      background: #ffffff8a;
+    }
+  }
+}
