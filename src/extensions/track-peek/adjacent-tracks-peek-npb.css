@@ -34,21 +34,17 @@
     &[data-testid='control-button-skip-back'] {
       padding-right: 32px;
       border-left: 2px dotted var(--spice-button);
-      mask-image: radial-gradient(
-        16px circle at 100% 50%,
-        transparent 99%,
-        #000 100%
-      );
+      border-right: unset !important;
+      border-top-right-radius: unset !important;
+      border-bottom-right-radius: unset !important;
     }
 
     &[data-testid='control-button-skip-forward'] {
       padding-left: 32px;
+      border-left: unset !important;
       border-right: 2px dotted var(--spice-button);
-      mask-image: radial-gradient(
-        16px circle at 0% 50%,
-        transparent 99%,
-        #000 100%
-      );
+      border-top-left-radius: unset !important;
+      border-bottom-left-radius: unset !important;
     }
 
     &:hover {
