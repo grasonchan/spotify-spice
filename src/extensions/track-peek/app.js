@@ -49,7 +49,18 @@ const getInitialSettings = () => {
   }
 };
 
-const rootSelector = '.G0r21Xb5HbCgpzJwqiev';
+const rootSelector = [
+  '.Root__now-playing-bar',
+  '.G0r21Xb5HbCgpzJwqiev',
+].find((selector) => document.querySelector(selector));
+
+if (!rootSelector) {
+  showNotification(
+    '[Track Peek]: Root not found; falling back. Please report your platform, Spotify version, and Spicetify version.',
+    true
+  );
+}
+
 const prevSelector = '[data-testid="control-button-skip-back"]';
 const nextSelector = '[data-testid="control-button-skip-forward"]';
 const playerControlsSelector = '[data-testid="general-controls"]';
