@@ -1,12 +1,15 @@
 :root[data-theme='light'] {
   /* Banner */
-  .JAqFwQzhVsvnypqQ62UZ {
+  :is(.venMPE3QitySGonlITLf, .JAqFwQzhVsvnypqQ62UZ) {
     background:
       linear-gradient(#0000 0%, #ffffff80 100%), var(--background-noise);
   }
 
   /* About */
-  .MlkW0fv77Gj2GiBCK8Yo.JDFYAJGVGfRp85yk6cfk::before {
+  :is(
+    .qLRCOUHINaVfhHXdVtNi.rYVDSuYxVcgAONzJGphz,
+    .MlkW0fv77Gj2GiBCK8Yo.JDFYAJGVGfRp85yk6cfk
+  )::before {
     position: absolute;
     inset: 0;
     background: linear-gradient(
@@ -17,9 +20,10 @@
   }
 
   /* -- Discography -- */
-
-  /* top bar */
-  .hSRNeGZLrNvceg6eQQyQ.cpXIHirTYFnapjg6LvR3 {
+  :is(
+    .artist-artistDiscography-topBarScrolled,
+    .hSRNeGZLrNvceg6eQQyQ.cpXIHirTYFnapjg6LvR3
+  ) {
     box-shadow: 0 6px 10px #ddd9;
   }
 }
