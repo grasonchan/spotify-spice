@@ -1,13 +1,18 @@
 :root[data-theme='light'] {
-  [data-testid='watch-feed-entity-button'] .DHp5ZkYZOYXiNcykkySI {
+  [data-testid='watch-feed-entity-button']
+    :is(
+      .main-actionBar-exploreButtonPlayIconWrapper,
+      .DHp5ZkYZOYXiNcykkySI
+    ) {
     background: #fff9;
   }
 
-  .o7mpnOJPt490tJTjJ1Ri {
+  :is(.QNQU5TsXRV05y7z2c8Jf, .o7mpnOJPt490tJTjJ1Ri) {
     filter: invert(1);
   }
 
-  .DQrSFfJbrbaDrBhO4oEC .a_isc8oaXM0zRtm98xRU {
+  :is(.QJMhNRgCWs7XHBvK1WGx, .DQrSFfJbrbaDrBhO4oEC)
+    :is(.erx_PR8rFzDYF91J2U8W, .a_isc8oaXM0zRtm98xRU) {
     color: var(--text-subdued);
   }
 }
