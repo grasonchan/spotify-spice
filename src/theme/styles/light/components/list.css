@@ -6,16 +6,16 @@
       background-color: var(--background-tinted-base);
     }
 
-    &.TqTm7pjhN6tgNyT4c7pi,
-    &.TqTm7pjhN6tgNyT4c7pi:hover {
+    &:is(.cBaCr8a86htxgcL815Aw, .TqTm7pjhN6tgNyT4c7pi),
+    &:is(.cBaCr8a86htxgcL815Aw, .TqTm7pjhN6tgNyT4c7pi):hover {
       background-color: var(--background-tinted-highlight);
     }
   }
 
   /* Recommended */
-  .XvjB_p1L5tA_Y5iNH591 .VuYU6p9xUkUCjZsHLf3T,
+  :is(.CZ1fSgzkwMpAjuDYT1ZA, .XvjB_p1L5tA_Y5iNH591) :is(.main-trackList-rowImagePlayButton, .VuYU6p9xUkUCjZsHLf3T),
   /* Recents */
-  .NVPgjZXRMQNILjTKUE6r {
+  :is(.AN5Yp3_RQTWvmVLyQCKt, .NVPgjZXRMQNILjTKUE6r) {
     /* list image */
     background: #fff9;
   }

@@ -1,5 +1,6 @@
 :root[data-theme='light'] {
   /* Playlist - Edit details - input */
+  .main-playlistEditDetailsModal-textElement,
   .ZG2g5QUp_rGSkck71vun,
   .kVy8V5Rjj3E7Mb7y74LM {
     &:focus {
@@ -10,9 +11,9 @@
   /* -- Artist -- */
 
   /* close button */
-  .XbVk4lknigmOU29LmMCy:not(:hover),
+  :is(._dSZi9FspmLr7uYOFgbw, .XbVk4lknigmOU29LmMCy):not(:hover),
   /* prev & next button */
-  .addQkgT7_QinqElmi3i_ {
+  :is(.ZtJJZN4FTrmJXqmPQIxg, .addQkgT7_QinqElmi3i_) {
     color: #000000b3;
     background-color: #ffffffb3;
   }
