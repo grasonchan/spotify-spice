@@ -3,7 +3,10 @@ import { useDOMFinder } from '@/hooks/utils/use-dom-finder.js';
 import ThemeSwitcher from '../../components/theme-switcher.js';
 
 const rootSelector = '#global-nav-bar';
-const actionBtnsSelector = '.zCtF8mVXUNCbStNrzrkU';
+const actionBtnsSelector = [
+  '.main-actionButtons',
+  '.zCtF8mVXUNCbStNrzrkU',
+].find((selector) => document.querySelector(selector));
 const selectors = [actionBtnsSelector];
 
 const Main = () => {
