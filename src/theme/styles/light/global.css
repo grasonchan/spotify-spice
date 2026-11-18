@@ -1,15 +1,17 @@
 :root[data-theme='light'] {
-  /* entity image */
-  .ZQYP06Jt0JvCzAHgMZDw {
+  :is(.x-entityImage-imageContainer, .ZQYP06Jt0JvCzAHgMZDw) {
     box-shadow: 0 4px 60px #ffffff80;
   }
 
-  /* main header - metadata */
-  .main-entityHeader-headerText > div:has(.rEOMGMSmtXWeEWaUZ_4p) {
-    --text-subdued: unset !important;
-  }
+  /* -- placeholder images -- */
 
-  /* placeholder images */
+  /* Windows */
+  .L4ULnrZfqED8dnsf1kRt,
+  .E7qovAeNOgz4DhcnQ1J2,
+  .tmV6EcD1kfhcnpUZk9uQ,
+  .IIzgWupXpEFFuNknq3h5,
+  .gCv10NT7NhibPkMkNmP7,
+  /* macOS */
   .cl3v2XMB4d15j8WC72gu,
   .w15RowidbPoYOTJTW72b,
   .q7JmiWIgbVm1VK7g4B3Z,
@@ -19,16 +21,15 @@
   }
 
   /* Add to playlist */
-  .YzwZ0GABZkE_bOpgQlwG::before {
+  :is(.RTCNn7tNpvHp3Pp45_1U, .YzwZ0GABZkE_bOpgQlwG)::before {
     background: linear-gradient(#aaaaaa26, #0000);
   }
 
-  .OhgUuK8WwE4c_Hc7qZNc::before {
+  :is(.jIrW1UoltgSPlumugMzx, .OhgUuK8WwE4c_Hc7qZNc)::before {
     background: linear-gradient(#0000, #aaaaaa26);
   }
 
-  /* Toggle component */
-  .c7cfA324G09TSXVvGMc1 {
+  :is(.x-toggle-indicator, .c7cfA324G09TSXVvGMc1) {
     background: var(--spice-highlight-elevated) !important;
   }
 }
