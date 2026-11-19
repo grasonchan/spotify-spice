@@ -13,7 +13,7 @@
     "build": "webpack --config webpack.prod.js"
   },
   "devDependencies": {
-    "@babel/core": "^8.1.0",
+    "@babel/core": "^8.1.2",
     "@babel/preset-react": "^8.0.1",
     "@eslint/js": "^9.39.5",
     "@types/react": "~18.3.31",
@@ -30,12 +30,12 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "globals": "^16.5.0",
     "mini-css-extract-plugin": "^2.10.2",
-    "postcss": "^8.5.32",
-    "prettier": "3.9.10",
+    "postcss": "^8.5.33",
+    "prettier": "3.10.1",
     "style-loader": "^4.0.0",
-    "stylelint": "^17.16.0",
-    "stylelint-config-standard": "^40.0.0",
-    "stylelint-high-performance-animation": "^2.0.0",
+    "stylelint": "^18.0.0",
+    "stylelint-config-standard": "^41.0.0",
+    "stylelint-high-performance-animation": "^2.1.0",
     "webpack": "^5.112.2",
     "webpack-cli": "^7.3.1",
     "webpack-merge": "^6.0.1"
