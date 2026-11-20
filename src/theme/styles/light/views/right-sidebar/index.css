@@ -3,11 +3,11 @@
 
 :root[data-theme='light'] {
   /* Credits */
-  .vRL9yCtngaw9oV3ultVY,
+  :is(.lA07rvvLfnD_3yCRTsq9, .vRL9yCtngaw9oV3ultVY),
   /* Next in queue */
-  .mwYXezHbftwPHuDMwczs,
+  :is(.main-nowPlayingView-queue, .mwYXezHbftwPHuDMwczs),
   /* Cinema - Credits & Next in queue */
-  .nL2a9KOrkvOlg4iyuRDL {
+  :is(.Root__cinema-view, .nL2a9KOrkvOlg4iyuRDL) {
     [data-encore-id='listRow'] {
       --box-hover-background-color: var(
         --background-tinted-base
@@ -18,11 +18,11 @@
   /* --List image-- */
 
   /* Next in queue */
-  .OTp45c6uPQSJAt5WCUhZ,
+  :is(.Amp4nF9uCTsVscG68FIY, .OTp45c6uPQSJAt5WCUhZ),
   /* Queue */
-  .WXGKpNicI_DwC22wsEwc,
+  :is(.MjrNt1nNyUtNzOHcVOZj, .WXGKpNicI_DwC22wsEwc),
   /* Add to playlist Panel */
-  .vRbMQQ_XW1RWhOWlJR2w {
+  :is(.CmOVdPrasqRuy6v3s9T5, .vRbMQQ_XW1RWhOWlJR2w) {
     background: #fff9;
   }
 }
