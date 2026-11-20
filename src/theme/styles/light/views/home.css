@@ -1,5 +1,5 @@
 :root[data-theme='light'] {
-  .main-home-content {
+  :is(.main-gridContainer-homepageContent, .main-home-content) {
     --carousel-start-chevron-gradient: #fafafab3;
     --carousel-end-chevron-gradient: #fafafab3;
   }
@@ -13,7 +13,7 @@
   }
 
   /* Shelf */
-  .YvU02CoZ9ouOpZGBv1Fe {
+  :is(.au3m86XLSnE_qCxesM2W, .YvU02CoZ9ouOpZGBv1Fe) {
     background: linear-gradient(
       #fff9 46.75%,
       #fff6 63.5%,
@@ -22,7 +22,7 @@
     );
   }
 
-  .B7aJyU64qkdxz8lQJJ22 {
+  :is(.VQnzdNl0IS5KgfsKHo7T, .B7aJyU64qkdxz8lQJJ22) {
     background: linear-gradient(
       #fff0 2.09%,
       #ffffff1a 16.28%,
@@ -32,7 +32,7 @@
   }
 
   /* Preview button */
-  .scSzXzQmiTYfP68M909s {
+  :is(.D8uRyOobEAEuRXg_R43p, .scSzXzQmiTYfP68M909s) {
     background: #ffffff8a;
   }
 
@@ -40,14 +40,14 @@
   :has(> [data-uri^='spotify:episode:']) {
     --lightness-expression: l + 0.15;
 
-    .QQ2AC35nzC3a91SGtADg {
+    :is(.ldBWjYnPiKDAyMuwLD4A, .QQ2AC35nzC3a91SGtADg) {
       background-color: oklch(
         from var(--background-color) calc(var(--lightness-expression)) c
           h
       );
     }
 
-    .zi6RmqyvWkAXQRvZQrty {
+    :is(.abaOKiBFYzK4MTa3XHD9, .zi6RmqyvWkAXQRvZQrty) {
       --color-from: oklch(
         from var(--background-base-high-contrast)
           calc(var(--lightness-expression)) c h
@@ -62,27 +62,27 @@
       }
     }
 
-    .oooK8QpMUdhm5IexwtSY {
+    :is(.xehMikxG5bcSbte_mgzw, .oooK8QpMUdhm5IexwtSY) {
       background: var(--background-color, #ffffff4d);
       box-shadow: 0 8px 24px #ffffff80;
     }
 
     /* Subtitles */
-    .cNqpU1je4aHR791roPUP {
+    :is(.Rk7hjr6LsJqpTTAooDAq, .cNqpU1je4aHR791roPUP) {
       background: #ffffffb3;
 
-      .IlEbPKKBd3TNOIAvuGcR {
+      :is(.gz0kOvRIICRkE7bAJdfI, .IlEbPKKBd3TNOIAvuGcR) {
         color: #0000004d;
       }
     }
 
     /* Preview episode */
-    .scSzXzQmiTYfP68M909s {
+    :is(.D8uRyOobEAEuRXg_R43p, .scSzXzQmiTYfP68M909s) {
       background: #0000008a;
     }
 
     /* play button */
-    .ztYqUDd1sSSciiGjjeuc {
+    :is(.main-playButton-PlayButton, .ztYqUDd1sSSciiGjjeuc) {
       .e-101040-button-primary__inner {
         color: #000;
         background-color: #fff;
