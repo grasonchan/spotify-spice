@@ -1,9 +1,9 @@
 /* Liked Songs & Local Files */
-.N6W22Ky7W6I93tr3vrqE,
-.T2XRKvkWneSSMSOCEo40,
+:is(.main-entityHeader-backgroundColor, .N6W22Ky7W6I93tr3vrqE),
+:is(.main-actionBarBackground-background, .T2XRKvkWneSSMSOCEo40),
 /* Playlist */
 .playlist-playlist-mixingBackground,
-.rRzDzkFoPB1jsHaUjsDT,
+:is(.playlist-playlist-actionBarBackground-background, .rRzDzkFoPB1jsHaUjsDT),
 /* Album */
 .A0hGajCN2_Y1J_AjxSJh,
 /* Global */
@@ -24,6 +24,6 @@
 }
 
 /* metadata */
-.gVnBhXqYYmv_ZqSKLEwS {
+:is(.main-entityHeader-metaData, .gVnBhXqYYmv_ZqSKLEwS) {
   --text-subdued: unset !important;
 }

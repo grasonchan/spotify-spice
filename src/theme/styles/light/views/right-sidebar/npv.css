@@ -1,21 +1,28 @@
 :root[data-theme='light'] {
   /* top bar */
-  .FrzNGNchJMrcjyiyhO1S {
+  :is(.main-nowPlayingView-headerContainerV2, .FrzNGNchJMrcjyiyhO1S) {
     animation-name: custom-npv-top-bar;
   }
 
   /* Queue - top bar */
-  .HPlSLSUXsn_u97TzPzWy {
+  :is(.KUVZt1zexrM6Da3wfIu4, .HPlSLSUXsn_u97TzPzWy) {
     box-shadow: 0 6px 10px #ddd9 !important;
   }
 
   /* Canvas */
-  .QrIQmjDGqq0j82OA7h84 {
+  :is(.MzWExFzvo4OR4Xvnde2f, .QrIQmjDGqq0j82OA7h84) {
     filter: invert(1);
   }
 
+  .encore-over-media-set .hoL3XVhjiRp6WjlHfhO4 {
+    background: #ffffff8a;
+  }
+
   /* About the artist */
-  .qsFToDeoZ2xZr3KtGcpx.sO9oPkRFlVA0QqGL2Pf7.Ag6gk1eGEs7RpwnWCF43 {
+  :is(
+    .lc3cx1MIHiRpusD8lb9Z._7to8VcHOQJmLkFydlrp.nrf3GmRwdkTT6D9HUgWP,
+    .qsFToDeoZ2xZr3KtGcpx.sO9oPkRFlVA0QqGL2Pf7.Ag6gk1eGEs7RpwnWCF43
+  ) {
     &::before {
       position: absolute;
       inset: 0;

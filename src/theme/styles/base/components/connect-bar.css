@@ -2,7 +2,7 @@
   anchor-name: --connect-device;
 }
 
-.EgAo7_ZXuNWqXBv5I4ag {
+:is(.main-connectBar-connectBar, .EgAo7_ZXuNWqXBv5I4ag) {
   --text-base: var(--spice-subtext);
   --essential-base: var(--spice-subtext);
   --encore-text-size-smaller: 10px;

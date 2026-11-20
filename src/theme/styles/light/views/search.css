@@ -1,23 +1,26 @@
 :root[data-theme='light'] {
   /* popup */
-  .Czy8vPjpgy9nPFDXizjI,
+  :is(.o8Xdjoh5lvYs1hVmZsIv, .Czy8vPjpgy9nPFDXizjI),
   /* All */
-  .pt7mae_WPybPd17meaxA::before {
+  :is(.qvf42ncmgVl7D2OM4VVX, .pt7mae_WPybPd17meaxA)::before {
     /* image */
     background: #fff9;
   }
 
   /* popup */
-  .dGwD4pXsECZILh7e45zQ,
+  :is(.Ngh5g8b9Vc8LR1Ev25gN, .dGwD4pXsECZILh7e45zQ),
   /* All - top result */
-  .oCd5KSKfqoo85mkR33PJ {
+  :is(.cMg9cbMOK9nLJ4IPWTW6 , .oCd5KSKfqoo85mkR33PJ) {
     &:hover::after {
       background-color: var(--background-tinted-base);
     }
   }
 
   /* All */
-  .I36PxxxLLlnAWQRuft9k.Zl6AQBCziW_JqTT4rN7I {
+  :is(
+    .Y3tEwOHQVPkiKzpfHoG4.hyx5YFpEioNNx7WSUJog,
+    .I36PxxxLLlnAWQRuft9k.Zl6AQBCziW_JqTT4rN7I
+  ) {
     &::after {
       inset: 0;
     }

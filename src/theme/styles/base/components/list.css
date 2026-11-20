@@ -1,4 +1,6 @@
-.nskH6mPQg5wuHSNoevTt :not(.LR1Xx5P2Fd7HVnnB_SFA) [role='row'] {
+:is(.main-rootlist-wrapper, .nskH6mPQg5wuHSNoevTt)
+  :not(.main-rootlist-topSentinel, .LR1Xx5P2Fd7HVnnB_SFA)
+  [role='row'] {
   position: relative;
 
   &:first-child::before,

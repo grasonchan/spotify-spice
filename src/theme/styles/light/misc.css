@@ -1,6 +1,7 @@
 :root[data-theme='light'] {
   /* Friend Activity */
-  .X9F7UkSoPUatwjUFho_P .fLLv7OH6HysI8zg8FLp4 {
+  :is(.ciRDRccZ6j2ej1SKO1TU, .X9F7UkSoPUatwjUFho_P)
+    :is(.nbqopXoiL2WmC870SIM0, .fLLv7OH6HysI8zg8FLp4) {
     color: var(--spice-text);
   }
 }

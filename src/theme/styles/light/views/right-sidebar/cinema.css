@@ -1,18 +1,25 @@
 :root[data-theme='light'] {
-  .BKBhMtk7_HSsKiFLJtC_ {
+  :is(.Root__cinema-view, .BKBhMtk7_HSsKiFLJtC_) {
     outline-color: var(--spice-sidebar);
 
     /* -- Header -- */
-    .SGMGUMQ0WeIvRLsm4Ei0:not(._N20NVoSvkl709CWsnh6) {
+    :is(.XsSWx3aR_OYA3GMIEk7S, .SGMGUMQ0WeIvRLsm4Ei0):not(
+      .G81X_23Vhzv8q_WCOJAA,
+      ._N20NVoSvkl709CWsnh6
+    ) {
       --text-base: #fff;
       --header-buttons-hover-bg: var(--spice-text) !important;
 
       a {
         color: #fff;
       }
+
+      :is(.DZY0uT3ez3OhXDCSrhXa, .bACQ5CGzkD6M89v5vRMS) {
+        background: #0000008a;
+      }
     }
 
-    ._N20NVoSvkl709CWsnh6 {
+    :is(.G81X_23Vhzv8q_WCOJAA, ._N20NVoSvkl709CWsnh6) {
       --text-base: var(--spice-text) !important;
       --header-text-color: #000 !important;
       --header-buttons-hover-bg: var(--spice-main) !important;
@@ -23,7 +30,7 @@
     }
 
     /* Artwork & Canvas & Artist image */
-    .KWWXuxNH4iqU5uEf2xJA {
+    :is(.SJ6kQcks6OWaQD8WvlrE, .KWWXuxNH4iqU5uEf2xJA) {
       --cinema-bg-lch: calc(l * 1.68) calc(c * 1.25) h;
       --cinema-bg-lch-highlight: calc(l * 1.88) calc(c * 1.65) h;
       --background-base: #ffffff8a;
@@ -40,33 +47,41 @@
       );
     }
 
-    .main-trackInfo-name a {
+    :is(.gJYp1Z5u6ZJ32dB4RDC8, .main-trackInfo-name) a {
       color: #fff;
     }
 
-    .main-trackInfo-artists a {
+    .ARExkcCu8Pl4pJoG5RyL {
+      --text-subdued: #f5f5f5;
+    }
+
+    :is(.pJWbyyFi7zAnwrlWlNr8, .main-trackInfo-artists) a {
       color: #f5f5f5;
     }
 
     /* Artist image */
-    .ibw5iBr_9rfIbUq535zM {
+    :is(.u4PjicuGRiEreoWYhnTT, .ibw5iBr_9rfIbUq535zM) {
       background-image:
         linear-gradient(180deg, #0000 0%, #fff9 100%),
         var(--cinema-mode-bg-image);
     }
 
-    .jOpGP2zaEvWKF4CSuSey {
-      .main-trackInfo-name a {
+    :is(._daANRnTynVop1PrEcoU, .jOpGP2zaEvWKF4CSuSey) {
+      :is(.gJYp1Z5u6ZJ32dB4RDC8, .main-trackInfo-name) a {
         color: #000;
       }
 
-      .main-trackInfo-artists a {
+      .ARExkcCu8Pl4pJoG5RyL {
+        --text-subdued: #0f0f0f;
+      }
+
+      :is(.pJWbyyFi7zAnwrlWlNr8, .main-trackInfo-artists) a {
         color: #0f0f0f;
       }
     }
 
     /* About the artist */
-    .PTYE2EUE0UTy_nQ7Sk5t {
+    :is(.MGieCx1kZdIvlvtUSvpP, .PTYE2EUE0UTy_nQ7Sk5t) {
       background-color: #ffffff80;
     }
   }

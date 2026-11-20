@@ -1,6 +1,6 @@
 :root[data-theme='light'] {
   /* NPV - On tour */
-  .aW1FpE9geKvBMj8BQUp6 {
+  :is(.oLvXo6yMUsSMTKsU_QXA, .aW1FpE9geKvBMj8BQUp6) {
     &:focus-within,
     &:hover {
       background-color: var(--background-tinted-base);
@@ -8,8 +8,8 @@
   }
 
   /* Artist - On Tour */
-  .x_Bd_BQvhfs9nMgQpttN {
-    .mCCM0m1vGvsaDNKrfh4A {
+  :is(.q9i8uoAwgNajh2EVldPK, .x_Bd_BQvhfs9nMgQpttN) {
+    :is(.xcQ3g_bmLuka2NNL_v1v, .mCCM0m1vGvsaDNKrfh4A) {
       &:hover {
         background-color: var(--background-tinted-base);
       }
@@ -17,15 +17,15 @@
   }
 
   /* Header */
-  .BdIn51j4LL1yhShvJJgr {
+  :is(.AE3dcjFNJ9068_vrnLB6, .BdIn51j4LL1yhShvJJgr) {
     background:
       linear-gradient(#fff0 0%, #ffffff80 100%), var(--background-noise);
   }
 
   /* Lineup */
-  .mx06WjROm3aZaozTFsRP,
+  :is(.motLh4zTlkG4z82JvBk2, .mx06WjROm3aZaozTFsRP),
   /* Similar events */
-  .mC2r6RL8uS4TGXDPUYuF {
+  :is(.T13fKnelG_eHc1onfDQC, .mC2r6RL8uS4TGXDPUYuF) {
     &::before {
       position: absolute;
       inset: 0;
@@ -39,9 +39,9 @@
   }
 
   /* Header - Time */
-  .bODEn9igtlZi_eZWVMtZ,
+  :is(.cFh7Pw5r0N2BPiHfoWTF, .bODEn9igtlZi_eZWVMtZ),
   /* Similar events - Time */
-  .GH3HE5rmrJVK9KhBOzZY {
+  :is(.Qo6QwdynkZ_snNleBqdM, .GH3HE5rmrJVK9KhBOzZY) {
     background: #fff9;
   }
 }
