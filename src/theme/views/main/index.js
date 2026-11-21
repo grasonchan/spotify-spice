@@ -4,8 +4,8 @@ import ThemeSwitcher from '../../components/theme-switcher.js';
 
 const rootSelector = '#global-nav-bar';
 const actionBtnsSelector = [
-  '.main-actionButtons',
   '.zCtF8mVXUNCbStNrzrkU',
+  '.main-actionButtons',
 ].find((selector) => document.querySelector(selector));
 const selectors = [actionBtnsSelector];
 
