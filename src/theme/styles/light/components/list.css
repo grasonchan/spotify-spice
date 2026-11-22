@@ -6,8 +6,16 @@
       background-color: var(--background-tinted-base);
     }
 
-    &:is(.cBaCr8a86htxgcL815Aw, .TqTm7pjhN6tgNyT4c7pi),
-    &:is(.cBaCr8a86htxgcL815Aw, .TqTm7pjhN6tgNyT4c7pi):hover {
+    &:is(
+      .main-trackList-selected,
+      .cBaCr8a86htxgcL815Aw,
+      .TqTm7pjhN6tgNyT4c7pi
+    ),
+    &:is(
+        .main-trackList-selected,
+        .cBaCr8a86htxgcL815Aw,
+        .TqTm7pjhN6tgNyT4c7pi
+      ):hover {
       background-color: var(--background-tinted-highlight);
     }
   }

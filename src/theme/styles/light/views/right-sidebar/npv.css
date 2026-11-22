@@ -14,7 +14,8 @@
     filter: invert(1);
   }
 
-  .encore-over-media-set .hoL3XVhjiRp6WjlHfhO4 {
+  .encore-over-media-set
+    :is(.hoL3XVhjiRp6WjlHfhO4, .GRM0c_jK9pqTypK64M8F) {
     background: #ffffff8a;
   }
 
