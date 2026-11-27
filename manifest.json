@@ -3,7 +3,7 @@
     "name": "Vinyl",
     "description": "Transforms the album artwork into a spinning, lightness-adaptive vinyl driven by your playback state.",
     "branch": "deploy",
-    "main": "https://raw.githubusercontent.com/grasonchan/spotify-spice/refs/heads/deploy/extensions/vinyl.js",
+    "main": "extensions/vinyl.js",
     "preview": "https://raw.githubusercontent.com/grasonchan/spotify-spice/refs/heads/master/screenshots/vinyl.png",
     "readme": "https://raw.githubusercontent.com/grasonchan/spotify-spice/refs/heads/master/README.md",
     "tags": [
@@ -30,7 +30,7 @@
     "usercss": "SpotifySpice/user.css",
     "schemes": "SpotifySpice/color.ini",
     "include": [
-      "https://raw.githubusercontent.com/grasonchan/spotify-spice/refs/heads/deploy/SpotifySpice/theme.js"
+      "https://raw.githubusercontent.com/grasonchan/spotify-spice/deploy/SpotifySpice/theme.js"
     ],
     "preview": "https://raw.githubusercontent.com/grasonchan/spotify-spice/refs/heads/master/screenshots/marketplace-theme.png",
     "readme": "https://raw.githubusercontent.com/grasonchan/spotify-spice/refs/heads/master/README.md",
